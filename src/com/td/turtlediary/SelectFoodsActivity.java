@@ -1,31 +1,39 @@
 package com.td.turtlediary;
 
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.os.Build;
 
-public class SelectFoodsActivity extends ActionBarActivity {
+public class SelectFoodsActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_select_foods);
+		setContentView(R.layout.fragment_select_foods);
 		this.setTitle("選擇食物");
 
-		if (savedInstanceState == null) {
-			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
-		}
+		Button feedButton = (Button)findViewById(R.id.selectFoodsFeedButton);
+		feedButton.setOnClickListener(getFeedFoodsButtonOnClickListener());
+	}
+
+	private OnClickListener getFeedFoodsButtonOnClickListener() {
+		OnClickListener listener = new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(SelectFoodsActivity.this, AllocateFoodActivity.class);
+				
+				intent.putExtra("title", "環境新增");
+				intent.putExtra("buttonName", "新增");
+				startActivity(intent);
+			}
+		};
+		return listener;
 	}
 
 	@Override
@@ -46,41 +54,6 @@ public class SelectFoodsActivity extends ActionBarActivity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
-	}
-
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
-	public static class PlaceholderFragment extends Fragment {
-
-		public PlaceholderFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_select_foods,
-					container, false);
-			
-			Button feedButton = (Button)rootView.findViewById(R.id.selectFoodsFeedButton);
-			feedButton.setOnClickListener(getFeedFoodsButtonOnClickListener());
-			return rootView;
-		}
-
-		private OnClickListener getFeedFoodsButtonOnClickListener() {
-			OnClickListener listener = new OnClickListener(){
-
-				@Override
-				public void onClick(View v) {
-					Intent intent = new Intent(getActivity(), AllocateFoodActivity.class);
-					
-					intent.putExtra("title", "環境新增");
-					intent.putExtra("buttonName", "新增");
-					startActivity(intent);
-				}
-			};
-			return listener;
-		}
 	}
 
 }
