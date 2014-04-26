@@ -1,31 +1,39 @@
 package com.td.turtlediary;
 
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.os.Build;
 
-public class AllocateFoodActivity extends ActionBarActivity {
+public class AllocateFoodActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_allocate_food);
+		setContentView(R.layout.fragment_allocate_food);
 		this.setTitle("分配食物");
+		Button feedButton = (Button)findViewById(R.id.allocateFoodOKButton);
+		feedButton.setOnClickListener(getFeedFoodsButtonOnClickListener());
 		
-		if (savedInstanceState == null) {
-			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
-		}
+	}
+	
+	private OnClickListener getFeedFoodsButtonOnClickListener() {
+		OnClickListener listener = new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(AllocateFoodActivity.this,HomePageActivity.class);
+				
+				intent.putExtra("title", "環境新增");
+				intent.putExtra("buttonName", "新增");
+				startActivity(intent);
+			}
+		};
+		return listener;
 	}
 
 	@Override
@@ -46,40 +54,5 @@ public class AllocateFoodActivity extends ActionBarActivity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
-	}
-
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
-	public static class PlaceholderFragment extends Fragment {
-
-		public PlaceholderFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_allocate_food,
-					container, false);
-			
-			Button feedButton = (Button)rootView.findViewById(R.id.allocateFoodOKButton);
-			feedButton.setOnClickListener(getFeedFoodsButtonOnClickListener());
-			return rootView;
-		}
-
-		private OnClickListener getFeedFoodsButtonOnClickListener() {
-			OnClickListener listener = new OnClickListener(){
-
-				@Override
-				public void onClick(View v) {
-					Intent intent = new Intent(getActivity(),HomePageActivity.class);
-					
-					intent.putExtra("title", "環境新增");
-					intent.putExtra("buttonName", "新增");
-					startActivity(intent);
-				}
-			};
-			return listener;
-		}
 	}
 }
