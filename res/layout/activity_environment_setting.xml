@@ -1,0 +1,179 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/TableLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".EnvironmentSettingActivity" >
+
+    <RelativeLayout >
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="環境設定"
+        android:textSize="40sp" />
+    </RelativeLayout>
+    
+    <TableRow >
+        <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="環境名稱："
+        android:layout_weight="1"
+        android:textSize="20sp" />
+        <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="20sp" />
+    </TableRow>
+    <TableRow >
+        <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="長："
+        android:layout_weight="5"
+        android:textSize="20sp" />
+        <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:textSize="20sp" />
+        <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="(cm)"
+        android:layout_weight="1"
+        android:textSize="20sp" />
+    </TableRow>
+    <TableRow >
+        <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="寬："
+        android:layout_weight="5"
+        android:textSize="20sp" />
+        <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:textSize="20sp" />
+        <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="(cm)"
+        android:layout_weight="1"
+        android:textSize="20sp" />
+    </TableRow>
+    <TableRow >
+        <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="高："
+        android:layout_weight="5"
+        android:textSize="20sp" />
+        <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:textSize="20sp" />
+        <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="(cm)"
+        android:layout_weight="1"
+        android:textSize="20sp" />
+    </TableRow>
+    <TableRow >
+        <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="環境熱點："
+        android:layout_weight="5"
+        android:textSize="20sp" />
+        <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:textSize="20sp" />
+        <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="(℃)"
+        android:layout_weight="1"
+        android:textSize="20sp" />
+    </TableRow>
+    <TableRow >
+        <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="環境低點："
+        android:layout_weight="5"
+        android:textSize="20sp" />
+        <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:textSize="20sp" />
+        <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="(℃)"
+        android:layout_weight="1"
+        android:textSize="20sp" />
+    </TableRow>
+    <TableRow >
+        <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="最高濕度："
+        android:layout_weight="5"
+        android:textSize="20sp" />
+        <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:textSize="20sp" />
+        <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="(%)"
+        android:layout_weight="1"
+        android:textSize="20sp" />
+    </TableRow>
+    <TableRow >
+        <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="最低濕度："
+        android:layout_weight="5"
+        android:textSize="20sp" />
+        <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:textSize="20sp" />
+        <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="(%)"
+        android:layout_weight="1"
+        android:textSize="20sp" />
+    </TableRow>
+    <RelativeLayout>
+        <Button
+            android:id="@+id/rightButton"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerHorizontal="true"
+	        android:layout_alignParentRight="true"
+	        android:text="→"
+	        android:textSize="30sp" />
+    </RelativeLayout>
+
+</TableLayout>
+

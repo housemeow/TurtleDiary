@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">TurtleDiary</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="pet_name">寵物名稱</string>
+    <string name="pet_name_hint">請輸入寵物名稱...</string>
+    <string name="button_previous">上一步</string>
+    <string name="button_next">下一步</string>
+    <string name="title_activity_modify_pet">ModifyPetActivity</string>
+    <string name="dynamic_generate">這邊是使用程式碼產生</string>
+    <string name="modify_pet">修改</string>
+    <string name="pet_type">寵物品種</string>
+    <string name="nutrition">營養</string>
+    <string name="favorite_food">食材喜好排行</string>
+    <string name="weight">體重</string>
+    <string name="fingernail">甲長</string>
+    <string name="fingernail_weight">甲長&amp;體重</string>
+    <string name="title_activity_option">Option</string>
+
+</resources>
