@@ -1,32 +1,43 @@
 package com.td.turtlediary;
 
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
+import android.app.Activity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.os.Build;
 
-public class ModifyPetActivity extends ActionBarActivity {
-	private MenuItem modifyItem;
+public class ModifyPetActivity extends Activity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_modify_pet);
+		setContentView(R.layout.fragment_modify_pet);
 
-		if (savedInstanceState == null) {
-			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
-			
-		}
+		Button modifyButton = (Button)findViewById(R.id.firstAddPetNextButton);
+		modifyButton.setVisibility(View.INVISIBLE); //顯示
+		modifyButton.setOnClickListener(getModifyOnClickListener());
+		
+	}
+	
+	private OnClickListener getModifyOnClickListener() {
+		OnClickListener listener = new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				EditText petName = (EditText) findViewById(R.id.editTextName);
+				petName.setEnabled(false);
+				
+				EditText petType = (EditText)findViewById(R.id.editTextType);
+				petType.setEnabled(false);
+
+				Button modifyButton = (Button) findViewById(R.id.firstAddPetNextButton);
+				modifyButton.setVisibility(View.INVISIBLE); //顯示
+			}
+		};
+		return listener;
 	}
 
 	@Override
@@ -34,7 +45,6 @@ public class ModifyPetActivity extends ActionBarActivity {
 
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.modify_pet, menu);
-		modifyItem = menu.getItem(0);
 		return true;
 	}
 	
@@ -66,48 +76,6 @@ public class ModifyPetActivity extends ActionBarActivity {
 
 		//modifyItem.setEnabled(false);
 
-	}
-
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
-	public static class PlaceholderFragment extends Fragment {
-		private View rootView;
-		
-		public PlaceholderFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			rootView = inflater.inflate(R.layout.fragment_modify_pet,
-					container, false);
-			
-
-			Button modifyButton = (Button)rootView.findViewById(R.id.firstAddPetNextButton);
-			modifyButton.setVisibility(View.INVISIBLE); //顯示
-			modifyButton.setOnClickListener(getModifyOnClickListener());
-			
-			return rootView;
-		}
-
-		private OnClickListener getModifyOnClickListener() {
-			OnClickListener listener = new OnClickListener(){
-
-				@Override
-				public void onClick(View v) {
-					EditText petName = (EditText) rootView.findViewById(R.id.editTextName);
-					petName.setEnabled(false);
-					
-					EditText petType = (EditText)  rootView.findViewById(R.id.editTextType);
-					petType.setEnabled(false);
-
-					Button modifyButton = (Button) rootView.findViewById(R.id.firstAddPetNextButton);
-					modifyButton.setVisibility(View.INVISIBLE); //顯示
-				}
-			};
-			return listener;
-		}
 	}
 
 }
