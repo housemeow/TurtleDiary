@@ -19,11 +19,11 @@ public class EnvironmentSettingActivity extends Activity
 		// set title
         this.setTitle("環境設定");
         
-        Button rightButton = (Button)findViewById(R.id.rightButton);
-        rightButton.setOnClickListener(getRightButtonOnClickListener());
+        Button environmentSettingActivityNextButton = (Button)findViewById(R.id.environmentSettingActivityNextButton);
+        environmentSettingActivityNextButton.setOnClickListener(getEnvironmentSettingActivityNextButtonOnClickListener());
 	}
 
-	private OnClickListener getRightButtonOnClickListener() {
+	private OnClickListener getEnvironmentSettingActivityNextButtonOnClickListener() {
 		OnClickListener listener = new OnClickListener(){
 			@Override
 			public void onClick(View v) {

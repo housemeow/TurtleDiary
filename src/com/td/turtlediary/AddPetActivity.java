@@ -70,7 +70,7 @@ public class AddPetActivity extends Activity {
         // Handle presses on the action bar items
         switch (item.getItemId()) 
         {
-            case R.id.modifyActionButton:
+            case R.id.environmentInformationActivityModifyActionButton:
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

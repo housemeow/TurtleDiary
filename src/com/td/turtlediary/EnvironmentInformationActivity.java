@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 public class EnvironmentInformationActivity extends Activity 
 {
-	private TextView environmentTextView;
+	private TextView environmentInformationActivityEnvironmentNameTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) 
     {
@@ -18,11 +18,11 @@ public class EnvironmentInformationActivity extends Activity
         // set title
         this.setTitle("環境資訊");
         // find
-        environmentTextView = (TextView)findViewById(R.id.environmentTextView);
+        environmentInformationActivityEnvironmentNameTextView = (TextView)findViewById(R.id.environmentInformationActivityEnvironmentNameTextView);
         //
         Intent intent = getIntent();
         String environmentName = intent.getStringExtra("environmentName");
-        environmentTextView.setText(environmentName);
+        environmentInformationActivityEnvironmentNameTextView.setText(environmentName);
     }
     
     @Override
@@ -39,7 +39,7 @@ public class EnvironmentInformationActivity extends Activity
         // Handle presses on the action bar items
         switch (item.getItemId()) 
         {
-            case R.id.modifyActionButton:
+            case R.id.environmentInformationActivityModifyActionButton:
             	Intent intent = new Intent();
     			intent.setClass(EnvironmentInformationActivity.this, EnvironmentModifyActivity.class);
     			intent.putExtra("title", "環境修改");

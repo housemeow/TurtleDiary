@@ -11,153 +11,176 @@
 
     <TableRow >
         <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="環境名稱："
-        android:layout_weight="1"
-        android:textSize="20sp" />
+            android:id="@+id/environmentModifyActivityEnvironmentNameTextView"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="環境名稱："
+	        android:layout_weight="1"
+	        android:textSize="20sp" />
         <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textSize="20sp" />
+            android:id="@+id/environmentModifyActivityEnvironmentNameEditText"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:textSize="20sp" />
     </TableRow>
     <TableRow >
         <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="長："
-        android:layout_weight="5"
-        android:textSize="20sp" />
+            android:id="@+id/environmentModifyActivityLengthTextView"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="長："
+	        android:layout_weight="5"
+	        android:textSize="20sp" />
         <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="5"
-        android:textSize="20sp" />
+            android:id="@+id/environmentModifyActivityLengthEditText"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="5"
+	        android:textSize="20sp" />
         <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="(cm)"
-        android:layout_weight="1"
-        android:textSize="20sp" />
+            android:id="@+id/environmentModifyActivityLengthUnitTextView"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="(cm)"
+	        android:layout_weight="1"
+	        android:textSize="20sp" />
     </TableRow>
     <TableRow >
         <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="寬："
-        android:layout_weight="5"
-        android:textSize="20sp" />
+            android:id="@+id/environmentModifyActivityWidthTextView"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="寬："
+	        android:layout_weight="5"
+	        android:textSize="20sp" />
         <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="5"
-        android:textSize="20sp" />
+            android:id="@+id/environmentModifyActivityWidthEditText"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="5"
+	        android:textSize="20sp" />
         <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="(cm)"
-        android:layout_weight="1"
-        android:textSize="20sp" />
+            android:id="@+id/environmentModifyActivityWidthUnitTextView"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="(cm)"
+	        android:layout_weight="1"
+	        android:textSize="20sp" />
     </TableRow>
     <TableRow >
         <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="高："
-        android:layout_weight="5"
-        android:textSize="20sp" />
+            android:id="@+id/environmentModifyActivityHeightTextView"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="高："
+	        android:layout_weight="5"
+	        android:textSize="20sp" />
         <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="5"
-        android:textSize="20sp" />
+            android:id="@+id/environmentModifyActivityHeightEditText"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="5"
+	        android:textSize="20sp" />
         <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="(cm)"
-        android:layout_weight="1"
-        android:textSize="20sp" />
+            android:id="@+id/environmentModifyActivityHeightUnitTextView"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="(cm)"
+	        android:layout_weight="1"
+	        android:textSize="20sp" />
     </TableRow>
     <TableRow >
         <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="環境熱點："
-        android:layout_weight="5"
-        android:textSize="20sp" />
+            android:id="@+id/environmentModifyActivityEnvironmentHotPointTextView"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="環境熱點："
+	        android:layout_weight="5"
+	        android:textSize="20sp" />
         <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="5"
-        android:textSize="20sp" />
+            android:id="@+id/environmentModifyActivityEnvironmentHotPointEditText"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="5"
+	        android:textSize="20sp" />
         <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="(℃)"
-        android:layout_weight="1"
-        android:textSize="20sp" />
+            android:id="@+id/environmentModifyActivityEnvironmentHotPointUnitTextView"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="(℃)"
+	        android:layout_weight="1"
+	        android:textSize="20sp" />
     </TableRow>
     <TableRow >
         <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="環境低點："
-        android:layout_weight="5"
-        android:textSize="20sp" />
+            android:id="@+id/environmentModifyActivityEnvironmentLowPointTextView"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="環境低點："
+	        android:layout_weight="5"
+	        android:textSize="20sp" />
         <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="5"
-        android:textSize="20sp" />
+            android:id="@+id/environmentModifyActivityEnvironmentLowPointEditText"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="5"
+	        android:textSize="20sp" />
         <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="(℃)"
-        android:layout_weight="1"
-        android:textSize="20sp" />
+            android:id="@+id/environmentModifyActivityEnvironmentLowPointUnitTextView"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="(℃)"
+	        android:layout_weight="1"
+	        android:textSize="20sp" />
     </TableRow>
     <TableRow >
         <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="最高濕度："
-        android:layout_weight="5"
-        android:textSize="20sp" />
+            android:id="@+id/environmentModifyActivityMaxHumidityTextView"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="最高濕度："
+	        android:layout_weight="5"
+	        android:textSize="20sp" />
         <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="5"
-        android:textSize="20sp" />
+            android:id="@+id/environmentModifyActivityMaxHumidityEditText"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="5"
+	        android:textSize="20sp" />
         <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="(%)"
-        android:layout_weight="1"
-        android:textSize="20sp" />
+            android:id="@+id/environmentModifyActivityMaxHumidityUnitTextView"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="(%)"
+	        android:layout_weight="1"
+	        android:textSize="20sp" />
     </TableRow>
     <TableRow >
         <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="最低濕度："
-        android:layout_weight="5"
-        android:textSize="20sp" />
+            android:id="@+id/environmentModifyActivityMinHumidityTextView"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="最低濕度："
+	        android:layout_weight="5"
+	        android:textSize="20sp" />
         <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="5"
-        android:textSize="20sp" />
+            android:id="@+id/environmentModifyActivityMinHumidityEditText"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="5"
+	        android:textSize="20sp" />
         <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="(%)"
-        android:layout_weight="1"
-        android:textSize="20sp" />
+            android:id="@+id/environmentModifyActivityMinHumidityUnitTextView"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="(%)"
+	        android:layout_weight="1"
+	        android:textSize="20sp" />
     </TableRow>
     <RelativeLayout>
         <Button
-            android:id="@+id/checkButton"
+            android:id="@+id/environmentModifyActivityCheckButton"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_centerHorizontal="true"

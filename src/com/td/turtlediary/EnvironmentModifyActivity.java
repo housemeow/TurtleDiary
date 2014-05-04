@@ -10,7 +10,7 @@ import android.widget.Button;
 
 public class EnvironmentModifyActivity extends Activity 
 {
-	private Button checkButton;
+	private Button environmentModifyActivityCheckButton;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
@@ -18,7 +18,7 @@ public class EnvironmentModifyActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_environment_modify);
 		//get 
-		checkButton = (Button)findViewById(R.id.checkButton);
+		environmentModifyActivityCheckButton = (Button)findViewById(R.id.environmentModifyActivityCheckButton);
 		// get intent
 		Intent intent = getIntent();
         String title = intent.getStringExtra("title");
@@ -26,12 +26,12 @@ public class EnvironmentModifyActivity extends Activity
         // set title
         this.setTitle(title);
         // set button name
-        checkButton.setText(buttonName);
+        environmentModifyActivityCheckButton.setText(buttonName);
         // set listener
-        checkButton.setOnClickListener(clickCheckButton);
+        environmentModifyActivityCheckButton.setOnClickListener(clickEnvironmentModifyActivityCheckButton);
 	}
 	
-	private Button.OnClickListener clickCheckButton = new Button.OnClickListener()
+	private Button.OnClickListener clickEnvironmentModifyActivityCheckButton = new Button.OnClickListener()
     {
 		@Override
 		public void onClick(View arg0) 
