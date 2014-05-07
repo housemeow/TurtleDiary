@@ -43,7 +43,7 @@ public class EnvironmentInformationActivity extends Activity
             	Intent intent = new Intent();
     			intent.setClass(EnvironmentInformationActivity.this, EnvironmentModifyActivity.class);
     			intent.putExtra("title", "環境修改");
-    			intent.putExtra("buttonName", "修改");
+    			intent.putExtra("buttonName", R.string.modifyEnvironment);
     			startActivity(intent);
                 return true;
             default:

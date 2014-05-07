@@ -10,183 +10,232 @@
     tools:context=".EnvironmentSettingActivity" >
 
     <TableRow >
+
         <TextView
-          	android:id="@+id/environmentSettingActivityEnvironmentNameTextView"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:text="環境名稱："
-	        android:layout_weight="1"
-	        android:textSize="20sp" />
+            android:id="@+id/environmentSettingActivityEnvironmentNameTextView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/environmentName"
+            android:textSize="20sp" />
+
         <EditText
             android:id="@+id/environmentSettingActivityEnvironmentNameEditText"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1"
+	        android:text="@string/dynamic_generate"
+            android:inputType="text"
 	        android:textSize="20sp" />
     </TableRow>
     <TableRow >
+
         <TextView
             android:id="@+id/environmentSettingActivityLengthTextView"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:text="長："
-	        android:layout_weight="5"
-	        android:textSize="20sp" />
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:text="@string/length"
+            android:textSize="20sp" />
+
         <EditText
             android:id="@+id/environmentSettingActivityLengthEditText"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="5"
+	        android:text="@string/dynamic_generate"
+	        android:inputType="numberDecimal"
 	        android:textSize="20sp" />
+
         <TextView
             android:id="@+id/environmentSettingActivityLengthUnitTextView"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:text="(cm)"
-	        android:layout_weight="1"
-	        android:textSize="20sp" />
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/cm"
+            android:textSize="20sp" />
+
     </TableRow>
     <TableRow >
+
         <TextView
             android:id="@+id/environmentSettingActivityWidthTextView"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:text="寬："
-	        android:layout_weight="5"
-	        android:textSize="20sp" />
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:text="@string/width"
+            android:textSize="20sp" />
+
         <EditText
             android:id="@+id/environmentSettingActivityWidthEditText"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="5"
+	        android:text="@string/dynamic_generate"
+	        android:inputType="numberDecimal"
 	        android:textSize="20sp" />
+
         <TextView
             android:id="@+id/environmentSettingActivityWidthUnitTextView"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:text="(cm)"
-	        android:layout_weight="1"
-	        android:textSize="20sp" />
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/cm"
+            android:textSize="20sp" />
+
     </TableRow>
     <TableRow >
+
         <TextView
             android:id="@+id/environmentSettingActivityHeightTextView"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:text="高："
-	        android:layout_weight="5"
-	        android:textSize="20sp" />
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:text="@string/height"
+            android:textSize="20sp" />
+
         <EditText
             android:id="@+id/environmentSettingActivityHeightEditText"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="5"
+	        android:text="@string/dynamic_generate"
+	        android:inputType="numberDecimal"
 	        android:textSize="20sp" />
+
         <TextView
             android:id="@+id/environmentSettingActivityHeightUnitTextView"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:text="(cm)"
-	        android:layout_weight="1"
-	        android:textSize="20sp" />
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/cm"
+            android:textSize="20sp" />
+
     </TableRow>
     <TableRow >
+
         <TextView
             android:id="@+id/environmentSettingActivityEnvironmentHotPointTextView"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:text="環境熱點："
-	        android:layout_weight="5"
-	        android:textSize="20sp" />
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:text="@string/environmentHotPoint"
+            android:textSize="20sp" />
+
         <EditText
             android:id="@+id/environmentSettingActivityEnvironmentHotPointEditText"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="5"
+	        android:text="@string/dynamic_generate"
+	        android:inputType="numberDecimal"
 	        android:textSize="20sp" />
+
         <TextView
             android:id="@+id/environmentSettingActivityEnvironmentHotPointUnitTextView"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:text="(℃)"
-	        android:layout_weight="1"
-	        android:textSize="20sp" />
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/temperature"
+            android:textSize="20sp" />
+
     </TableRow>
     <TableRow >
+
         <TextView
             android:id="@+id/environmentSettingActivityEnvironmentLowPointTextView"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:text="環境低點："
-	        android:layout_weight="5"
-	        android:textSize="20sp" />
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:text="@string/environmentLowPoint"
+            android:textSize="20sp" />
+
         <EditText
             android:id="@+id/environmentSettingActivityEnvironmentLowPointEditText"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="5"
+	        android:text="@string/dynamic_generate"
+	        android:inputType="numberDecimal"
 	        android:textSize="20sp" />
+        
         <TextView
             android:id="@+id/environmentSettingActivityEnvironmentLowPointUnitTextView"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:text="(℃)"
-	        android:layout_weight="1"
-	        android:textSize="20sp" />
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/temperature"
+            android:textSize="20sp" />
+
     </TableRow>
     <TableRow >
+
         <TextView
             android:id="@+id/environmentSettingActivityMaxHumidityTextView"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:text="最高濕度："
-	        android:layout_weight="5"
-	        android:textSize="20sp" />
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:text="@string/MaxHumidity"
+            android:textSize="20sp" />
+        
         <EditText
             android:id="@+id/environmentSettingActivityMaxHumidityEditText"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="5"
+	        android:text="@string/dynamic_generate"
+	        android:inputType="numberDecimal"
 	        android:textSize="20sp" />
+        
         <TextView
             android:id="@+id/environmentSettingActivityMaxHumidityUnitTextView"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:text="(%)"
-	        android:layout_weight="1"
-	        android:textSize="20sp" />
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/percent"
+            android:textSize="20sp" />
+
     </TableRow>
+    
     <TableRow >
         <TextView
             android:id="@+id/environmentSettingActivityMinHumidityTextView"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:text="最低濕度："
-	        android:layout_weight="5"
-	        android:textSize="20sp" />
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:text="@string/MinHumidity"
+            android:textSize="20sp" />
+
         <EditText
             android:id="@+id/environmentSettingActivityMinHumidityEditText"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="5"
+	        android:text="@string/dynamic_generate"
+	        android:inputType="numberDecimal"
 	        android:textSize="20sp" />
+        
         <TextView
             android:id="@+id/environmentSettingActivityMinHumidityUnitTextView"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:text="(%)"
-	        android:layout_weight="1"
-	        android:textSize="20sp" />
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/percent"
+            android:textSize="20sp" />
+
     </TableRow>
+    
     <RelativeLayout>
+
         <Button
             android:id="@+id/environmentSettingActivityNextButton"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_centerHorizontal="true"
-	        android:layout_alignParentRight="true"
-	        android:text="→"
-	        android:textSize="30sp" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/next"
+            android:textSize="30sp" />
+
     </RelativeLayout>
 
 </TableLayout>
