@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="TextView" />
+        android:text="@string/dynamic_generate" />
 
     <Button
         android:id="@+id/optionList"
@@ -22,7 +22,7 @@
         android:layout_below="@+id/favoriteFoodTextView"
         android:layout_marginTop="159dp"
         android:layout_toLeftOf="@+id/favoriteFoodTextView"
-        android:text="排泄清單" />
+        android:text="@string/shit" />
 
     <Button
         android:id="@+id/optionPetInfo"
@@ -31,6 +31,6 @@
         android:layout_alignBaseline="@+id/optionList"
         android:layout_alignBottom="@+id/optionList"
         android:layout_toRightOf="@+id/favoriteFoodTextView"
-        android:text="寵物資訊" />
+        android:text="@string/pet_information" />
 
 </RelativeLayout>

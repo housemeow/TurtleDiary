@@ -14,17 +14,17 @@ import android.widget.TextView;
 
 public class OptionActivity extends Activity {
 	private TextView favoriteFoodTextView;
-	private Button button1;
-	final String[] ListStr = {"排便", "排酸", "...."};
+	private Button shitButton;
+	final String[] shitListStrings = {"排便", "排酸", "...."};
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_option);
-		this.setTitle("寵物選項");
-		button1 = (Button)findViewById(R.id.optionList);
+		this.setTitle(R.string.pet_information);
+		shitButton = (Button)findViewById(R.id.optionList);
 		favoriteFoodTextView = (TextView)findViewById(R.id.favoriteFoodTextView);
 		favoriteFoodTextView.setText("喜好食物：\n   1.xxx\n   2.xxxx\n   3.xxxxxx");
-		button1.setOnClickListener(new OnClickListener() {
+		shitButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
@@ -49,7 +49,7 @@ public class OptionActivity extends Activity {
 	private void ShowAlertDialogAndList()
 	{
 	Builder MyAlertDialog = new AlertDialog.Builder(this);
-	MyAlertDialog.setTitle("排泄選單");
+	MyAlertDialog.setTitle(R.string.shit);
 	//建立選擇的事件
 	DialogInterface.OnClickListener ListClick = new DialogInterface.OnClickListener(){
 	public void onClick(DialogInterface dialog, int which) {
@@ -58,7 +58,7 @@ public class OptionActivity extends Activity {
 	//建立按下取消什麼事情都不做的事件
 	DialogInterface.OnClickListener OkClick = new DialogInterface.OnClickListener(){
 	public void onClick(DialogInterface dialog, int which) {}}; 
-	MyAlertDialog.setItems(ListStr, ListClick);
+	MyAlertDialog.setItems(shitListStrings, ListClick);
 	MyAlertDialog.setNeutralButton("取消",OkClick );
 	MyAlertDialog.show();
 	}

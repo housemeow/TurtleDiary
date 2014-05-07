@@ -18,5 +18,7 @@
     <string name="fingernail">甲長</string>
     <string name="fingernail_weight">甲長&amp;體重</string>
     <string name="title_activity_option">Option</string>
+    <string name="shit">排泄清單</string>
+    <string name="pet_information">寵物資訊</string>
 
 </resources>
