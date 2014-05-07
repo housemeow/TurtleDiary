@@ -43,7 +43,7 @@ public class EnvironmentListActivity extends Activity
 			Intent intent = new Intent();
 			intent.setClass(EnvironmentListActivity.this, EnvironmentModifyActivity.class);
 			intent.putExtra("title", "環境新增");
-			intent.putExtra("buttonName", R.string.addEnvironment);
+			intent.putExtra("buttonName", "新增");
 			startActivity(intent);
 		}
     };
