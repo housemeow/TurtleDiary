@@ -17,7 +17,7 @@ public class ModifyPetActivity extends Activity {
 		setContentView(R.layout.fragment_modify_pet);
 
 		Button modifyButton = (Button)findViewById(R.id.firstAddPetNextButton);
-		modifyButton.setVisibility(View.INVISIBLE); //顯示
+		modifyButton.setVisibility(View.INVISIBLE); //不顯示
 		modifyButton.setOnClickListener(getModifyOnClickListener());
 		
 	}
