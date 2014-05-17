@@ -25,41 +25,41 @@ public class EnvironmentActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_environment);
 		// get edit text id
-				environmentActivityEnvironmentNameEditText = (EditText)findViewById(R.id.environmentActivityEnvironmentNameEditText);
-				environmentActivityLengthEditText = (EditText)findViewById(R.id.environmentActivityLengthEditText);
-				environmentActivityWidthEditText = (EditText)findViewById(R.id.environmentActivityWidthEditText);
-				environmentActivityHeightEditText = (EditText)findViewById(R.id.environmentActivityHeightEditText);
-				environmentActivityEnvironmentHotPointEditText = (EditText)findViewById(R.id.environmentActivityEnvironmentHotPointEditText);
-				environmentActivityEnvironmentLowPointEditText = (EditText)findViewById(R.id.environmentActivityEnvironmentLowPointEditText);
-				environmentActivityMaxHumidityEditText = (EditText)findViewById(R.id.environmentActivityMaxHumidityEditText);
-				environmentActivityMinHumidityEditText = (EditText)findViewById(R.id.environmentActivityMinHumidityEditText);
-				// get button component id
-				environmentActivityNextButton = (Button)findViewById(R.id.environmentActivityNextButton);
-				environmentActivityAddButton = (Button)findViewById(R.id.environmentActivityAddButton);
-				environmentActivityRecoverButton = (Button)findViewById(R.id.environmentActivityRecoverButton);
-				environmentActivityEditButton = (Button)findViewById(R.id.environmentActivityEditButton);
-				// set listener
-				environmentActivityNextButton.setOnClickListener(clickEnvironmentActivityNextButton);
-				environmentActivityAddButton.setOnClickListener(clickEnvironmentActivityAddButton);
-				environmentActivityRecoverButton.setOnClickListener(clickEnvironmentActivityRecoverButton);
-				environmentActivityEditButton.setOnClickListener(clickEnvironmentActivityEditButton);
-				
-				// get intent
-				Intent intent = getIntent();
-				if (intent.hasExtra("state"))
-				{
-					state = intent.getStringExtra("state");
-			        if (state.equals(VIEW))
-			        {
-			        	String environmentName = intent.getStringExtra("environmentName");
-			        	environmentActivityEnvironmentNameEditText.setText(environmentName);
-			        }
-				}
-				else 
-				{
-					state = SET;
-				}
-		        RefreshView();
+		environmentActivityEnvironmentNameEditText = (EditText)findViewById(R.id.environmentActivityEnvironmentNameEditText);
+		environmentActivityLengthEditText = (EditText)findViewById(R.id.environmentActivityLengthEditText);
+		environmentActivityWidthEditText = (EditText)findViewById(R.id.environmentActivityWidthEditText);
+		environmentActivityHeightEditText = (EditText)findViewById(R.id.environmentActivityHeightEditText);
+		environmentActivityEnvironmentHotPointEditText = (EditText)findViewById(R.id.environmentActivityEnvironmentHotPointEditText);
+		environmentActivityEnvironmentLowPointEditText = (EditText)findViewById(R.id.environmentActivityEnvironmentLowPointEditText);
+		environmentActivityMaxHumidityEditText = (EditText)findViewById(R.id.environmentActivityMaxHumidityEditText);
+		environmentActivityMinHumidityEditText = (EditText)findViewById(R.id.environmentActivityMinHumidityEditText);
+		// get button component id
+		environmentActivityNextButton = (Button)findViewById(R.id.environmentActivityNextButton);
+		environmentActivityAddButton = (Button)findViewById(R.id.environmentActivityAddButton);
+		environmentActivityRecoverButton = (Button)findViewById(R.id.environmentActivityRecoverButton);
+		environmentActivityEditButton = (Button)findViewById(R.id.environmentActivityEditButton);
+		// set listener
+		environmentActivityNextButton.setOnClickListener(clickEnvironmentActivityNextButton);
+		environmentActivityAddButton.setOnClickListener(clickEnvironmentActivityAddButton);
+		environmentActivityRecoverButton.setOnClickListener(clickEnvironmentActivityRecoverButton);
+		environmentActivityEditButton.setOnClickListener(clickEnvironmentActivityEditButton);
+		
+		// get intent
+		Intent intent = getIntent();
+		if (intent.hasExtra("state"))
+		{
+			state = intent.getStringExtra("state");
+	        if (state.equals(VIEW))
+	        {
+	        	String environmentName = intent.getStringExtra("environmentName");
+	        	environmentActivityEnvironmentNameEditText.setText(environmentName);
+	        }
+		}
+		else 
+		{
+			state = SET;
+		}
+        RefreshView();
 	}
 	
 	private void RefreshView()
@@ -158,11 +158,8 @@ public class EnvironmentActivity extends Activity
 		@Override
 		public void onClick(View view) 
 		{
-			//Intent intent = new Intent();
-			//intent.setClass(EnvironmentSettingActivity.this, AddPetActivity.class);
-			//startActivity(intent);
 			Intent intent = new Intent();
-			intent.setClass(EnvironmentActivity.this, EnvironmentListActivity.class);
+			intent.setClass(EnvironmentActivity.this, AddPetActivity.class);
 			startActivity(intent);
 		}
     };
