@@ -67,7 +67,7 @@ public class EnvironmentActivity extends Activity
 		invalidateOptionsMenu(); // refresh menu
 		if (state.equals(ADD))
         {
-        	this.setTitle("·s¼WÀô¹Ò");
+        	this.setTitle("新增環境");
 			environmentActivityAddButton.setVisibility(View.VISIBLE);
 			environmentActivityNextButton.setVisibility(View.INVISIBLE);
 			environmentActivityRecoverButton.setVisibility(View.INVISIBLE);
@@ -76,7 +76,7 @@ public class EnvironmentActivity extends Activity
         }
         else if (state.equals(VIEW)) 
         {
-        	this.setTitle("Àô¹Ò¸ê°T");
+        	this.setTitle("環境資訊");
         	environmentActivityAddButton.setVisibility(View.INVISIBLE);
 			environmentActivityNextButton.setVisibility(View.INVISIBLE);
 			environmentActivityRecoverButton.setVisibility(View.INVISIBLE);
@@ -85,7 +85,7 @@ public class EnvironmentActivity extends Activity
 		}
         else if (state.equals(EDIT)) 
         {
-        	this.setTitle("­×§ïÀô¹Ò");
+        	this.setTitle("修改環境");
         	environmentActivityAddButton.setVisibility(View.INVISIBLE);
 			environmentActivityNextButton.setVisibility(View.INVISIBLE);
 			environmentActivityRecoverButton.setVisibility(View.VISIBLE);
@@ -94,7 +94,7 @@ public class EnvironmentActivity extends Activity
 		}
         else if(state.equals(SET))
         {
-        	this.setTitle("³]©wÀô¹Ò");
+        	this.setTitle("設定環境");
         	environmentActivityAddButton.setVisibility(View.INVISIBLE);
 			environmentActivityNextButton.setVisibility(View.VISIBLE);
 			environmentActivityRecoverButton.setVisibility(View.INVISIBLE);
