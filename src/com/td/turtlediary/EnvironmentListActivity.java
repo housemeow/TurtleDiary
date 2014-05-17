@@ -41,9 +41,8 @@ public class EnvironmentListActivity extends Activity
 		public void onClick(View v) 
 		{
 			Intent intent = new Intent();
-			intent.setClass(EnvironmentListActivity.this, EnvironmentModifyActivity.class);
-			intent.putExtra("title", "環境新增");
-			intent.putExtra("buttonName", "新增");
+			intent.setClass(EnvironmentListActivity.this, EnvironmentActivity.class);
+			intent.putExtra("state", "add");
 			startActivity(intent);
 		}
     };
@@ -54,7 +53,8 @@ public class EnvironmentListActivity extends Activity
 		public void onItemClick(AdapterView<?> parent, View v, int position, long arg3) 
 		{
 			Intent intent = new Intent();
-			intent.setClass(EnvironmentListActivity.this, EnvironmentInformationActivity.class);
+			intent.setClass(EnvironmentListActivity.this, EnvironmentActivity.class);
+			intent.putExtra("state", "view");
 			intent.putExtra("environmentName", parent.getItemAtPosition(position).toString());
 			startActivity(intent);
 		}
