@@ -18,14 +18,16 @@
             android:id="@+id/textViewName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/petName" />
+            android:text="@string/petName"
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/petActivityPetNameEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="@string/pleaseInputPetName" >
+            android:hint="@string/pleaseInputPetName"
+            android:textSize="20sp" >
 
             <requestFocus />
         </EditText>
@@ -41,7 +43,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="@string/petType" />
+            android:text="@string/petType"
+            android:textSize="20sp" />
 
         <Spinner
             android:id="@+id/petActivityPetTypeSpinner"
@@ -58,7 +61,8 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/gender" />
+            android:text="@string/gender"
+            android:textSize="20sp" />
 
         <RadioGroup
             android:id="@+id/petActivityGenderRadioGroup"
@@ -71,19 +75,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="@string/genderMale" />
+                android:text="@string/genderMale"
+                android:textSize="20sp" />
 
             <RadioButton
                 android:id="@+id/petActivityFemaleRadio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/genderFemale" />
+                android:text="@string/genderFemale"
+                android:textSize="20sp" />
 
             <RadioButton
                 android:id="@+id/petActivityUnknownRadio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/genderUnknown" />
+                android:text="@string/genderUnknown"
+                android:textSize="20sp" />
+
         </RadioGroup>
     </TableRow>
 
@@ -96,7 +104,8 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/petEnvironment" />
+            android:text="@string/petEnvironment"
+            android:textSize="20sp" />
 
         <Spinner
             android:id="@+id/petActivityEnvironmentSpinner"
@@ -113,7 +122,8 @@
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/petBirthday" />
+            android:text="@string/petBirthday"
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/petActivityBirthdayEditText"
@@ -121,7 +131,9 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/pleaseInputPetBirthday"
-            android:inputType="date" />
+            android:inputType="date"
+            android:textSize="20sp" />
+
     </TableRow>
 
     <RelativeLayout
@@ -134,7 +146,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:text="@string/next" />
+            android:text="@string/next"
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/petActivityAddButton"
@@ -142,7 +155,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:text="@string/add" />
+            android:text="@string/add"
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/petActivityEditButton"
@@ -150,7 +164,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:text="@string/edit" />
+            android:text="@string/edit"
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/petActivityRestoreButton"
@@ -158,7 +173,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_toLeftOf="@+id/petActivityEditButton"
-            android:text="@string/restore" />
+            android:text="@string/restore"
+            android:textSize="20sp" />
+
     </RelativeLayout>
 
 </TableLayout>

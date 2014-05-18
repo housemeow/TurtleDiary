@@ -42,7 +42,7 @@ public class EnvironmentActivity extends Activity {
 		// get button component id
 		environmentActivityNextButton = (Button) findViewById(R.id.environmentActivityNextButton);
 		environmentActivityAddButton = (Button) findViewById(R.id.environmentActivityAddButton);
-		environmentActivityRecoverButton = (Button) findViewById(R.id.environmentActivityRecoverButton);
+		environmentActivityRecoverButton = (Button) findViewById(R.id.environmentActivityRestoreButton);
 		environmentActivityEditButton = (Button) findViewById(R.id.environmentActivityEditButton);
 		// set listener
 		environmentActivityNextButton

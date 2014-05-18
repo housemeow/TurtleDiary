@@ -239,7 +239,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:text="@string/next"
-                android:textSize="30sp" />
+                android:textSize="20sp" />
 
             <Button
                 android:id="@+id/environmentActivityAddButton"
@@ -248,17 +248,17 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:text="@string/add"
-                android:textSize="30sp" />
+                android:textSize="20sp" />
 
             <Button
-                android:id="@+id/environmentActivityRecoverButton"
+                android:id="@+id/environmentActivityRestoreButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/environmentActivityEditButton"
                 android:layout_marginRight="10dp"
                 android:layout_toLeftOf="@+id/environmentActivityEditButton"
                 android:text="@string/restore"
-                android:textSize="30sp" />
+                android:textSize="20sp" />
 
             <Button
                 android:id="@+id/environmentActivityEditButton"
@@ -267,7 +267,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:text="@string/edit"
-                android:textSize="30sp" />
+                android:textSize="20sp" />
         </RelativeLayout>
     </TableLayout>
 
