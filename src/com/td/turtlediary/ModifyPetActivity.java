@@ -14,7 +14,7 @@ public class ModifyPetActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.fragment_modify_pet);
+		setContentView(R.layout.activity_modify_pet);
 
 		Button modifyButton = (Button)findViewById(R.id.firstAddPetNextButton);
 		modifyButton.setVisibility(View.INVISIBLE); //不顯示

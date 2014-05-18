@@ -15,7 +15,7 @@ public class AddPetActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_add_pet);
+        setContentView(R.layout.activity_add_pet);
 		Button previousButton = (Button)findViewById(R.id.firstAddPetPreviousButton);
 		previousButton.setOnClickListener(getPreviousButtonOnClickListener());
 		//Intent intent = getIntent();

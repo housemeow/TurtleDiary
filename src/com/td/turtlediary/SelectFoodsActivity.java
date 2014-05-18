@@ -14,7 +14,7 @@ public class SelectFoodsActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.fragment_select_foods);
+		setContentView(R.layout.activity_select_foods);
 		this.setTitle("選擇食物");
 
 		Button feedButton = (Button)findViewById(R.id.selectFoodsFeedButton);

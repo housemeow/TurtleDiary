@@ -14,7 +14,7 @@ public class AllocateFoodActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.fragment_allocate_food);
+		setContentView(R.layout.activity_allocate_food);
 		this.setTitle("分配食物");
 		Button feedButton = (Button)findViewById(R.id.allocateFoodOKButton);
 		feedButton.setOnClickListener(getFeedFoodsButtonOnClickListener());
