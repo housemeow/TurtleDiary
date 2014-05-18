@@ -46,8 +46,7 @@ public class AddPetActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(AddPetActivity.this, EnvironmentSettingActivity.class);
-				
+				Intent intent = new Intent(AddPetActivity.this, EnvironmentActivity.class);
 				intent.putExtra("title", "環境新增");
 				intent.putExtra("buttonName", "新增");
 				startActivity(intent);

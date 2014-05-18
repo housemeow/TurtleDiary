@@ -23,14 +23,7 @@
         </activity>
         <activity android:name="com.td.turtlediary.OptionActivity" >
         </activity>
-        <activity android:name="com.td.turtlediary.EnvironmentInformationActivity" >
-        </activity>
         <activity android:name="com.td.turtlediary.EnvironmentListActivity" >
-        </activity>
-        <activity android:name="com.td.turtlediary.EnvironmentModifyActivity" >
-        </activity>
-        <activity android:name="com.td.turtlediary.EnvironmentSettingActivity" >
-            
         </activity>
         <activity
             android:name="com.td.turtlediary.HomePageActivity"
