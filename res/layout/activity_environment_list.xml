@@ -14,13 +14,18 @@
         android:id="@+id/environmentListActivityEnvironmentListView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true" />
+        android:layout_above="@+id/environmentListActivityNewEnvironmentButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/environmentListActivityNewEnvironmentButton" />
 
     <Button
         android:id="@+id/environmentListActivityNewEnvironmentButton"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="@string/add" />
+        android:layout_alignParentLeft="true"
+        android:text="@string/add"
+        android:textSize="20sp" />
 
 </RelativeLayout>

@@ -14,7 +14,7 @@
     <string name="petType">寵物品種</string>
     <string name="nutrition">營養</string>
     <string name="recommendFood">食材喜好排行</string>
-    <string name="weight">體重</string>
+    <string name="weight">重量</string>
     <string name="shellLength">甲長</string>
     <string name="shellLengthAndWeight">甲長&amp;體重</string>
     <string name="title_activity_option">Option</string>
@@ -43,5 +43,20 @@
     <string name="genderFemale">母</string>
     <string name="genderUnknown">未知</string>
     <string name="pleaseInputPetBirthday">請輸入寵物生日</string>
+    <string name="FeedLog">餵食記錄</string>
+    <string name="report">報表</string>
+    <string name="environmentSetting">環境設定</string>
+    <string name="gram">克</string>
+    <string name="food">食物</string>
+    <string name="pleaseInputFoodName">請輸入食物名稱</string>
+    <string name="pleaseInputWeight">請輸入重量</string>
+    <string name="selectFood">選擇食物</string>
+    <string name="kcal">熱量</string>
+    <string name="foodDescription">食物詳細資訊(100克)</string>
+    <string name="water">水分</string>
+    <string name="crudeFat">粗脂肪</string>
+    <string name="calcium">鈣</string>
+    <string name="phosphorus">磷</string>
+    <string name="feed">餵食</string>
 
 </resources>

@@ -20,7 +20,7 @@ public class HomePageActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_home);
+		setContentView(R.layout.activity_home_page);
 		mNav = new SimpleSideDrawer(this);
 
 		mNav.setRightBehindContentView(R.layout.activity_behind_right_simple);

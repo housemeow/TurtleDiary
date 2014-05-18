@@ -13,24 +13,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="@string/dynamicGenerate" />
-
-    <Button
-        android:id="@+id/optionList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/favoriteFoodTextView"
-        android:layout_marginTop="159dp"
-        android:layout_toLeftOf="@+id/favoriteFoodTextView"
-        android:text="@string/shit" />
+        android:text="@string/dynamicGenerate"
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/optionPetInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/optionList"
-        android:layout_alignBottom="@+id/optionList"
-        android:layout_toRightOf="@+id/favoriteFoodTextView"
-        android:text="@string/petInformation" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/petInformation"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/optionList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="@string/shit"
+        android:textSize="20sp" />
 
 </RelativeLayout>
