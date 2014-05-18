@@ -43,7 +43,6 @@ public class EnvironmentActivity extends Activity
 		environmentActivityAddButton.setOnClickListener(clickEnvironmentActivityAddButton);
 		environmentActivityRecoverButton.setOnClickListener(clickEnvironmentActivityRecoverButton);
 		environmentActivityEditButton.setOnClickListener(clickEnvironmentActivityEditButton);
-		
 		// get intent
 		Intent intent = getIntent();
 		if (intent.hasExtra("state"))
@@ -191,9 +190,6 @@ public class EnvironmentActivity extends Activity
 		public void onClick(View view) 
 		{
 			// call EditEnvironment(environment) API
-			Intent intent = new Intent();
-			intent.setClass(EnvironmentActivity.this, EnvironmentListActivity.class);
-			startActivity(intent);
 		}
     };
 
