@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="11"
         android:targetSdkVersion="19" />
 
     <application
@@ -21,27 +21,35 @@
             android:name="com.td.turtlediary.ModifyPetActivity"
             android:label="@string/title_activity_modify_pet" >
         </activity>
-        <activity android:name="OptionActivity" >
+        <activity android:name="com.td.turtlediary.OptionActivity" >
         </activity>
-        <activity android:name="EnvironmentInformationActivity" >
+        <activity android:name="com.td.turtlediary.EnvironmentInformationActivity" >
         </activity>
-        <activity android:name="EnvironmentListActivity" >
+        <activity android:name="com.td.turtlediary.EnvironmentListActivity" >
         </activity>
-        <activity android:name="EnvironmentModifyActivity" >
+        <activity android:name="com.td.turtlediary.EnvironmentModifyActivity" >
         </activity>
-        <activity android:name="EnvironmentSettingActivity" >
+        <activity android:name="com.td.turtlediary.EnvironmentSettingActivity" >
+            
+        </activity>
+        <activity
+            android:name="com.td.turtlediary.HomePageActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity android:name="com.td.turtlediary.ReportActivity" >
+        </activity>
+        <activity android:name="com.td.turtlediary.AllocateFoodActivity" >
+        </activity>
+        <activity android:name="com.td.turtlediary.SelectFoodsActivity" >
+        </activity>
+        <activity
+            android:name="com.td.turtlediary.EnvironmentActivity"
+            android:label="@string/title_activity_environment" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="HomePageActivity"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
-        </activity>
-        <activity android:name="ReportActivity"></activity>
-        <activity android:name="AllocateFoodActivity"></activity>
-        <activity android:name="SelectFoodsActivity"></activity>
     </application>
 
 </manifest>

@@ -34,5 +34,8 @@
     <string name="ok">完成</string>
     <string name="next">下一步</string>
     <string name="addEnvironment">新增</string>
+    <string name="recoverEnvironment">還原</string>
+    <string name="editEnvironment">修改</string>
+    <string name="title_activity_environment">TurtleDiary</string>
 
 </resources>
