@@ -1,5 +1,7 @@
 package com.td.turtlediary;
 
+import java.util.Date;
+
 import com.td.models.Pet;
 import com.td.models.TurtleDiaryDB;
 
@@ -14,6 +16,7 @@ import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
@@ -214,10 +217,18 @@ public class PetActivity extends Activity {
 		return new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Pet pet = new Pet();
+				nowPet.setName(petNameEditText.getText().toString());
+				Date date = new Date(birthdayEditText.getText().toString());
+				nowPet.setBirthday(date);
+				
+				int selectedId = genderRadioGroup.getCheckedRadioButtonId();
+	                
+				RadioButton selectedRadioButton = (RadioButton) findViewById(selectedId);
+	                
+	            nowPet.setGender(selectedRadioButton.getText().toString());
+				
 				changeState(PetActivityState.View);
-				turtleDiary.ChangePet(pet);
-				nowPet = pet;
+				turtleDiary.ChangePet(nowPet);
 			}
 		};
 	}
