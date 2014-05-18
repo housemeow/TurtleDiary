@@ -9,7 +9,7 @@
     tools:context="com.td.turtlediary.AddPetActivity$PlaceholderFragment" >
 
     <EditText
-        android:id="@+id/editTextName"
+        android:id="@+id/petActivityPetNameEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textViewName"
@@ -18,7 +18,7 @@
         android:layout_marginRight="50dp"
         android:layout_toRightOf="@+id/textViewName"
         android:ems="10"
-        android:hint="@string/pet_name_hint" />
+        android:hint="@string/pleaseInputPetName" />
 
     <TextView
         android:id="@+id/textViewName"
@@ -28,16 +28,16 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="50dp"
-        android:text="@string/pet_name" />
+        android:text="@string/petName" />
 
     <Button
-        android:id="@+id/firstAddPetNextButton"
+        android:id="@+id/petActivityNextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/firstAddPetPreviousButton"
         android:layout_alignBottom="@+id/firstAddPetPreviousButton"
-        android:layout_alignRight="@+id/editTextName"
-        android:text="@string/button_next" />
+        android:layout_alignRight="@+id/petActivityPetNameEditText"
+        android:text="@string/next" />
 
     <Button
         android:id="@+id/firstAddPetPreviousButton"
@@ -46,25 +46,25 @@
         android:layout_alignLeft="@+id/textViewName"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="50dp"
-        android:text="@string/button_previous" />
+        android:text="@string/previous" />
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editTextName"
+        android:layout_below="@+id/petActivityPetNameEditText"
         android:layout_marginTop="20dp"
-        android:layout_toLeftOf="@+id/editTextName"
-        android:text="@string/pet_type" />
+        android:layout_toLeftOf="@+id/petActivityPetNameEditText"
+        android:text="@string/petType" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/petActivityBirthdayEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editTextName"
-        android:layout_alignRight="@+id/editTextName"
+        android:layout_alignLeft="@+id/petActivityPetNameEditText"
+        android:layout_alignRight="@+id/petActivityPetNameEditText"
         android:layout_alignTop="@+id/textView1"
         android:ems="10"
-        android:hint="@string/dynamic_generate" />
+        android:hint="@string/dynamicGenerate" />
 
 </RelativeLayout>

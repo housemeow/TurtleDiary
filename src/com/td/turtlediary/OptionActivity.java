@@ -20,7 +20,7 @@ public class OptionActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_option);
-		this.setTitle(R.string.pet_information);
+		this.setTitle(R.string.petInformation);
 		shitButton = (Button)findViewById(R.id.optionList);
 		favoriteFoodTextView = (TextView)findViewById(R.id.favoriteFoodTextView);
 		favoriteFoodTextView.setText("喜好食物：\n   1.xxx\n   2.xxxx\n   3.xxxxxx");

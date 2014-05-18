@@ -16,12 +16,9 @@ public class AddPetActivity extends Activity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_pet);
-		Button previousButton = (Button)findViewById(R.id.firstAddPetPreviousButton);
-		previousButton.setOnClickListener(getPreviousButtonOnClickListener());
-		//Intent intent = getIntent();
 		
 
-		Button nextButton = (Button)findViewById(R.id.firstAddPetNextButton);
+		Button nextButton = (Button)findViewById(R.id.petActivityNextButton);
 		nextButton.setOnClickListener(getNextButtonOnClickListener());
 	}
 	
@@ -41,20 +38,6 @@ public class AddPetActivity extends Activity {
 		return listener;
 	}
 
-	private OnClickListener getPreviousButtonOnClickListener() {
-		OnClickListener listener = new OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(AddPetActivity.this, EnvironmentActivity.class);
-				intent.putExtra("title", "環境新增");
-				intent.putExtra("buttonName", "新增");
-				startActivity(intent);
-			}
-		};
-		return listener;
-	}
-    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) 
     {

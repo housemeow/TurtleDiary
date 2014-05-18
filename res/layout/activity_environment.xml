@@ -24,7 +24,7 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1"
-	        android:text="@string/dynamic_generate"
+	        android:text="@string/dynamicGenerate"
             android:inputType="text"
 	        android:textSize="20sp" />
     </TableRow>
@@ -43,7 +43,7 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="5"
-	        android:text="@string/dynamic_generate"
+	        android:text="@string/dynamicGenerate"
 	        android:inputType="numberDecimal"
 	        android:textSize="20sp" />
 
@@ -71,7 +71,7 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="5"
-	        android:text="@string/dynamic_generate"
+	        android:text="@string/dynamicGenerate"
 	        android:inputType="numberDecimal"
 	        android:textSize="20sp" />
 
@@ -99,7 +99,7 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="5"
-	        android:text="@string/dynamic_generate"
+	        android:text="@string/dynamicGenerate"
 	        android:inputType="numberDecimal"
 	        android:textSize="20sp" />
 
@@ -127,7 +127,7 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="5"
-	        android:text="@string/dynamic_generate"
+	        android:text="@string/dynamicGenerate"
 	        android:inputType="numberDecimal"
 	        android:textSize="20sp" />
 
@@ -155,7 +155,7 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="5"
-	        android:text="@string/dynamic_generate"
+	        android:text="@string/dynamicGenerate"
 	        android:inputType="numberDecimal"
 	        android:textSize="20sp" />
         
@@ -175,7 +175,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="5"
-            android:text="@string/MaxHumidity"
+            android:text="@string/maxHumidity"
             android:textSize="20sp" />
         
         <EditText
@@ -183,7 +183,7 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="5"
-	        android:text="@string/dynamic_generate"
+	        android:text="@string/dynamicGenerate"
 	        android:inputType="numberDecimal"
 	        android:textSize="20sp" />
         
@@ -203,7 +203,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="5"
-            android:text="@string/MinHumidity"
+            android:text="@string/minHumidity"
             android:textSize="20sp" />
 
         <EditText
@@ -211,7 +211,7 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="5"
-	        android:text="@string/dynamic_generate"
+	        android:text="@string/dynamicGenerate"
 	        android:inputType="numberDecimal"
 	        android:textSize="20sp" />
         
@@ -242,7 +242,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:text="@string/addEnvironment"
+            android:text="@string/add"
             android:textSize="30sp" />
         
         <Button
@@ -252,7 +252,7 @@
             android:layout_toLeftOf="@+id/environmentActivityEditButton"
             android:layout_alignBottom="@+id/environmentActivityEditButton"
             android:layout_marginRight="10dp"
-            android:text="@string/recoverEnvironment"
+            android:text="@string/restore"
             android:textSize="30sp" />
         
         <Button
@@ -261,7 +261,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:text="@string/editEnvironment"
+            android:text="@string/edit"
             android:textSize="30sp" />
 
     </RelativeLayout>

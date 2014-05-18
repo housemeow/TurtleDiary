@@ -16,7 +16,7 @@ public class ModifyPetActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_modify_pet);
 
-		Button modifyButton = (Button)findViewById(R.id.firstAddPetNextButton);
+		Button modifyButton = (Button)findViewById(R.id.petActivityNextButton);
 		modifyButton.setVisibility(View.INVISIBLE); //不顯示
 		modifyButton.setOnClickListener(getModifyOnClickListener());
 		
@@ -27,13 +27,13 @@ public class ModifyPetActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				EditText petName = (EditText) findViewById(R.id.editTextName);
+				EditText petName = (EditText) findViewById(R.id.petActivityPetNameEditText);
 				petName.setEnabled(false);
 				
 				EditText petType = (EditText)findViewById(R.id.editTextType);
 				petType.setEnabled(false);
 
-				Button modifyButton = (Button) findViewById(R.id.firstAddPetNextButton);
+				Button modifyButton = (Button) findViewById(R.id.petActivityNextButton);
 				modifyButton.setVisibility(View.INVISIBLE); //顯示
 			}
 		};
@@ -63,7 +63,7 @@ public class ModifyPetActivity extends Activity {
 	}
 
 	private void onClickModify() {
-		EditText petName = (EditText) findViewById(R.id.editTextName);
+		EditText petName = (EditText) findViewById(R.id.petActivityPetNameEditText);
 		petName.setText("Golden");
 		petName.setEnabled(true);
 		
@@ -71,7 +71,7 @@ public class ModifyPetActivity extends Activity {
 		petType.setText ("Indian Star Tortoise");
 		petType.setEnabled(true);
 
-		Button modifyButton = (Button)findViewById(R.id.firstAddPetNextButton);
+		Button modifyButton = (Button)findViewById(R.id.petActivityPetNameEditText);
 		modifyButton.setVisibility(View.VISIBLE); //顯示
 
 		//modifyItem.setEnabled(false);

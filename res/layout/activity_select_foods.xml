@@ -13,9 +13,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/allocateFoodOKButton"
-        android:layout_alignLeft="@+id/editText1"
+        android:layout_alignLeft="@+id/petActivityBirthdayEditText"
         android:layout_alignRight="@+id/imageButton1"
-        android:layout_below="@+id/editText1"
+        android:layout_below="@+id/petActivityBirthdayEditText"
         android:layout_marginTop="28dp"
         android:text="食物詳細資訊" />
 
@@ -36,7 +36,7 @@
         android:src="@drawable/abc_ic_search" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/petActivityBirthdayEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/imageButton1"

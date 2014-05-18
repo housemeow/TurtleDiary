@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="@string/dynamic_generate" />
+        android:text="@string/dynamicGenerate" />
 
     <Button
         android:id="@+id/optionList"
@@ -31,6 +31,6 @@
         android:layout_alignBaseline="@+id/optionList"
         android:layout_alignBottom="@+id/optionList"
         android:layout_toRightOf="@+id/favoriteFoodTextView"
-        android:text="@string/pet_information" />
+        android:text="@string/petInformation" />
 
 </RelativeLayout>

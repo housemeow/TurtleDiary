@@ -6,7 +6,7 @@
     <item
         android:id="@+id/modify_pet"
         android:orderInCategory="100"
-        android:title="@string/modify_pet"
+        android:title="@string/edit"
         app:showAsAction="ifRoom"/>
 
 </menu>
