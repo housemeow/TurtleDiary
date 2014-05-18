@@ -1,8 +1,8 @@
 package com.td.models;
 
 public class TurtleDiaryDB {
-	static int count =0;
-	
+	static int count = 0;
+
 	public int GetPetCount() {
 		// TODO Auto-generated method stub
 		return count;
@@ -25,7 +25,7 @@ public class TurtleDiaryDB {
 	}
 
 	public void AddPet(Pet pet) {
-count++;
+		count++;
 	}
 
 	public void ChangePet(Pet pet) {

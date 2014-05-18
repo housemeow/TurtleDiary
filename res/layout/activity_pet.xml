@@ -85,7 +85,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/genderUnknown" />
         </RadioGroup>
-
     </TableRow>
 
     <TableRow
@@ -103,7 +102,6 @@
             android:id="@+id/petActivityEnvironmentSpinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-
     </TableRow>
 
     <TableRow
@@ -124,7 +122,6 @@
             android:ems="10"
             android:hint="@string/pleaseInputPetBirthday"
             android:inputType="date" />
-
     </TableRow>
 
     <RelativeLayout
@@ -162,7 +159,6 @@
             android:layout_alignParentBottom="true"
             android:layout_toLeftOf="@+id/petActivityEditButton"
             android:text="@string/restore" />
-
     </RelativeLayout>
 
 </TableLayout>

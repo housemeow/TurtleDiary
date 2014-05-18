@@ -1,19 +1,24 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/rightBehindMenuScroll" >
 
-    <LinearLayout style="@style/behindMenuScrollContent"
+    <LinearLayout
+        style="@style/behindMenuScrollContent"
         android:paddingTop="25dp" >
+
         <TextView
             android:id="@+id/recordTextView"
             style="@style/behindMenuItemLabel"
             android:text="餵食紀錄" />
+
         <TextView
             android:id="@+id/pointTextView"
             style="@style/behindMenuItemLabel"
             android:text="報表" />
+
         <TextView
             android:id="@+id/settingTextView"
             style="@style/behindMenuItemLabel"
-                       android:text="環境設定" />
+            android:text="環境設定" />
     </LinearLayout>
+
 </ScrollView>

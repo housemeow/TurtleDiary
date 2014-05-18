@@ -220,13 +220,13 @@ public class PetActivity extends Activity {
 				nowPet.setName(petNameEditText.getText().toString());
 				Date date = new Date(birthdayEditText.getText().toString());
 				nowPet.setBirthday(date);
-				
+
 				int selectedId = genderRadioGroup.getCheckedRadioButtonId();
-	                
+
 				RadioButton selectedRadioButton = (RadioButton) findViewById(selectedId);
-	                
-	            nowPet.setGender(selectedRadioButton.getText().toString());
-				
+
+				nowPet.setGender(selectedRadioButton.getText().toString());
+
 				changeState(PetActivityState.View);
 				turtleDiary.ChangePet(nowPet);
 			}
@@ -247,7 +247,6 @@ public class PetActivity extends Activity {
 
 	private OnMenuItemClickListener getEditMenuItemClickListener() {
 		return new OnMenuItemClickListener() {
-
 			@Override
 			public boolean onMenuItemClick(MenuItem item) {
 				nowPet.setName(petNameEditText.getText().toString());

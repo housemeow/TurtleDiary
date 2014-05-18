@@ -10,12 +10,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".EnvironmentListActivity" >
 
-	<ListView
-	    android:id="@+id/environmentListActivityEnvironmentListView"
-	    android:layout_width="fill_parent"
+    <ListView
+        android:id="@+id/environmentListActivityEnvironmentListView"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true" />
-	
+
     <Button
         android:id="@+id/environmentListActivityNewEnvironmentButton"
         android:layout_width="fill_parent"

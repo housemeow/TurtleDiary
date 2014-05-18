@@ -25,45 +25,48 @@ public class HomePageActivity extends Activity {
 
 		mNav.setRightBehindContentView(R.layout.activity_behind_right_simple);
 
-		findViewById(R.id.mainPageMenuButton).setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				mNav.toggleRightDrawer();
-				TextView reportTextView = (TextView) findViewById(R.id.pointTextView);
-				reportTextView.setOnClickListener(new OnClickListener() {
+		findViewById(R.id.mainPageMenuButton).setOnClickListener(
+				new OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						Intent intent = new Intent();
-						intent.setClass(HomePageActivity.this, ReportActivity.class);
-						startActivityForResult(intent, 1);
+						mNav.toggleRightDrawer();
+						TextView reportTextView = (TextView) findViewById(R.id.pointTextView);
+						reportTextView
+								.setOnClickListener(new OnClickListener() {
+									@Override
+									public void onClick(View v) {
+										Intent intent = new Intent();
+										intent.setClass(HomePageActivity.this,
+												ReportActivity.class);
+										startActivityForResult(intent, 1);
+									}
+								});
+
+						TextView environmentTextView = (TextView) findViewById(R.id.settingTextView);
+						environmentTextView
+								.setOnClickListener(new OnClickListener() {
+									@Override
+									public void onClick(View v) {
+										Intent intent = new Intent();
+										intent.setClass(HomePageActivity.this,
+												EnvironmentListActivity.class);
+										startActivityForResult(intent, 1);
+									}
+								});
+
+						// /這邊要加
+						TextView feedTextView = (TextView) findViewById(R.id.recordTextView);
+						feedTextView.setOnClickListener(new OnClickListener() {
+							@Override
+							public void onClick(View v) {
+								Intent intent = new Intent();
+								intent.setClass(HomePageActivity.this,
+										SelectFoodsActivity.class);
+								startActivityForResult(intent, 1);
+							}
+						});
 					}
 				});
-				
-
-				TextView environmentTextView = (TextView) findViewById(R.id.settingTextView);
-				environmentTextView.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						Intent intent = new Intent();
-						intent.setClass(HomePageActivity.this, EnvironmentListActivity.class);
-						startActivityForResult(intent, 1);
-					}
-				});
-				
-
-				///這邊要加
-				TextView feedTextView = (TextView) findViewById(R.id.recordTextView);
-				feedTextView.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						Intent intent = new Intent();
-						intent.setClass(HomePageActivity.this, SelectFoodsActivity.class);
-						startActivityForResult(intent, 1);
-					}
-				});
-			}
-		});
-
 
 		ImageButton petButton = (ImageButton) findViewById(R.id.mainPagePetImageButton);
 		petButton.setOnClickListener(new OnClickListener() {
@@ -76,18 +79,18 @@ public class HomePageActivity extends Activity {
 				pet.setGender("公");
 				pet.setBirthday(new Date());
 				intent.putExtra("Pet", pet);
-				intent.putExtra("showPrevious", "true");			
+				intent.putExtra("showPrevious", "true");
 
 				startActivityForResult(intent, 1);
 			}
 		});
 
-
 		ImageButton addPetImageButton = (ImageButton) findViewById(R.id.mainPageAddPetButton);
 		addPetImageButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(HomePageActivity.this, PetActivity.class);
+				Intent intent = new Intent(HomePageActivity.this,
+						PetActivity.class);
 				startActivity(intent);
 			}
 		});

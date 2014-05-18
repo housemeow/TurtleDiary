@@ -4,9 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Pet implements Serializable {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -8068643934876264258L;
 	private int pid;
 	private String name;
