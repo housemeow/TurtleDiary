@@ -57,6 +57,7 @@ public class EnvironmentActivity extends Activity
 		}
 		else 
 		{
+			// call GetEenvironmentsCount() API
 			state = SET;
 		}
         RefreshView();
@@ -139,11 +140,6 @@ public class EnvironmentActivity extends Activity
         switch (item.getItemId()) 
         {
             case R.id.environmentActivityEditActionButton:
-            	//Intent intent = new Intent();
-    			//intent.setClass(EnvironmentInformationActivity.this, EnvironmentModifyActivity.class);
-    			//intent.putExtra("title", "Àô¹Ò­×§ï");
-    			//intent.putExtra("buttonName", "­×§ï");
-    			//startActivity(intent);
             	state = EDIT;
             	RefreshView();
                 return true;
@@ -158,6 +154,7 @@ public class EnvironmentActivity extends Activity
 		@Override
 		public void onClick(View view) 
 		{
+			// call AddEnvironment(environment) API
 			Intent intent = new Intent();
 			intent.setClass(EnvironmentActivity.this, AddPetActivity.class);
 			startActivity(intent);
@@ -170,6 +167,7 @@ public class EnvironmentActivity extends Activity
 		@Override
 		public void onClick(View view) 
 		{
+			// call AddEnvironment(environment) API
 			Intent intent = new Intent();
 			intent.setClass(EnvironmentActivity.this, EnvironmentListActivity.class);
 			startActivity(intent);
@@ -192,6 +190,7 @@ public class EnvironmentActivity extends Activity
 		@Override
 		public void onClick(View view) 
 		{
+			// call EditEnvironment(environment) API
 			Intent intent = new Intent();
 			intent.setClass(EnvironmentActivity.this, EnvironmentListActivity.class);
 			startActivity(intent);
