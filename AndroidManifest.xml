@@ -27,8 +27,6 @@
         </activity>
         <activity android:name="com.td.turtlediary.ReportActivity" >
         </activity>
-        <activity android:name="com.td.turtlediary.AllocateFoodActivity" >
-        </activity>
         <activity android:name="com.td.turtlediary.SelectFoodsActivity" >
         </activity>
         <activity

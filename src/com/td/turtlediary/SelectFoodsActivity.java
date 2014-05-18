@@ -26,7 +26,7 @@ public class SelectFoodsActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(SelectFoodsActivity.this, AllocateFoodActivity.class);
+				Intent intent = new Intent(SelectFoodsActivity.this, HomePageActivity.class);
 				
 				intent.putExtra("title", "環境新增");
 				intent.putExtra("buttonName", "新增");
