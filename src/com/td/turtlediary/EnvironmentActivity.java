@@ -155,7 +155,7 @@ public class EnvironmentActivity extends Activity
 		{
 			// call AddEnvironment(environment) API
 			Intent intent = new Intent();
-			intent.setClass(EnvironmentActivity.this, AddPetActivity.class);
+			intent.setClass(EnvironmentActivity.this, PetActivity.class);
 			startActivity(intent);
 		}
     };
