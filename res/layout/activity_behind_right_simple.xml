@@ -14,6 +14,6 @@
         <TextView
             android:id="@+id/settingTextView"
             style="@style/behindMenuItemLabel"
-            android:text="環境設定" />
+                       android:text="環境設定" />
     </LinearLayout>
 </ScrollView>

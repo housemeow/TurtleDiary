@@ -5,9 +5,9 @@ public class Type {
 	private String name;
 	private String image;
 	private String description;
-	private int recommondFood1;
-	private int recommondFood2;
-	private int recommondFood3;
+	private int recommendFood1;
+	private int recommendFood2;
+	private int recommendFood3;
 
 	public int getTid() {
 		return tid;
@@ -42,26 +42,26 @@ public class Type {
 	}
 
 	public int getRecommondFood1() {
-		return recommondFood1;
+		return recommendFood1;
 	}
 
 	public void setRecommondFood1(int recommondFood1) {
-		this.recommondFood1 = recommondFood1;
+		this.recommendFood1 = recommondFood1;
 	}
 
 	public int getRecommondFood2() {
-		return recommondFood2;
+		return recommendFood2;
 	}
 
 	public void setRecommondFood2(int recommondFood2) {
-		this.recommondFood2 = recommondFood2;
+		this.recommendFood2 = recommondFood2;
 	}
 
 	public int getRecommondFood3() {
-		return recommondFood3;
+		return recommendFood3;
 	}
 
 	public void setRecommondFood3(int recommondFood3) {
-		this.recommondFood3 = recommondFood3;
+		this.recommendFood3 = recommondFood3;
 	}
 }

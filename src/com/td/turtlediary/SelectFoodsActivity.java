@@ -17,17 +17,18 @@ public class SelectFoodsActivity extends Activity {
 		setContentView(R.layout.activity_select_foods);
 		this.setTitle("選擇食物");
 
-		Button feedButton = (Button)findViewById(R.id.selectFoodsFeedButton);
+		Button feedButton = (Button) findViewById(R.id.selectFoodsFeedButton);
 		feedButton.setOnClickListener(getFeedFoodsButtonOnClickListener());
 	}
 
 	private OnClickListener getFeedFoodsButtonOnClickListener() {
-		OnClickListener listener = new OnClickListener(){
+		OnClickListener listener = new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(SelectFoodsActivity.this, HomePageActivity.class);
-				
+				Intent intent = new Intent(SelectFoodsActivity.this,
+						HomePageActivity.class);
+
 				intent.putExtra("title", "環境新增");
 				intent.putExtra("buttonName", "新增");
 				startActivity(intent);

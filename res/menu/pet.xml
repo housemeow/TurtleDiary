@@ -1,7 +1,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <item android:id="@+id/petActivityEditActionButton"
-          android:icon="@drawable/edit"
-          android:showAsAction = "ifRoom" />
+    <item
+        android:id="@+id/petActivityEditActionButton"
+        android:icon="@drawable/edit"
+        android:showAsAction="ifRoom"/>
 
 </menu>
