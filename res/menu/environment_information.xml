@@ -8,6 +8,6 @@
         android:title="@string/action_settings"/>
     
     <item android:id="@+id/environmentInformationActivityModifyActionButton"
-          android:icon="@drawable/modify"
+          android:icon="@drawable/edit"
           android:showAsAction = "ifRoom" />
 </menu>

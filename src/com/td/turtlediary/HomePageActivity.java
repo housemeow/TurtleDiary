@@ -1,5 +1,7 @@
 package com.td.turtlediary;
 
+import java.util.Date;
+
 import com.navdrawer.SimpleSideDrawer;
 import com.td.models.Pet;
 
@@ -69,7 +71,13 @@ public class HomePageActivity extends Activity {
 			public void onClick(View v) {
 				Intent intent = new Intent();
 				intent.setClass(HomePageActivity.this, OptionActivity.class);
-				intent.putExtra("showPrevious", "true");
+				Pet pet = new Pet();
+				pet.setName("Turtle");
+				pet.setGender("公");
+				pet.setBirthday(new Date());
+				intent.putExtra("Pet", pet);
+				intent.putExtra("showPrevious", "true");			
+
 				startActivityForResult(intent, 1);
 			}
 		});
