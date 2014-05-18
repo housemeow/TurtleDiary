@@ -1,6 +1,8 @@
 package com.td.turtlediary;
 
 import com.navdrawer.SimpleSideDrawer;
+import com.td.models.Pet;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -77,10 +79,8 @@ public class HomePageActivity extends Activity {
 		addPetImageButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent();
-				intent.setClass(HomePageActivity.this, AddPetActivity.class);
-				intent.putExtra("showPrevious", "true");
-				startActivityForResult(intent, 1);
+				Intent intent = new Intent(HomePageActivity.this, PetActivity.class);
+				startActivity(intent);
 			}
 		});
 	}

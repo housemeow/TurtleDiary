@@ -124,7 +124,7 @@ public class PetActivity extends ActionBarActivity {
 			nextButton.setVisibility(View.INVISIBLE);
 			addButton.setVisibility(View.INVISIBLE);
 			editButton.setVisibility(View.INVISIBLE);
-			restoreButton.setVisibility(View.VISIBLE);
+			restoreButton.setVisibility(View.INVISIBLE);
 			break;
 		}
 	}
