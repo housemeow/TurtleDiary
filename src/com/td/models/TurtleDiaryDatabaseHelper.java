@@ -159,4 +159,8 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper
 	{
 		measureLogDao.create(measureLog);
 	}
+
+	public List<Type> getTypes() {
+		return typeDao.queryForAll();
+	}
 }

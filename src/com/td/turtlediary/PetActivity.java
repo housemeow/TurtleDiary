@@ -1,10 +1,14 @@
 package com.td.turtlediary;
 
 import java.util.Date;
+import java.util.List;
 
+import com.j256.ormlite.field.DatabaseField;
 import com.td.models.Environment;
 import com.td.models.Pet;
 import com.td.models.TurtleDiaryDB;
+import com.td.models.TurtleDiaryDatabaseHelper;
+import com.td.models.Type;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -23,6 +27,7 @@ import android.widget.Spinner;
 
 public class PetActivity extends Activity {
 	TurtleDiaryDB turtleDiary = new TurtleDiaryDB();
+	TurtleDiaryDatabaseHelper turtleDiaryHelper = new TurtleDiaryDatabaseHelper(this);
 	Pet nowPet;
 	PetActivityState nowState;
 	private MenuItem menuItem;
@@ -83,14 +88,19 @@ public class PetActivity extends Activity {
 			// name
 			petNameEditText.setText("");
 			petNameEditText.setEnabled(true);
+			turtleDiaryHelper.getPets();
 			// type
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+			
+			List<Type> types = turtleDiaryHelper.getTypes();
+			ArrayAdapter adapter = new ArrayAdapter(this,
 					android.R.layout.simple_dropdown_item_1line,
-					turtleDiary.GetTypes());
+					types);
 			petTypeSpinner.setAdapter(adapter);
 			petTypeSpinner.setEnabled(true);
 			// gender
-			genderRadioGroup.setEnabled(true);
+			for (int i = 0; i < genderRadioGroup.getChildCount(); i++) {
+				genderRadioGroup.getChildAt(i).setEnabled(true);
+			}
 			// environment
 			adapter = new ArrayAdapter<String>(this,
 					android.R.layout.simple_dropdown_item_1line,
@@ -105,7 +115,9 @@ public class PetActivity extends Activity {
 		case Edit:
 			petNameEditText.setEnabled(true);
 			petTypeSpinner.setEnabled(true);
-			genderRadioGroup.setEnabled(true);
+			for (int i = 0; i < genderRadioGroup.getChildCount(); i++) {
+				genderRadioGroup.getChildAt(i).setEnabled(true);
+			}
 			environmentSpinner.setEnabled(true);
 			birthdayEditText.setEnabled(true);
 			break;
@@ -120,7 +132,9 @@ public class PetActivity extends Activity {
 			petTypeSpinner.setAdapter(adapter);
 			petTypeSpinner.setEnabled(false);
 			// gender
-			genderRadioGroup.setEnabled(false);
+			for (int i = 0; i < genderRadioGroup.getChildCount(); i++) {
+				genderRadioGroup.getChildAt(i).setEnabled(false);
+			}
 			// environment
 			adapter = new ArrayAdapter<String>(this,
 					android.R.layout.simple_dropdown_item_1line,
@@ -192,13 +206,23 @@ public class PetActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Pet pet = new Pet();
-				Environment environment = (Environment) getIntent().getSerializableExtra("environment");
+				pet.setName(petNameEditText.getText().toString());
+				pet.setBirthday(new Date());
+
+				int selectedId = genderRadioGroup.getCheckedRadioButtonId();
+				RadioButton selectedRadioButton = (RadioButton) findViewById(selectedId);
+				pet.setGender(selectedRadioButton.getText().toString());
+
+				String type = petTypeSpinner.getSelectedItem().toString();
+				 
+
+				Environment environment = (Environment) getIntent()
+						.getSerializableExtra("environment");
 				pet.setEid(environment.getEid());
 				turtleDiary.AddPet(pet);
 				turtleDiary.AddEnvironment(environment);
 				Intent intent = new Intent();
-				
-				
+
 				intent.setClass(PetActivity.this, HomePageActivity.class);
 				EnvironmentActivity.finishByOtherActivity();
 				startActivity(intent);
