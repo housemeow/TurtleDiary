@@ -41,8 +41,8 @@ public class OptionActivity extends Activity {
 					public void onClick(View v) {
 						Intent intent = new Intent();
 						intent.setClass(OptionActivity.this, PetActivity.class);
-						Pet pet = (Pet) getIntent().getSerializableExtra("Pet");
-						intent.putExtra("Pet", pet);
+						Pet pet = (Pet) getIntent().getSerializableExtra("pet");
+						intent.putExtra("pet", pet);
 						startActivity(intent);
 					}
 				});

@@ -91,7 +91,7 @@ public class HomePageActivity extends Activity {
 				pet.setName("Turtle");
 				pet.setGender("公");
 				pet.setBirthday(new Date());
-				intent.putExtra("Pet", pet);
+				intent.putExtra("pet", pet);
 				intent.putExtra("showPrevious", "true");
 
 				startActivityForResult(intent, 1);

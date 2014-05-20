@@ -31,4 +31,12 @@ public class TurtleDiaryDB {
 	public void ChangePet(Pet pet) {
 	}
 
+	public void AddEnvironment(Environment environment) {
+
+	}
+
+	public int getEnvironmentCount() {
+		return 0;
+	}
+
 }

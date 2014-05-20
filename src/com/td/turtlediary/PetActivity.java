@@ -2,6 +2,7 @@ package com.td.turtlediary;
 
 import java.util.Date;
 
+import com.td.models.Environment;
 import com.td.models.Pet;
 import com.td.models.TurtleDiaryDB;
 
@@ -45,7 +46,7 @@ public class PetActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_pet);
 
-		nowPet = (Pet) getIntent().getSerializableExtra("Pet");
+		nowPet = (Pet) getIntent().getSerializableExtra("pet");
 		if (turtleDiary.GetPetCount() == 0) {
 			changeState(PetActivityState.FirstAdd);
 		} else if (nowPet == null) {
@@ -191,8 +192,13 @@ public class PetActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Pet pet = new Pet();
+				Environment environment = (Environment) getIntent().getSerializableExtra("environment");
+				pet.setEid(environment.getEid());
 				turtleDiary.AddPet(pet);
+				turtleDiary.AddEnvironment(environment);
 				Intent intent = new Intent();
+				
+				
 				intent.setClass(PetActivity.this, HomePageActivity.class);
 				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

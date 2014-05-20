@@ -1,5 +1,8 @@
 package com.td.turtlediary;
 
+import com.td.models.Environment;
+import com.td.models.TurtleDiaryDB;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +12,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class EnvironmentActivity extends Activity {
+public class EnvironmentActivity extends Activity {	
+	TurtleDiaryDB turtleDiary = new TurtleDiaryDB();
+
 	private String state = new String("");
 	private String SET = new String("set");
 	private String ADD = new String("add");
@@ -63,9 +68,15 @@ public class EnvironmentActivity extends Activity {
 				environmentActivityEnvironmentNameEditText
 						.setText(environmentName);
 			}
-		} else {
+		} else if(turtleDiary.getEnvironmentCount()==0){
 			// call GetEenvironmentsCount() API
 			state = SET;
+		}else
+		{
+			intent = new Intent();
+			intent.setClass(EnvironmentActivity.this, HomePageActivity.class);
+			startActivity(intent);
+			finish();
 		}
 		RefreshView();
 	}
@@ -146,10 +157,11 @@ public class EnvironmentActivity extends Activity {
 		@Override
 		public void onClick(View view) {
 			// call AddEnvironment(environment) API
+			Environment environment = new Environment();
 			Intent intent = new Intent();
+			intent.putExtra("environment", environment);
 			intent.setClass(EnvironmentActivity.this, PetActivity.class);
 			startActivity(intent);
-			finish();
 		}
 	};
 
