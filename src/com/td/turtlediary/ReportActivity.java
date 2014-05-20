@@ -35,10 +35,10 @@ public class ReportActivity extends Activity {
 		WData[1] = new GraphViewData(2, 0.74d);
 		WData[2] = new GraphViewData(3, 0.84d);
 		WData[3] = new GraphViewData(4, 0.9d);
-		createFingernailChart();
+		createNutritionChart();
 	}
 
-	public void createFingernailChart() {
+	public void createShellLengthChart() {
 		layout.removeAllViews();
 		GraphViewSeries FSeries = new GraphViewSeries(FData);
 		GraphView graphView = new LineGraphView(this, "");
@@ -71,7 +71,7 @@ public class ReportActivity extends Activity {
 		layout.addView(graphView);
 	}
 
-	public void createFingernailAndWeightChart() {
+	public void createJacksonRatioChart() {
 		layout.removeAllViews();
 		GraphViewSeries FSeries = new GraphViewSeries("甲長",
 				new GraphViewSeriesStyle(Color.MAGENTA, 1), FData);
@@ -136,20 +136,17 @@ public class ReportActivity extends Activity {
 		// Handle presses on the action bar items
 		this.setTitle(item.getTitle());
 		switch (item.getItemId()) {
-		case R.id.favorite_food:
-			createFavoriteFoodChart();
-			return super.onOptionsItemSelected(item);
-		case R.id.fingernail:
-			createFingernailChart();
-			return super.onOptionsItemSelected(item);
-		case R.id.fingernail_weight:
-			createFingernailAndWeightChart();
-			return super.onOptionsItemSelected(item);
 		case R.id.nutrition:
 			createNutritionChart();
 			return super.onOptionsItemSelected(item);
+		case R.id.shellLength:
+			createShellLengthChart();
+			return super.onOptionsItemSelected(item);
 		case R.id.weight:
 			createWeightChart();
+			return super.onOptionsItemSelected(item);
+		case R.id.jacksonRatio:
+			createJacksonRatioChart();
 			return super.onOptionsItemSelected(item);
 		default:
 			return super.onOptionsItemSelected(item);

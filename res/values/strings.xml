@@ -60,5 +60,6 @@
     <string name="feed">餵食</string>
     <string name="title_activity_measure">MeasureActivity</string>
     <string name="measure">測量</string>
+    <string name="jacksonRatio">傑克森量表</string>
 
 </resources>
