@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.j256.ormlite.field.DatabaseField;
 import com.td.models.Environment;
 import com.td.models.Pet;
 import com.td.models.TurtleDiaryDatabaseHelper;
@@ -13,7 +12,6 @@ import com.td.models.Type;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.SyncStateContract.Helpers;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
@@ -91,9 +89,9 @@ public class PetActivity extends Activity {
 			petNameEditText.setEnabled(true);
 
 			List<Type> types = turtleDiaryHelper.getTypes();
-			ArrayAdapter adapter = new ArrayAdapter(this,
+			ArrayAdapter<Type> typeAdapter = new ArrayAdapter<Type>(this,
 					android.R.layout.simple_dropdown_item_1line, types);
-			petTypeSpinner.setAdapter(adapter);
+			petTypeSpinner.setAdapter(typeAdapter);
 			petTypeSpinner.setEnabled(true);
 			// gender
 			for (int i = 0; i < genderRadioGroup.getChildCount(); i++) {
@@ -105,9 +103,10 @@ public class PetActivity extends Activity {
 			ArrayList<Environment> environments = new ArrayList<Environment>();
 			environments.add(environment);
 
-			adapter = new ArrayAdapter(this,
-					android.R.layout.simple_dropdown_item_1line, environments);
-			environmentSpinner.setAdapter(adapter);
+			ArrayAdapter<Environment> environmentAdapter = new ArrayAdapter<Environment>(
+					this, android.R.layout.simple_dropdown_item_1line,
+					environments);
+			environmentSpinner.setAdapter(environmentAdapter);
 			// birthday
 			birthdayEditText.setEnabled(true);
 			break;
@@ -128,10 +127,10 @@ public class PetActivity extends Activity {
 			petNameEditText.setText(nowPet.getName());
 			petNameEditText.setEnabled(false);
 			// type
-			ArrayAdapter adapter = new ArrayAdapter(this,
+			ArrayAdapter<Type> typeAdapter = new ArrayAdapter<Type>(this,
 					android.R.layout.simple_dropdown_item_1line,
 					turtleDiaryHelper.getTypes());
-			petTypeSpinner.setAdapter(adapter);
+			petTypeSpinner.setAdapter(typeAdapter);
 			petTypeSpinner.setEnabled(false);
 			// gender
 			for (int i = 0; i < genderRadioGroup.getChildCount(); i++) {
@@ -143,10 +142,10 @@ public class PetActivity extends Activity {
 			}
 
 			// environment
-			adapter = new ArrayAdapter(this,
-					android.R.layout.simple_dropdown_item_1line,
+			ArrayAdapter<Environment> environmentAdapter = new ArrayAdapter<Environment>(
+					this, android.R.layout.simple_dropdown_item_1line,
 					turtleDiaryHelper.getEnvironments());
-			environmentSpinner.setAdapter(adapter);
+			environmentSpinner.setAdapter(environmentAdapter);
 			environmentSpinner.setEnabled(false);
 			// birthday
 			if (nowPet.getBirthday() != null) {

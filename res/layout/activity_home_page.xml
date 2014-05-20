@@ -4,7 +4,7 @@
     android:layout_height="fill_parent" >
 
     <ImageButton
-        android:id="@+id/mainPageMenuButton"
+        android:id="@+id/homePageMenuButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -14,7 +14,7 @@
         android:src="@drawable/three_line" />
 
     <ImageButton
-        android:id="@+id/mainPageAddPetButton"
+        android:id="@+id/homePageAddPetButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -23,21 +23,18 @@
         android:contentDescription="@string/app_name"
         android:src="@android:drawable/ic_menu_add" />
 
-    <ImageButton
-        android:id="@+id/mainPagePetImageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:contentDescription="@string/app_name"
-        android:scaleType="centerInside"
-        android:src="@drawable/cfd9079d" />
-
+		  <android.support.v4.view.ViewPager
+		      android:id="@+id/homePagePetViewPager"
+		      android:layout_width="match_parent"
+		      android:layout_height="match_parent"
+		      android:layout_above="@+id/homePageAddPetButton"
+		      android:layout_below="@+id/homePageMenuButton" />
+    
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/homePagePetNameEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/mainPageMenuButton"
+        android:layout_alignBottom="@+id/homePageMenuButton"
         android:layout_centerHorizontal="true"
         android:text="@string/dynamicGenerate"
         android:textAppearance="?android:attr/textAppearanceLarge"

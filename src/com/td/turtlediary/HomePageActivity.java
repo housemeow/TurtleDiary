@@ -1,15 +1,10 @@
 package com.td.turtlediary;
 
-import java.util.Date;
-import java.util.List;
-
 import com.navdrawer.SimpleSideDrawer;
-import com.td.models.Pet;
-import com.td.models.TurtleDiaryDatabaseHelper;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
@@ -18,7 +13,6 @@ import android.widget.TextView;
 public class HomePageActivity extends Activity {
 
 	private SimpleSideDrawer mNav;
-	private TurtleDiaryDatabaseHelper helper = new TurtleDiaryDatabaseHelper(this);
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -28,7 +22,14 @@ public class HomePageActivity extends Activity {
 
 		mNav.setRightBehindContentView(R.layout.activity_behind_right_simple);
 
-		findViewById(R.id.mainPageMenuButton).setOnClickListener(
+
+	    ViewPager viewPager = (ViewPager) findViewById(R.id.homePagePetViewPager);
+	    ImageAdapter adapter = new ImageAdapter(this);
+	    
+	    viewPager.setAdapter(adapter);
+		
+		
+		findViewById(R.id.homePageMenuButton).setOnClickListener(
 				new OnClickListener() {
 					@Override
 					public void onClick(View v) {
@@ -41,7 +42,7 @@ public class HomePageActivity extends Activity {
 										Intent intent = new Intent();
 										intent.setClass(HomePageActivity.this,
 												ReportActivity.class);
-										startActivityForResult(intent, 1);
+										startActivity(intent);
 									}
 								});
 
@@ -53,7 +54,7 @@ public class HomePageActivity extends Activity {
 										Intent intent = new Intent();
 										intent.setClass(HomePageActivity.this,
 												EnvironmentListActivity.class);
-										startActivityForResult(intent, 1);
+										startActivity(intent);
 									}
 								});
 
@@ -65,7 +66,7 @@ public class HomePageActivity extends Activity {
 								Intent intent = new Intent();
 								intent.setClass(HomePageActivity.this,
 										SelectFoodsActivity.class);
-								startActivityForResult(intent, 1);
+								startActivity(intent);
 							}
 						});
 
@@ -78,30 +79,13 @@ public class HomePageActivity extends Activity {
 								Intent intent = new Intent();
 								intent.setClass(HomePageActivity.this,
 										MeasureActivity.class);
-								startActivityForResult(intent, 1);
+								startActivity(intent);
 							}
 						});
 					}
 				});
 
-		ImageButton petButton = (ImageButton) findViewById(R.id.mainPagePetImageButton);
-		petButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent();
-				intent.setClass(HomePageActivity.this, OptionActivity.class);
-				
-				List<Pet> pets =  helper.getPets(); 
-				
-				Pet pet = pets.get(0);
-				intent.putExtra("pet", pet);
-				intent.putExtra("showPrevious", "true");
-
-				startActivityForResult(intent, 1);
-			}
-		});
-
-		ImageButton addPetImageButton = (ImageButton) findViewById(R.id.mainPageAddPetButton);
+		ImageButton addPetImageButton = (ImageButton) findViewById(R.id.homePageAddPetButton);
 		addPetImageButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
