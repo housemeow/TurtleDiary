@@ -140,7 +140,7 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper
 	}
 	
 	// Environment get
-	public Environment getEenvironment(int eid) throws SQLException
+	public Environment getEnvironment(int eid) throws SQLException
 	{
 		Environment environment = getEnvironmentDao().queryForId(eid);
 		return environment;
@@ -155,9 +155,7 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper
 	// Environment get count
 	public int getEnvironmentsCount() throws SQLException
 	{
-		int environmentCount = 0;
-		getEnvironmentDao().queryForAll().size();
-		return environmentCount;
+		return getEnvironmentDao().queryForAll().size();
 	}
 	
 	// Environment get all

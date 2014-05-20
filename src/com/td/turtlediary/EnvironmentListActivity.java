@@ -17,13 +17,29 @@ import android.widget.ListView;
 public class EnvironmentListActivity extends Activity {
 	private ListView environmentListActivityEnvironmentListView;
 	private Button environmentListActivityNewEnvironmentButton;
-	String[] environments = new String[] { "環境1", "環境2" };
 	private TurtleDiaryDatabaseHelper turtleDiaryDatabaseHelper = new TurtleDiaryDatabaseHelper(this);
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_environment_list);
+	}
+
+	private Button.OnClickListener clickEnvironmentListActivityNewEnvironmentButton = new Button.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			Intent intent = new Intent();
+			intent.setClass(EnvironmentListActivity.this,
+					EnvironmentActivity.class);
+			intent.putExtra("state", "add");
+			startActivity(intent);
+		}
+	};
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
 		// set title
 		this.setTitle("環境清單");
 		// GET list view
@@ -40,27 +56,16 @@ public class EnvironmentListActivity extends Activity {
 				.setOnClickListener(clickEnvironmentListActivityNewEnvironmentButton);
 	}
 
-	private Button.OnClickListener clickEnvironmentListActivityNewEnvironmentButton = new Button.OnClickListener() {
-		@Override
-		public void onClick(View v) {
-			Intent intent = new Intent();
-			intent.setClass(EnvironmentListActivity.this,
-					EnvironmentActivity.class);
-			intent.putExtra("state", "add");
-			startActivity(intent);
-		}
-	};
-
 	private ListView.OnItemClickListener clickItemOnListView = new ListView.OnItemClickListener() {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View v, int position,
 				long arg3) {
-			Environment environment = (Environment) environmentListActivityEnvironmentListView.getSelectedItem();
+			Environment environment = (Environment) parent.getItemAtPosition(position);
 			Intent intent = new Intent();
 			intent.setClass(EnvironmentListActivity.this,
 					EnvironmentActivity.class);
 			intent.putExtra("state", "view");
-			intent.putExtra("environmentId",
+			intent.putExtra("environmentEid",
 					environment.getEid());
 			startActivity(intent);
 		}
