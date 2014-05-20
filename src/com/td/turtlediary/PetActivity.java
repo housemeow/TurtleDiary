@@ -200,8 +200,7 @@ public class PetActivity extends Activity {
 				
 				
 				intent.setClass(PetActivity.this, HomePageActivity.class);
-				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				EnvironmentActivity.finishByOtherActivity();
 				startActivity(intent);
 				finish();
 			}
