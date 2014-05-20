@@ -1,5 +1,7 @@
 package com.td.models;
 
+import java.util.List;
+
 import android.content.Context;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -55,33 +57,106 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper
 	{
 		try
 		{
-			// TableUtils.dropTable(connectionSource, Environment.class, true);
 			onCreate( db, connectionSource);
 		} 
 		catch (SQLException e) 
 		{
 			throw new RuntimeException(e);
-		} 
-		/*
-		catch (java.sql.SQLException e) 
-		{
-			e.printStackTrace();
 		}
-		*/
 	}
 	
-	public RuntimeExceptionDao<Environment, Integer> getEnvironmentDao() throws SQLException
+	// Pet add
+	public void addPet(Pet pet) throws SQLException
 	{
-		if (null == environmentDao) 
-		{
-			environmentDao = getRuntimeExceptionDao(Environment.class);
-		}
-		return environmentDao;
+		petDao.create(pet);
 	}
 	
+	// Pet get
+	public Pet getPet(int pid) throws SQLException
+	{
+		Pet pet = petDao.queryForId(pid);
+		return pet;
+	}
+	
+	// Pet update
+	public void updatePet(Pet pet) throws SQLException
+	{
+		petDao.update(pet);
+	}
+	
+	// Pet get all
+	public List<Pet> getPets() throws SQLException
+	{
+		return petDao.queryForAll();
+	}
+	
+	// Type get
+	public Type getType(int tid) throws SQLException
+	{
+		Type type = typeDao.queryForId(tid);
+		return type;
+	}
+	
+	// Environment add
 	public void addEnvironment(Environment environment) throws SQLException
 	{
-		RuntimeExceptionDao<Environment, Integer> dao = getEnvironmentDao();
-		dao.create(environment);
+		environmentDao.create(environment);
+	}
+	
+	// Environment get
+	public Environment getEenvironment(int eid) throws SQLException
+	{
+		Environment environment = environmentDao.queryForId(eid);
+		return environment;
+	}
+	
+	// Environment update
+	public void updateEnvironment(Environment environment) throws SQLException
+	{
+		environmentDao.update(environment);
+	}
+	
+	// Environment get count
+	public int getEenvironmentsCount() throws SQLException
+	{
+		int environmentCount = 0;
+		environmentDao.queryForAll().size();
+		return environmentCount;
+	}
+	
+	// Environment get all
+	public List<Environment> getEenvironments() throws SQLException
+	{
+		return environmentDao.queryForAll();
+	}
+	
+	// Food get all
+	public List<Food> getFoods() throws SQLException
+	{
+		return foodDao.queryForAll();
+	}
+	
+	// FeedLog add
+	public void addFeedLog(FeedLog feedLog) throws SQLException
+	{
+		feedLogDao.create(feedLog);
+	}
+	
+	// FeedLogContainFood add
+	public void addFeedLogContainFood(FeedLogContainFood feedLogContainFood) throws SQLException
+	{
+		feedLogContainFoodDao.create(feedLogContainFood);
+	}
+	
+	// HealthyLog add
+	public void addHealthyLog(HealthyLog healthyLog) throws SQLException
+	{
+		healthyLogDao.create(healthyLog);
+	}
+	
+	// MeasureLog add
+	public void addMeasureLog(MeasureLog measureLog) throws SQLException
+	{
+		measureLogDao.create(measureLog);
 	}
 }
