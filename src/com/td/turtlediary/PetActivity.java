@@ -27,7 +27,8 @@ import android.widget.Spinner;
 
 public class PetActivity extends Activity {
 	TurtleDiaryDB turtleDiary = new TurtleDiaryDB();
-	TurtleDiaryDatabaseHelper turtleDiaryHelper = new TurtleDiaryDatabaseHelper(this);
+	TurtleDiaryDatabaseHelper turtleDiaryHelper = new TurtleDiaryDatabaseHelper(
+			this);
 	Pet nowPet;
 	PetActivityState nowState;
 	private MenuItem menuItem;
@@ -88,13 +89,10 @@ public class PetActivity extends Activity {
 			// name
 			petNameEditText.setText("");
 			petNameEditText.setEnabled(true);
-			turtleDiaryHelper.getPets();
-			// type
-			
+
 			List<Type> types = turtleDiaryHelper.getTypes();
 			ArrayAdapter adapter = new ArrayAdapter(this,
-					android.R.layout.simple_dropdown_item_1line,
-					types);
+					android.R.layout.simple_dropdown_item_1line, types);
 			petTypeSpinner.setAdapter(adapter);
 			petTypeSpinner.setEnabled(true);
 			// gender
@@ -214,7 +212,6 @@ public class PetActivity extends Activity {
 				pet.setGender(selectedRadioButton.getText().toString());
 
 				String type = petTypeSpinner.getSelectedItem().toString();
-				 
 
 				Environment environment = (Environment) getIntent()
 						.getSerializableExtra("environment");

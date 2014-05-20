@@ -16,7 +16,7 @@ public class Pet implements Serializable
 	private int tid;
 	@DatabaseField
 	private Date birthday;
-	@DatabaseField
+	//@DatabaseField
 	private byte[] image;
 	@DatabaseField
 	private int eid;

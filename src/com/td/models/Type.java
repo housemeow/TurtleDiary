@@ -5,12 +5,17 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable
 public class Type 
 {
+	@Override
+	public String toString() {
+		return name;
+	}
+
 	@DatabaseField(generatedId = true)
 	private int tid;
 	@DatabaseField
 	private String name;
-	@DatabaseField
-	private byte[] image;
+//	@DatabaseField
+//	private byte[] image;
 	@DatabaseField
 	private String description;
 	@DatabaseField
@@ -34,15 +39,15 @@ public class Type
 		this.tid = tid;
 	}
 
-	public byte[] getImage() 
-	{
-		return image;
-	}
-
-	public void setImage(byte[] image) 
-	{
-		this.image = image;
-	}
+//	public byte[] getImage() 
+//	{
+//		return image;
+//	}
+//
+//	public void setImage(byte[] image) 
+//	{
+//		this.image = image;
+//	}
 
 	public String getName() 
 	{

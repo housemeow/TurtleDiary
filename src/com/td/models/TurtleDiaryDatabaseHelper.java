@@ -36,6 +36,13 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper
 		{
 			TableUtils.createTable(connectionSource, Pet.class);
 			TableUtils.createTable(connectionSource, Type.class);
+			Type type = new Type();
+			type.setName("印度星龜");
+			getTypeDao().create(type);
+			type = new Type();
+			type.setName("緬甸星龜");
+			getTypeDao().create(type);
+			
 			TableUtils.createTable(connectionSource, Environment.class);
 			TableUtils.createTable(connectionSource, Food.class);
 			TableUtils.createTable(connectionSource, FeedLog.class);
@@ -221,7 +228,7 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper
 	// HealthyLog add
 	public void addHealthyLog(HealthyLog healthyLog) throws SQLException
 	{
-		healthyLogDao.create(healthyLog);
+		getHealthyLogDao().create(healthyLog);
 	}
 	
 	// MeasureLog get dao
@@ -237,10 +244,10 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper
 	// MeasureLog add
 	public void addMeasureLog(MeasureLog measureLog) throws SQLException
 	{
-		measureLogDao.create(measureLog);
+		getMeasureLogDao().create(measureLog);
 	}
 
 	public List<Type> getTypes() {
-		return typeDao.queryForAll();
+		return getTypeDao().queryForAll();
 	}
 }
