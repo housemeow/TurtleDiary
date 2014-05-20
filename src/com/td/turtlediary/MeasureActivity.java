@@ -1,12 +1,18 @@
 package com.td.turtlediary;
 
+import java.util.Date;
+
+import com.td.models.MeasureLog;
+import com.td.models.Pet;
+import com.td.models.TurtleDiaryDatabaseHelper;
+
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 
 public class MeasureActivity extends Activity {
 
@@ -24,29 +30,18 @@ public class MeasureActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// Add add measure API
+				EditText shellLengthEditText = (EditText) findViewById(R.id.measureActivityShellLengthEditText);
+				EditText weightEditText = (EditText)findViewById(R.id.measureActivityWeightEditText);
+				MeasureLog measureLog = new MeasureLog();
+				measureLog.setLength(Double.parseDouble(shellLengthEditText.getText().toString()));
+				measureLog.setWeight(Double.parseDouble(weightEditText.getText().toString()));
+				measureLog.setPid(((Pet)getIntent().getSerializableExtra("pet")).getPid());
+				measureLog.setTimeStamp(new Date());
+				TurtleDiaryDatabaseHelper helper = new TurtleDiaryDatabaseHelper(MeasureActivity.this);
+				helper.addMeasureLog(measureLog);
+				Log.i("measureLog", measureLog.getMid()+"");
 				finish();
 			}
 		};
 	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.measure, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
 }
