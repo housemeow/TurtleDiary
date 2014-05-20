@@ -1,7 +1,7 @@
 package com.td.turtlediary;
 
 import com.td.models.Environment;
-import com.td.models.TurtleDiaryDB;
+import com.td.models.TurtleDiaryDatabaseHelper;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,13 +15,13 @@ import android.widget.EditText;
 public class EnvironmentActivity extends Activity {	
 	private static EnvironmentActivity activity;
 
-	TurtleDiaryDB turtleDiary = new TurtleDiaryDB();
 
 	private String state = new String("");
 	private String SET = new String("set");
 	private String ADD = new String("add");
 	private String VIEW = new String("view");
 	private String EDIT = new String("edit");
+	private TurtleDiaryDatabaseHelper turtleDiaryDatabaseHelper = new TurtleDiaryDatabaseHelper(this);
 	private Button environmentActivityNextButton, environmentActivityAddButton,
 			environmentActivityRecoverButton, environmentActivityEditButton;
 	private EditText environmentActivityEnvironmentNameEditText,
@@ -71,7 +71,7 @@ public class EnvironmentActivity extends Activity {
 				environmentActivityEnvironmentNameEditText
 						.setText(environmentName);
 			}
-		} else if(turtleDiary.getEnvironmentCount()==0){
+		} else if(turtleDiaryDatabaseHelper.getEnvironmentsCount()==0){
 			// call GetEenvironmentsCount() API
 			state = SET;
 		}else

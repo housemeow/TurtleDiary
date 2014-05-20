@@ -7,6 +7,11 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable
 public class Pet implements Serializable 
 {
+	@Override
+	public String toString() {
+		return name;
+	}
+	
 	private static final long serialVersionUID = -8068643934876264258L;
 	@DatabaseField(generatedId = true)
 	private int pid;

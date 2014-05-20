@@ -13,7 +13,6 @@ import com.j256.ormlite.table.TableUtils;
 
 public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper 
 {
-
 	private static final String DATABASE_NAME = "turtleDiary.db";
 	private static final int DATABASE_VERSION = 1;
 	private RuntimeExceptionDao<Pet, Integer> petDao = null;
@@ -154,7 +153,7 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper
 	}
 	
 	// Environment get count
-	public int getEenvironmentsCount() throws SQLException
+	public int getEnvironmentsCount() throws SQLException
 	{
 		int environmentCount = 0;
 		getEnvironmentDao().queryForAll().size();
@@ -162,7 +161,7 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper
 	}
 	
 	// Environment get all
-	public List<Environment> getEenvironments() throws SQLException
+	public List<Environment> getEnvironments() throws SQLException
 	{
 		return getEnvironmentDao().queryForAll();
 	}

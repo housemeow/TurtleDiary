@@ -6,6 +6,11 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable
 public class Food implements Serializable
 {
+	@Override
+	public String toString() {
+		return name;
+	}
+	
 	private static final long serialVersionUID = -594085769965941949L;
 	@DatabaseField(generatedId = true)
 	private int fid;

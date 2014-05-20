@@ -6,6 +6,11 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable
 public class Environment implements Serializable
 {
+	@Override
+	public String toString() {
+		return name;
+	}
+	
 	private static final long serialVersionUID = 4827056782735085782L;
 	@DatabaseField(generatedId = true)
 	private int eid;
