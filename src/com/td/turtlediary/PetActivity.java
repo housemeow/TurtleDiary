@@ -1,5 +1,6 @@
 package com.td.turtlediary;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -98,6 +99,11 @@ public class PetActivity extends Activity {
 				genderRadioGroup.getChildAt(i).setEnabled(true);
 			}
 			// environment
+			Environment environment = (Environment) getIntent()
+					.getSerializableExtra("environment");
+			ArrayList<Environment> environments = new ArrayList<Environment>();
+			environments.add(environment);
+
 			adapter = new ArrayAdapter(this,
 					android.R.layout.simple_dropdown_item_1line,
 					turtleDiaryHelper.getEnvironments());
@@ -209,13 +215,14 @@ public class PetActivity extends Activity {
 				RadioButton selectedRadioButton = (RadioButton) findViewById(selectedId);
 				pet.setGender(selectedRadioButton.getText().toString());
 
-				String type = petTypeSpinner.getSelectedItem().toString();
+				Type type = (Type) petTypeSpinner.getSelectedItem();
 
 				Environment environment = (Environment) getIntent()
 						.getSerializableExtra("environment");
 				pet.setEid(environment.getEid());
-				turtleDiaryHelper.addPet(pet);
+				pet.setTid(type.getTid());
 				turtleDiaryHelper.addEnvironment(environment);
+				turtleDiaryHelper.addPet(pet);
 				Intent intent = new Intent();
 
 				intent.setClass(PetActivity.this, HomePageActivity.class);
