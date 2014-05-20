@@ -38,7 +38,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="PetActivity"></activity>
+        <activity android:name="com.td.turtlediary.PetActivity" >
+        </activity>
+        <activity
+            android:name="com.td.turtlediary.MeasureActivity"
+            android:label="@string/title_activity_measure" >
+        </activity>
     </application>
 
 </manifest>

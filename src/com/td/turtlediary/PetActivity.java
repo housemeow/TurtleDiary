@@ -215,6 +215,7 @@ public class PetActivity extends Activity {
 
 	private OnClickListener getEditButtonOnClickListener() {
 		return new OnClickListener() {
+			@SuppressWarnings("deprecation")
 			@Override
 			public void onClick(View v) {
 				nowPet.setName(petNameEditText.getText().toString());
