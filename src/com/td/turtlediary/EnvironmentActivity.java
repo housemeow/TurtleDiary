@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class EnvironmentActivity extends Activity {	
+	private static EnvironmentActivity activity;
+
 	TurtleDiaryDB turtleDiary = new TurtleDiaryDB();
 
 	private String state = new String("");
@@ -34,6 +36,7 @@ public class EnvironmentActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		activity = this;
 		setContentView(R.layout.activity_environment);
 		// get edit text id
 		environmentActivityEnvironmentNameEditText = (EditText) findViewById(R.id.environmentActivityEnvironmentNameEditText);
@@ -189,5 +192,13 @@ public class EnvironmentActivity extends Activity {
 			// call EditEnvironment(environment) API
 		}
 	};
+
+	public static void finishByOtherActivity() {
+		if(activity!=null)
+		{
+			activity.finish();
+			activity = null;
+		}
+	}
 
 }
