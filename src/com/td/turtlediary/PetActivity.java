@@ -277,9 +277,9 @@ public class PetActivity extends Activity {
 
 				Environment environment = (Environment) getIntent()
 						.getSerializableExtra("environment");
+				turtleDiaryHelper.addEnvironment(environment);
 				pet.setEid(environment.getEid());
 				pet.setTid(type.getTid());
-				turtleDiaryHelper.addEnvironment(environment);
 				turtleDiaryHelper.addPet(pet);
 				Intent intent = new Intent();
 

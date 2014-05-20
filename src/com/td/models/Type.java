@@ -28,7 +28,7 @@ public class Type {
 	@DatabaseField
 	private String name;
 	// @DatabaseField
-	// private byte[] image;
+	private byte[] image;
 	@DatabaseField
 	private String description;
 	@DatabaseField
@@ -49,15 +49,13 @@ public class Type {
 		this.tid = tid;
 	}
 
-	// public byte[] getImage()
-	// {
-	// return image;
-	// }
-	//
-	// public void setImage(byte[] image)
-	// {
-	// this.image = image;
-	// }
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
 
 	public String getName() {
 		return name;
