@@ -28,8 +28,8 @@ public class EnvironmentActivity extends Activity {
 			environmentActivityLengthEditText,
 			environmentActivityWidthEditText,
 			environmentActivityHeightEditText,
-			environmentActivityEnvironmentHotPointEditText,
-			environmentActivityEnvironmentLowPointEditText,
+			environmentActivityHotPointEditText,
+			environmentActivityLowPointEditText,
 			environmentActivityMaxHumidityEditText,
 			environmentActivityMinHumidityEditText;
 
@@ -43,8 +43,8 @@ public class EnvironmentActivity extends Activity {
 		environmentActivityLengthEditText = (EditText) findViewById(R.id.environmentActivityLengthEditText);
 		environmentActivityWidthEditText = (EditText) findViewById(R.id.environmentActivityWidthEditText);
 		environmentActivityHeightEditText = (EditText) findViewById(R.id.environmentActivityHeightEditText);
-		environmentActivityEnvironmentHotPointEditText = (EditText) findViewById(R.id.environmentActivityEnvironmentHotPointEditText);
-		environmentActivityEnvironmentLowPointEditText = (EditText) findViewById(R.id.environmentActivityEnvironmentLowPointEditText);
+		environmentActivityHotPointEditText = (EditText) findViewById(R.id.environmentActivityHotPointEditText);
+		environmentActivityLowPointEditText = (EditText) findViewById(R.id.environmentActivityLowPointEditText);
 		environmentActivityMaxHumidityEditText = (EditText) findViewById(R.id.environmentActivityMaxHumidityEditText);
 		environmentActivityMinHumidityEditText = (EditText) findViewById(R.id.environmentActivityMinHumidityEditText);
 		// get button component id
@@ -122,8 +122,8 @@ public class EnvironmentActivity extends Activity {
 		environmentActivityLengthEditText.setEnabled(isEnable);
 		environmentActivityWidthEditText.setEnabled(isEnable);
 		environmentActivityHeightEditText.setEnabled(isEnable);
-		environmentActivityEnvironmentHotPointEditText.setEnabled(isEnable);
-		environmentActivityEnvironmentLowPointEditText.setEnabled(isEnable);
+		environmentActivityHotPointEditText.setEnabled(isEnable);
+		environmentActivityLowPointEditText.setEnabled(isEnable);
 		environmentActivityMaxHumidityEditText.setEnabled(isEnable);
 		environmentActivityMinHumidityEditText.setEnabled(isEnable);
 	}
@@ -161,6 +161,14 @@ public class EnvironmentActivity extends Activity {
 		public void onClick(View view) {
 			// call AddEnvironment(environment) API
 			Environment environment = new Environment();
+			environment.setName(environmentActivityEnvironmentNameEditText.getText().toString());
+			environment.setLength(Integer.parseInt(environmentActivityLengthEditText.getText().toString()));
+			environment.setWidth(Integer.parseInt(environmentActivityWidthEditText.getText().toString()));
+			environment.setHeight(Integer.parseInt(environmentActivityHeightEditText.getText().toString()));
+			environment.setHotPoint(Double.parseDouble(environmentActivityHotPointEditText.getText().toString()));
+			environment.setLowPoint(Double.parseDouble(environmentActivityLowPointEditText.getText().toString()));
+			environment.setMaxHumidity(Integer.parseInt(environmentActivityMaxHumidityEditText.getText().toString()));
+			environment.setMinHumidity(Integer.parseInt(environmentActivityMinHumidityEditText.getText().toString()));
 			Intent intent = new Intent();
 			intent.putExtra("environment", environment);
 			intent.setClass(EnvironmentActivity.this, PetActivity.class);
@@ -200,5 +208,4 @@ public class EnvironmentActivity extends Activity {
 			activity = null;
 		}
 	}
-
 }

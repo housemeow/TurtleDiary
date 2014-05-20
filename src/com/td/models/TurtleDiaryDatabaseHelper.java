@@ -65,81 +65,141 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper
 		}
 	}
 	
+	// Pet get dao
+	public RuntimeExceptionDao<Pet, Integer> getPetDao() throws SQLException
+	{
+		if (null == petDao) 
+		{
+			petDao = getRuntimeExceptionDao(Pet.class);
+		}
+		return petDao;
+	}
+	
 	// Pet add
 	public void addPet(Pet pet) throws SQLException
 	{
-		petDao.create(pet);
+		getPetDao().create(pet);
 	}
 	
 	// Pet get
 	public Pet getPet(int pid) throws SQLException
 	{
-		Pet pet = petDao.queryForId(pid);
+		Pet pet = getPetDao().queryForId(pid);
 		return pet;
 	}
 	
 	// Pet update
 	public void updatePet(Pet pet) throws SQLException
 	{
-		petDao.update(pet);
+		getPetDao().update(pet);
 	}
 	
 	// Pet get all
 	public List<Pet> getPets() throws SQLException
 	{
-		return petDao.queryForAll();
+		return getPetDao().queryForAll();
+	}
+	
+	// Type get dao
+	public RuntimeExceptionDao<Type, Integer> getTypeDao() throws SQLException
+	{
+		if (null == typeDao) 
+		{
+			typeDao = getRuntimeExceptionDao(Type.class);
+		}
+		return typeDao;
 	}
 	
 	// Type get
 	public Type getType(int tid) throws SQLException
 	{
-		Type type = typeDao.queryForId(tid);
+		Type type = getTypeDao().queryForId(tid);
 		return type;
+	}
+	
+	// Environment get dao
+	public RuntimeExceptionDao<Environment, Integer> getEnvironmentDao() throws SQLException
+	{
+		if (null == environmentDao) 
+		{
+			environmentDao = getRuntimeExceptionDao(Environment.class);
+		}
+		return environmentDao;
 	}
 	
 	// Environment add
 	public void addEnvironment(Environment environment) throws SQLException
 	{
-		environmentDao.create(environment);
+		getEnvironmentDao().create(environment);
 	}
 	
 	// Environment get
 	public Environment getEenvironment(int eid) throws SQLException
 	{
-		Environment environment = environmentDao.queryForId(eid);
+		Environment environment = getEnvironmentDao().queryForId(eid);
 		return environment;
 	}
 	
 	// Environment update
 	public void updateEnvironment(Environment environment) throws SQLException
 	{
-		environmentDao.update(environment);
+		getEnvironmentDao().update(environment);
 	}
 	
 	// Environment get count
 	public int getEenvironmentsCount() throws SQLException
 	{
 		int environmentCount = 0;
-		environmentDao.queryForAll().size();
+		getEnvironmentDao().queryForAll().size();
 		return environmentCount;
 	}
 	
 	// Environment get all
 	public List<Environment> getEenvironments() throws SQLException
 	{
-		return environmentDao.queryForAll();
+		return getEnvironmentDao().queryForAll();
+	}
+	
+	// Food get dao
+	public RuntimeExceptionDao<Food, Integer> getFoodDao() throws SQLException
+	{
+		if (null == foodDao) 
+		{
+			foodDao = getRuntimeExceptionDao(Food.class);
+		}
+		return foodDao;
 	}
 	
 	// Food get all
 	public List<Food> getFoods() throws SQLException
 	{
-		return foodDao.queryForAll();
+		return getFoodDao().queryForAll();
+	}
+	
+	// FeedLog get dao
+	public RuntimeExceptionDao<FeedLog, Integer> getFeedLogDao() throws SQLException
+	{
+		if (null == feedLogDao) 
+		{
+			feedLogDao = getRuntimeExceptionDao(FeedLog.class);
+		}
+		return feedLogDao;
 	}
 	
 	// FeedLog add
 	public void addFeedLog(FeedLog feedLog) throws SQLException
 	{
-		feedLogDao.create(feedLog);
+		getFeedLogDao().create(feedLog);
+	}
+	
+	// FeedLogContainFood get dao
+	public RuntimeExceptionDao<FeedLogContainFood, Integer> getFeedLogContainFoodDao() throws SQLException
+	{
+		if (null == feedLogContainFoodDao) 
+		{
+			feedLogContainFoodDao = getRuntimeExceptionDao(FeedLogContainFood.class);
+		}
+		return feedLogContainFoodDao;
 	}
 	
 	// FeedLogContainFood add
@@ -148,10 +208,30 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper
 		feedLogContainFoodDao.create(feedLogContainFood);
 	}
 	
+	// HealthyLog get dao
+	public RuntimeExceptionDao<HealthyLog, Integer> getHealthyLogDao() throws SQLException
+	{
+		if (null == healthyLogDao) 
+		{
+			healthyLogDao = getRuntimeExceptionDao(HealthyLog.class);
+		}
+		return healthyLogDao;
+	}
+	
 	// HealthyLog add
 	public void addHealthyLog(HealthyLog healthyLog) throws SQLException
 	{
 		healthyLogDao.create(healthyLog);
+	}
+	
+	// MeasureLog get dao
+	public RuntimeExceptionDao<MeasureLog, Integer> getMeasureLogDao() throws SQLException
+	{
+		if (null == measureLogDao) 
+		{
+			measureLogDao = getRuntimeExceptionDao(MeasureLog.class);
+		}
+		return measureLogDao;
 	}
 	
 	// MeasureLog add
