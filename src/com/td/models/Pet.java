@@ -1,72 +1,103 @@
 package com.td.models;
-
 import java.io.Serializable;
 import java.util.Date;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
-public class Pet implements Serializable {
+@DatabaseTable
+public class Pet implements Serializable 
+{
 	private static final long serialVersionUID = -8068643934876264258L;
+	@DatabaseField(generatedId = true)
 	private int pid;
+	@DatabaseField
 	private String name;
+	@DatabaseField
 	private int tid;
+	@DatabaseField
 	private Date birthday;
-	private String privateimage;
+	@DatabaseField
+	private byte[] image;
+	@DatabaseField
 	private int eid;
+	@DatabaseField
 	private String gender;
 
-	public int getPid() {
+	public Pet() 
+	{
+	}
+	
+	public Pet(String name) 
+	{
+		this.name = name;
+	}
+	
+	public int getPid() 
+	{
 		return pid;
 	}
 
-	public void setPid(int pid) {
+	public void setPid(int pid) 
+	{
 		this.pid = pid;
 	}
 
-	public String getName() {
+	public String getName() 
+	{
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(String name) 
+	{
 		this.name = name;
 	}
 
-	public Date getBirthday() {
+	public Date getBirthday() 
+	{
 		return birthday;
 	}
 
-	public void setBirthday(Date birthday) {
+	public void setBirthday(Date birthday) 
+	{
 		this.birthday = birthday;
 	}
-
-	public String getPrivateimage() {
-		return privateimage;
-	}
-
-	public void setPrivateimage(String privateimage) {
-		this.privateimage = privateimage;
-	}
-
-	public int getEid() {
+	public int getEid() 
+	{
 		return eid;
 	}
+	
+	public byte[] getImage() 
+	{
+		return image;
+	}
 
-	public void setEid(int eid) {
+	public void setImage(byte[] image) 
+	{
+		this.image = image;
+	}
+
+	public void setEid(int eid) 
+	{
 		this.eid = eid;
 	}
 
-	public int getTid() {
+	public int getTid() 
+	{
 		return tid;
 	}
 
-	public void setTid(int tid) {
+	public void setTid(int tid) 
+	{
 		this.tid = tid;
 	}
 
-	public String getGender() {
+	public String getGender() 
+	{
 		return gender;
 	}
 
-	public void setGender(String gender) {
+	public void setGender(String gender) 
+	{
 		this.gender = gender;
 	}
-
 }
