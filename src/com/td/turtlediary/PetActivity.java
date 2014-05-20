@@ -180,9 +180,7 @@ public class PetActivity extends Activity {
 			public void onClick(View v) {
 				Pet pet = new Pet();
 				turtleDiary.AddPet(pet);
-				Intent intent = new Intent();
-				intent.setClass(PetActivity.this, HomePageActivity.class);
-				startActivity(intent);
+				finish();
 			}
 		};
 	}
@@ -215,6 +213,7 @@ public class PetActivity extends Activity {
 
 	private OnClickListener getEditButtonOnClickListener() {
 		return new OnClickListener() {
+			@SuppressWarnings("deprecation")
 			@Override
 			public void onClick(View v) {
 				nowPet.setName(petNameEditText.getText().toString());

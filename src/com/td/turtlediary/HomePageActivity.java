@@ -65,6 +65,19 @@ public class HomePageActivity extends Activity {
 								startActivityForResult(intent, 1);
 							}
 						});
+
+
+						// /這邊要加
+						TextView measureTextView = (TextView) findViewById(R.id.measureTextView);
+						measureTextView.setOnClickListener(new OnClickListener() {
+							@Override
+							public void onClick(View v) {
+								Intent intent = new Intent();
+								intent.setClass(HomePageActivity.this,
+										MeasureActivity.class);
+								startActivityForResult(intent, 1);
+							}
+						});
 					}
 				});
 

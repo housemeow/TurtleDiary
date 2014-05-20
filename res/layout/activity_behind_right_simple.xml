@@ -21,6 +21,11 @@
             android:text="@string/environmentSetting"
             android:textSize="20sp" />
 
+        <TextView
+            android:id="@+id/measureTextView"
+            style="@style/behindMenuItemLabel"
+            android:text="@string/measure"
+            android:textSize="20sp" />
     </LinearLayout>
 
 </ScrollView>

@@ -158,10 +158,7 @@ public class EnvironmentActivity extends Activity {
 		@Override
 		public void onClick(View view) {
 			// call AddEnvironment(environment) API
-			Intent intent = new Intent();
-			intent.setClass(EnvironmentActivity.this,
-					EnvironmentListActivity.class);
-			startActivity(intent);
+			finish();
 		}
 	};
 

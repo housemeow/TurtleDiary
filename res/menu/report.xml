@@ -6,9 +6,9 @@
         android:title="@string/nutrition">
     </item>
     <item
-        android:id="@+id/favorite_food"
+        android:id="@+id/shellLength"
         android:orderInCategory="100"
-        android:title="@string/recommendFood">
+        android:title="@string/shellLength">
     </item>
     <item
         android:id="@+id/weight"
@@ -16,14 +16,9 @@
         android:title="@string/weight">
     </item>
     <item
-        android:id="@+id/fingernail"
+        android:id="@+id/jacksonRatio"
         android:orderInCategory="100"
-        android:title="@string/recommendFood">
-    </item>
-    <item
-        android:id="@+id/fingernail_weight"
-        android:orderInCategory="100"
-        android:title="@string/shellLengthAndWeight">
+        android:title="@string/jacksonRatio">
     </item>
 
 </menu>
