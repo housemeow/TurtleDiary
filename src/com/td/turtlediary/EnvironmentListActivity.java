@@ -1,5 +1,9 @@
 package com.td.turtlediary;
 
+import com.td.models.Environment;
+import com.td.models.TurtleDiaryDatabaseHelper;
+import com.td.models.Type;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +18,8 @@ public class EnvironmentListActivity extends Activity {
 	private ListView environmentListActivityEnvironmentListView;
 	private Button environmentListActivityNewEnvironmentButton;
 	String[] environments = new String[] { "環境1", "環境2" };
-
+	private TurtleDiaryDatabaseHelper turtleDiaryDatabaseHelper = new TurtleDiaryDatabaseHelper(this);
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -24,9 +29,8 @@ public class EnvironmentListActivity extends Activity {
 		// GET list view
 		environmentListActivityEnvironmentListView = (ListView) findViewById(R.id.environmentListActivityEnvironmentListView);
 		environmentListActivityNewEnvironmentButton = (Button) findViewById(R.id.environmentListActivityNewEnvironmentButton);
-		//
-		ArrayAdapter<String> adapterEnvironments = new ArrayAdapter<String>(
-				this, android.R.layout.simple_list_item_1, environments);
+		ArrayAdapter adapterEnvironments = new ArrayAdapter(
+				this, android.R.layout.simple_list_item_1, turtleDiaryDatabaseHelper.getEnvironments());
 		environmentListActivityEnvironmentListView
 				.setAdapter(adapterEnvironments);
 		// set listener
@@ -51,12 +55,13 @@ public class EnvironmentListActivity extends Activity {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View v, int position,
 				long arg3) {
+			Environment environment = (Environment) environmentListActivityEnvironmentListView.getSelectedItem();
 			Intent intent = new Intent();
 			intent.setClass(EnvironmentListActivity.this,
 					EnvironmentActivity.class);
 			intent.putExtra("state", "view");
-			intent.putExtra("environmentName",
-					parent.getItemAtPosition(position).toString());
+			intent.putExtra("environmentId",
+					environment.getEid());
 			startActivity(intent);
 		}
 	};

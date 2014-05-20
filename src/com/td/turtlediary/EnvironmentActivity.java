@@ -21,6 +21,7 @@ public class EnvironmentActivity extends Activity {
 	private String ADD = new String("add");
 	private String VIEW = new String("view");
 	private String EDIT = new String("edit");
+	private int eid;
 	private TurtleDiaryDatabaseHelper turtleDiaryDatabaseHelper = new TurtleDiaryDatabaseHelper(this);
 	private Button environmentActivityNextButton, environmentActivityAddButton,
 			environmentActivityRecoverButton, environmentActivityEditButton;
@@ -62,14 +63,12 @@ public class EnvironmentActivity extends Activity {
 		environmentActivityEditButton
 				.setOnClickListener(clickEnvironmentActivityEditButton);
 		// get intent
+		eid = -1;
 		Intent intent = getIntent();
 		if (intent.hasExtra("state")) {
 			state = intent.getStringExtra("state");
 			if (state.equals(VIEW)) {
-				String environmentName = intent
-						.getStringExtra("environmentName");
-				environmentActivityEnvironmentNameEditText
-						.setText(environmentName);
+				eid = intent.getIntExtra("environmentEid", -1);
 			}
 		} else if(turtleDiaryDatabaseHelper.getEnvironmentsCount()==0){
 			// call GetEenvironmentsCount() API
@@ -92,6 +91,7 @@ public class EnvironmentActivity extends Activity {
 			environmentActivityNextButton.setVisibility(View.INVISIBLE);
 			environmentActivityRecoverButton.setVisibility(View.INVISIBLE);
 			environmentActivityEditButton.setVisibility(View.INVISIBLE);
+			ClearEditText();
 			SetEditTextEnable(true);
 		} else if (state.equals(VIEW)) {
 			this.setTitle("環境資訊");
@@ -99,6 +99,7 @@ public class EnvironmentActivity extends Activity {
 			environmentActivityNextButton.setVisibility(View.INVISIBLE);
 			environmentActivityRecoverButton.setVisibility(View.INVISIBLE);
 			environmentActivityEditButton.setVisibility(View.INVISIBLE);
+			SetEditTextContentFromDB();
 			SetEditTextEnable(false);
 		} else if (state.equals(EDIT)) {
 			this.setTitle("修改環境");
@@ -106,6 +107,7 @@ public class EnvironmentActivity extends Activity {
 			environmentActivityNextButton.setVisibility(View.INVISIBLE);
 			environmentActivityRecoverButton.setVisibility(View.VISIBLE);
 			environmentActivityEditButton.setVisibility(View.VISIBLE);
+			SetEditTextContentFromDB();
 			SetEditTextEnable(true);
 		} else if (state.equals(SET)) {
 			this.setTitle("設定環境");
@@ -113,6 +115,7 @@ public class EnvironmentActivity extends Activity {
 			environmentActivityNextButton.setVisibility(View.VISIBLE);
 			environmentActivityRecoverButton.setVisibility(View.INVISIBLE);
 			environmentActivityEditButton.setVisibility(View.INVISIBLE);
+			ClearEditText();
 			SetEditTextEnable(true);
 		}
 	}
@@ -126,6 +129,48 @@ public class EnvironmentActivity extends Activity {
 		environmentActivityLowPointEditText.setEnabled(isEnable);
 		environmentActivityMaxHumidityEditText.setEnabled(isEnable);
 		environmentActivityMinHumidityEditText.setEnabled(isEnable);
+	}
+	
+	private void ClearEditText()
+	{
+		environmentActivityEnvironmentNameEditText.setText("");
+		environmentActivityLengthEditText.setText("");
+		environmentActivityWidthEditText.setText("");
+		environmentActivityHeightEditText.setText("");
+		environmentActivityHotPointEditText.setText("");
+		environmentActivityLowPointEditText.setText("");
+		environmentActivityMaxHumidityEditText.setText("");
+		environmentActivityMinHumidityEditText.setText("");
+	}
+	
+	private void SetEditTextContentFromDB()
+	{
+		if (eid > 0)
+		{
+			Environment environment = turtleDiaryDatabaseHelper.getEenvironment(eid); 
+			environmentActivityEnvironmentNameEditText.setText(environment.getName());
+			environmentActivityLengthEditText.setText(environment.getLength() + "");
+			environmentActivityWidthEditText.setText(environment.getWidth() + "");
+			environmentActivityHeightEditText.setText(environment.getHeight() + "");
+			environmentActivityHotPointEditText.setText(environment.getHotPoint() + "");
+			environmentActivityLowPointEditText.setText(environment.getLowPoint() + "");
+			environmentActivityMaxHumidityEditText.setText(environment.getMaxHumidity() + "");
+			environmentActivityMinHumidityEditText.setText(environment.getMinHumidity() + "");
+		}
+	}
+	
+	public Environment GetEnvironmentFromEditText()
+	{
+		Environment environment = new Environment();
+		environment.setName(environmentActivityEnvironmentNameEditText.getText().toString());
+		environment.setLength(Integer.parseInt(environmentActivityLengthEditText.getText().toString()));
+		environment.setWidth(Integer.parseInt(environmentActivityWidthEditText.getText().toString()));
+		environment.setHeight(Integer.parseInt(environmentActivityHeightEditText.getText().toString()));
+		environment.setHotPoint(Double.parseDouble(environmentActivityHotPointEditText.getText().toString()));
+		environment.setLowPoint(Double.parseDouble(environmentActivityLowPointEditText.getText().toString()));
+		environment.setMaxHumidity(Integer.parseInt(environmentActivityMaxHumidityEditText.getText().toString()));
+		environment.setMinHumidity(Integer.parseInt(environmentActivityMinHumidityEditText.getText().toString()));
+		return environment;
 	}
 
 	@Override
@@ -159,18 +204,8 @@ public class EnvironmentActivity extends Activity {
 	private Button.OnClickListener clickEnvironmentActivityNextButton = new Button.OnClickListener() {
 		@Override
 		public void onClick(View view) {
-			// call AddEnvironment(environment) API
-			Environment environment = new Environment();
-			environment.setName(environmentActivityEnvironmentNameEditText.getText().toString());
-			environment.setLength(Integer.parseInt(environmentActivityLengthEditText.getText().toString()));
-			environment.setWidth(Integer.parseInt(environmentActivityWidthEditText.getText().toString()));
-			environment.setHeight(Integer.parseInt(environmentActivityHeightEditText.getText().toString()));
-			environment.setHotPoint(Double.parseDouble(environmentActivityHotPointEditText.getText().toString()));
-			environment.setLowPoint(Double.parseDouble(environmentActivityLowPointEditText.getText().toString()));
-			environment.setMaxHumidity(Integer.parseInt(environmentActivityMaxHumidityEditText.getText().toString()));
-			environment.setMinHumidity(Integer.parseInt(environmentActivityMinHumidityEditText.getText().toString()));
 			Intent intent = new Intent();
-			intent.putExtra("environment", environment);
+			intent.putExtra("environment", GetEnvironmentFromEditText());
 			intent.setClass(EnvironmentActivity.this, PetActivity.class);
 			startActivity(intent);
 		}
@@ -180,7 +215,7 @@ public class EnvironmentActivity extends Activity {
 	private Button.OnClickListener clickEnvironmentActivityAddButton = new Button.OnClickListener() {
 		@Override
 		public void onClick(View view) {
-			// call AddEnvironment(environment) API
+			turtleDiaryDatabaseHelper.addEnvironment(GetEnvironmentFromEditText());
 			finish();
 		}
 	};
@@ -189,7 +224,8 @@ public class EnvironmentActivity extends Activity {
 	private Button.OnClickListener clickEnvironmentActivityRecoverButton = new Button.OnClickListener() {
 		@Override
 		public void onClick(View view) {
-			// call GetEnvironment() API
+			state = VIEW;
+			RefreshView();
 		}
 	};
 
@@ -198,6 +234,9 @@ public class EnvironmentActivity extends Activity {
 		@Override
 		public void onClick(View view) {
 			// call EditEnvironment(environment) API
+			turtleDiaryDatabaseHelper.updateEnvironment(GetEnvironmentFromEditText());
+			state = VIEW;
+			RefreshView();
 		}
 	};
 
