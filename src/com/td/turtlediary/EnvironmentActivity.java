@@ -147,7 +147,7 @@ public class EnvironmentActivity extends Activity {
 	{
 		if (eid > 0)
 		{
-			Environment environment = turtleDiaryDatabaseHelper.getEenvironment(eid); 
+			Environment environment = turtleDiaryDatabaseHelper.getEnvironment(eid); 
 			environmentActivityEnvironmentNameEditText.setText(environment.getName());
 			environmentActivityLengthEditText.setText(environment.getLength() + "");
 			environmentActivityWidthEditText.setText(environment.getWidth() + "");
@@ -162,6 +162,7 @@ public class EnvironmentActivity extends Activity {
 	public Environment GetEnvironmentFromEditText()
 	{
 		Environment environment = new Environment();
+		environment.setEid(eid);
 		environment.setName(environmentActivityEnvironmentNameEditText.getText().toString());
 		environment.setLength(Integer.parseInt(environmentActivityLengthEditText.getText().toString()));
 		environment.setWidth(Integer.parseInt(environmentActivityWidthEditText.getText().toString()));

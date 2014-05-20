@@ -40,6 +40,11 @@ public class Environment implements Serializable
 		this.name = name;
 	}
 	
+	public void setEid(int eid) 
+	{
+		this.eid = eid;
+	}
+	
 	public int getEid() 
 	{
 		return eid;
