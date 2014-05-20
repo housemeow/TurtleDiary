@@ -13,6 +13,7 @@ import com.td.models.Type;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.SyncStateContract.Helpers;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
@@ -105,8 +106,7 @@ public class PetActivity extends Activity {
 			environments.add(environment);
 
 			adapter = new ArrayAdapter(this,
-					android.R.layout.simple_dropdown_item_1line,
-					environments);
+					android.R.layout.simple_dropdown_item_1line, environments);
 			environmentSpinner.setAdapter(adapter);
 			// birthday
 			birthdayEditText.setEnabled(true);
@@ -135,14 +135,19 @@ public class PetActivity extends Activity {
 			petTypeSpinner.setEnabled(false);
 			// gender
 			for (int i = 0; i < genderRadioGroup.getChildCount(); i++) {
+				RadioButton radioButton = (RadioButton) genderRadioGroup
+						.getChildAt(i);
 				genderRadioGroup.getChildAt(i).setEnabled(false);
+				String gender = radioButton.getText().toString();
+				radioButton.setChecked(gender.equals(nowPet.getGender()));
 			}
+
 			// environment
 			adapter = new ArrayAdapter(this,
 					android.R.layout.simple_dropdown_item_1line,
 					turtleDiaryHelper.getEnvironments());
 			environmentSpinner.setAdapter(adapter);
-			environmentSpinner.setEnabled(true);
+			environmentSpinner.setEnabled(false);
 			// birthday
 			if (nowPet.getBirthday() != null) {
 				birthdayEditText.setText(nowPet.getBirthday().toString());

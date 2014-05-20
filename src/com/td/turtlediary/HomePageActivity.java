@@ -1,9 +1,11 @@
 package com.td.turtlediary;
 
 import java.util.Date;
+import java.util.List;
 
 import com.navdrawer.SimpleSideDrawer;
 import com.td.models.Pet;
+import com.td.models.TurtleDiaryDatabaseHelper;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -16,7 +18,8 @@ import android.widget.TextView;
 public class HomePageActivity extends Activity {
 
 	private SimpleSideDrawer mNav;
-
+	private TurtleDiaryDatabaseHelper helper = new TurtleDiaryDatabaseHelper(this);
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -87,10 +90,10 @@ public class HomePageActivity extends Activity {
 			public void onClick(View v) {
 				Intent intent = new Intent();
 				intent.setClass(HomePageActivity.this, OptionActivity.class);
-				Pet pet = new Pet();
-				pet.setName("Turtle");
-				pet.setGender("公");
-				pet.setBirthday(new Date());
+				
+				List<Pet> pets =  helper.getPets(); 
+				
+				Pet pet = pets.get(0);
 				intent.putExtra("pet", pet);
 				intent.putExtra("showPrevious", "true");
 
