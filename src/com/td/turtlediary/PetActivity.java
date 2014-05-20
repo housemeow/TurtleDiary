@@ -51,6 +51,9 @@ public class PetActivity extends Activity {
 		setContentView(R.layout.activity_pet);
 
 		nowPet = (Pet) getIntent().getSerializableExtra("pet");
+		if (nowPet != null) {
+			nowPet = turtleDiaryHelper.getPet(nowPet.getPid());
+		}
 		if (turtleDiaryHelper.getEnvironmentsCount() == 0) {
 			changeState(PetActivityState.FirstAdd);
 		} else if (nowPet == null) {
@@ -82,21 +85,23 @@ public class PetActivity extends Activity {
 		genderRadioGroup = (RadioGroup) findViewById(R.id.petActivityGenderRadioGroup);
 		environmentSpinner = (Spinner) findViewById(R.id.petActivityEnvironmentSpinner);
 		birthdayEditText = (EditText) findViewById(R.id.petActivityBirthdayEditText);
+
 		switch (state) {
 		case FirstAdd: {
 			// name
 			petNameEditText.setText("");
 			petNameEditText.setEnabled(true);
-
-			List<Type> types = turtleDiaryHelper.getTypes();
-			ArrayAdapter<Type> typeAdapter = new ArrayAdapter<Type>(this,
-					android.R.layout.simple_dropdown_item_1line, types);
-			petTypeSpinner.setAdapter(typeAdapter);
 			petTypeSpinner.setEnabled(true);
 			// gender
 			for (int i = 0; i < genderRadioGroup.getChildCount(); i++) {
 				genderRadioGroup.getChildAt(i).setEnabled(true);
 			}
+			// type
+			List<Type> types = turtleDiaryHelper.getTypes();
+			ArrayAdapter<Type> typeAdapter = new ArrayAdapter<Type>(this,
+					android.R.layout.simple_dropdown_item_1line, types);
+			petTypeSpinner.setAdapter(typeAdapter);
+
 			// environment
 			Environment environment = (Environment) getIntent()
 					.getSerializableExtra("environment");
@@ -111,8 +116,20 @@ public class PetActivity extends Activity {
 			birthdayEditText.setEnabled(true);
 			break;
 		}
-		case Add:
+		case Add: {
+			// type
+			List<Type> types = turtleDiaryHelper.getTypes();
+			ArrayAdapter<Type> typeAdapter = new ArrayAdapter<Type>(this,
+					android.R.layout.simple_dropdown_item_1line, types);
+			petTypeSpinner.setAdapter(typeAdapter);
+			// environment
+			ArrayAdapter<Environment> environmentAdapter = new ArrayAdapter<Environment>(
+					this, android.R.layout.simple_dropdown_item_1line,
+					turtleDiaryHelper.getEnvironments());
+			environmentSpinner.setAdapter(environmentAdapter);
+
 			break;
+		}
 		case Edit:
 			petNameEditText.setEnabled(true);
 			petTypeSpinner.setEnabled(true);
@@ -126,12 +143,23 @@ public class PetActivity extends Activity {
 			// name
 			petNameEditText.setText(nowPet.getName());
 			petNameEditText.setEnabled(false);
+
 			// type
+			List<Type> types = turtleDiaryHelper.getTypes();
 			ArrayAdapter<Type> typeAdapter = new ArrayAdapter<Type>(this,
-					android.R.layout.simple_dropdown_item_1line,
-					turtleDiaryHelper.getTypes());
+					android.R.layout.simple_dropdown_item_1line, types);
 			petTypeSpinner.setAdapter(typeAdapter);
 			petTypeSpinner.setEnabled(false);
+			Type type = turtleDiaryHelper.getType(nowPet.getTid());
+			int index = 0;
+			for (Type t : types) {
+				if (t.equals(type)) {
+					break;
+				}
+				index++;
+			}
+
+			petTypeSpinner.setSelection(index);
 			// gender
 			for (int i = 0; i < genderRadioGroup.getChildCount(); i++) {
 				RadioButton radioButton = (RadioButton) genderRadioGroup
@@ -142,11 +170,24 @@ public class PetActivity extends Activity {
 			}
 
 			// environment
+			List<Environment> environments = turtleDiaryHelper
+					.getEnvironments();
 			ArrayAdapter<Environment> environmentAdapter = new ArrayAdapter<Environment>(
 					this, android.R.layout.simple_dropdown_item_1line,
-					turtleDiaryHelper.getEnvironments());
+					environments);
 			environmentSpinner.setAdapter(environmentAdapter);
 			environmentSpinner.setEnabled(false);
+			Environment environment = turtleDiaryHelper.getEnvironment(nowPet
+					.getEid());
+
+			index = 0;
+			for (Environment e : environments) {
+				if (e.equals(environment)) {
+					break;
+				}
+				index++;
+			}
+			environmentSpinner.setSelection(index);
 			// birthday
 			if (nowPet.getBirthday() != null) {
 				birthdayEditText.setText(nowPet.getBirthday().toString());
@@ -200,6 +241,19 @@ public class PetActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Pet pet = new Pet();
+				pet.setBirthday(new Date());
+				Environment environment = (Environment) environmentSpinner
+						.getSelectedItem();
+				pet.setEid(environment.getEid());
+
+				int selectedId = genderRadioGroup.getCheckedRadioButtonId();
+				RadioButton selectedRadioButton = (RadioButton) findViewById(selectedId);
+				pet.setGender(selectedRadioButton.getText().toString());
+				pet.setName(petNameEditText.getText().toString());
+
+				Type type = (Type) petTypeSpinner.getSelectedItem();
+				pet.setTid(type.getTid());
+
 				turtleDiaryHelper.addPet(pet);
 				finish();
 			}
@@ -248,18 +302,22 @@ public class PetActivity extends Activity {
 
 	private OnClickListener getEditButtonOnClickListener() {
 		return new OnClickListener() {
-			@SuppressWarnings("deprecation")
 			@Override
 			public void onClick(View v) {
-				nowPet.setName(petNameEditText.getText().toString());
-				Date date = new Date(birthdayEditText.getText().toString());
-				nowPet.setBirthday(date);
+				nowPet.setBirthday(new Date());
+				Environment environment = (Environment) environmentSpinner
+						.getSelectedItem();
+				nowPet.setEid(environment.getEid());
 
 				int selectedId = genderRadioGroup.getCheckedRadioButtonId();
-
 				RadioButton selectedRadioButton = (RadioButton) findViewById(selectedId);
-
 				nowPet.setGender(selectedRadioButton.getText().toString());
+				nowPet.setName(petNameEditText.getText().toString());
+
+				Type type = (Type) petTypeSpinner.getSelectedItem();
+				nowPet.setTid(type.getTid());
+
+				turtleDiaryHelper.updatePet(nowPet);
 
 				changeState(PetActivityState.View);
 				turtleDiaryHelper.updatePet(nowPet);
