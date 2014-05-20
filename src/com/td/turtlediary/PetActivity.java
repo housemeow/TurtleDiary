@@ -106,7 +106,7 @@ public class PetActivity extends Activity {
 
 			adapter = new ArrayAdapter(this,
 					android.R.layout.simple_dropdown_item_1line,
-					turtleDiaryHelper.getEnvironments());
+					environments);
 			environmentSpinner.setAdapter(adapter);
 			// birthday
 			birthdayEditText.setEnabled(true);
