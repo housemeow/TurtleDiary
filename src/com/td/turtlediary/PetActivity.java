@@ -50,6 +50,22 @@ public class PetActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_pet);
 
+		addButton = (Button) findViewById(R.id.petActivityAddButton);
+		editButton = (Button) findViewById(R.id.petActivityEditButton);
+		restoreButton = (Button) findViewById(R.id.petActivityRestoreButton);
+		nextButton = (Button) findViewById(R.id.petActivityNextButton);
+
+		addButton.setOnClickListener(getAddButtonOnClickListener());
+		editButton.setOnClickListener(getEditButtonOnClickListener());
+		restoreButton.setOnClickListener(getRestoreButtonOnClickListener());
+		nextButton.setOnClickListener(getNextButtonOnClickListener());
+		petNameEditText = (EditText) findViewById(R.id.petActivityPetNameEditText);
+		petTypeSpinner = (Spinner) findViewById(R.id.petActivityPetTypeSpinner);
+		genderRadioGroup = (RadioGroup) findViewById(R.id.petActivityGenderRadioGroup);
+		environmentSpinner = (Spinner) findViewById(R.id.petActivityEnvironmentSpinner);
+		birthdayEditText = (EditText) findViewById(R.id.petActivityBirthdayEditText);
+
+		
 		nowPet = (Pet) getIntent().getSerializableExtra("pet");
 		if (nowPet != null) {
 			nowPet = turtleDiaryHelper.getPet(nowPet.getPid());
@@ -62,15 +78,6 @@ public class PetActivity extends Activity {
 			changeState(PetActivityState.View);
 		}
 
-		addButton = (Button) findViewById(R.id.petActivityAddButton);
-		editButton = (Button) findViewById(R.id.petActivityEditButton);
-		restoreButton = (Button) findViewById(R.id.petActivityRestoreButton);
-		nextButton = (Button) findViewById(R.id.petActivityNextButton);
-
-		addButton.setOnClickListener(getAddButtonOnClickListener());
-		editButton.setOnClickListener(getEditButtonOnClickListener());
-		restoreButton.setOnClickListener(getRestoreButtonOnClickListener());
-		nextButton.setOnClickListener(getNextButtonOnClickListener());
 	}
 
 	private void changeState(PetActivityState state) {
@@ -80,12 +87,6 @@ public class PetActivity extends Activity {
 	}
 
 	private void changeInputWidgetState(PetActivityState state) {
-		petNameEditText = (EditText) findViewById(R.id.petActivityPetNameEditText);
-		petTypeSpinner = (Spinner) findViewById(R.id.petActivityPetTypeSpinner);
-		genderRadioGroup = (RadioGroup) findViewById(R.id.petActivityGenderRadioGroup);
-		environmentSpinner = (Spinner) findViewById(R.id.petActivityEnvironmentSpinner);
-		birthdayEditText = (EditText) findViewById(R.id.petActivityBirthdayEditText);
-
 		switch (state) {
 		case FirstAdd: {
 			// name
@@ -199,40 +200,31 @@ public class PetActivity extends Activity {
 	}
 
 	private void changeButtonState(PetActivityState state) {
-		addButton = (Button) findViewById(R.id.petActivityAddButton);
-		editButton = (Button) findViewById(R.id.petActivityEditButton);
-		restoreButton = (Button) findViewById(R.id.petActivityRestoreButton);
-		nextButton = (Button) findViewById(R.id.petActivityNextButton);
-
+		setButtonsVisible(View.INVISIBLE);
 		switch (state) {
 		case FirstAdd:
 			nextButton.setVisibility(View.VISIBLE);
-			addButton.setVisibility(View.INVISIBLE);
-			editButton.setVisibility(View.INVISIBLE);
-			restoreButton.setVisibility(View.INVISIBLE);
 			break;
 		case Add:
-			nextButton.setVisibility(View.INVISIBLE);
 			addButton.setVisibility(View.VISIBLE);
-			editButton.setVisibility(View.INVISIBLE);
-			restoreButton.setVisibility(View.INVISIBLE);
 			break;
 		case Edit:
-			nextButton.setVisibility(View.INVISIBLE);
-			addButton.setVisibility(View.INVISIBLE);
 			editButton.setVisibility(View.VISIBLE);
 			restoreButton.setVisibility(View.VISIBLE);
 			break;
 		case View:
-			nextButton.setVisibility(View.INVISIBLE);
-			addButton.setVisibility(View.INVISIBLE);
-			editButton.setVisibility(View.INVISIBLE);
-			restoreButton.setVisibility(View.INVISIBLE);
 			break;
 		}
 		if (menuItem != null) {
 			menuItem.setVisible(nowState == PetActivityState.View);
 		}
+	}
+
+	private void setButtonsVisible(int visibility) {
+		nextButton.setVisibility(visibility);
+		addButton.setVisibility(visibility);
+		editButton.setVisibility(visibility);
+		restoreButton.setVisibility(visibility);
 	}
 
 	private OnClickListener getAddButtonOnClickListener() {
@@ -274,12 +266,12 @@ public class PetActivity extends Activity {
 				pet.setGender(selectedRadioButton.getText().toString());
 
 				Type type = (Type) petTypeSpinner.getSelectedItem();
+				pet.setTid(type.getTid());
 
 				Environment environment = (Environment) getIntent()
 						.getSerializableExtra("environment");
 				turtleDiaryHelper.addEnvironment(environment);
 				pet.setEid(environment.getEid());
-				pet.setTid(type.getTid());
 				turtleDiaryHelper.addPet(pet);
 				Intent intent = new Intent();
 
@@ -291,13 +283,31 @@ public class PetActivity extends Activity {
 		};
 	}
 
-	private OnClickListener getRestoreButtonOnClickListener() {
-		return new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				changeState(PetActivityState.View);
-			}
-		};
+	private void setWidgetFromPet(Pet pet){
+		
+	}
+	
+	private Pet getPetFromWidget() {
+		Pet pet = new Pet();
+		pet.setName(petNameEditText.getText().toString());
+		pet.setBirthday(new Date());
+
+		int selectedId = genderRadioGroup.getCheckedRadioButtonId();
+		RadioButton selectedRadioButton = (RadioButton) findViewById(selectedId);
+		pet.setGender(selectedRadioButton.getText().toString());
+
+		Type type = (Type) petTypeSpinner.getSelectedItem();
+		Environment environment;// = new Environment();
+		if (nowState == PetActivityState.FirstAdd) {
+			environment = (Environment) getIntent().getSerializableExtra(
+					"environment");
+			turtleDiaryHelper.addEnvironment(environment);
+		} else {
+			environment = (Environment) environmentSpinner.getSelectedItem();
+		}
+		pet.setEid(environment.getEid());
+		pet.setTid(type.getTid());
+		return pet;
 	}
 
 	private OnClickListener getEditButtonOnClickListener() {
@@ -325,12 +335,19 @@ public class PetActivity extends Activity {
 		};
 	}
 
+	private OnClickListener getRestoreButtonOnClickListener() {
+		return new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				changeState(PetActivityState.View);
+			}
+		};
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.pet, menu);
-
 		menuItem = menu.findItem(R.id.petActivityEditActionButton);
 		menuItem.setVisible(nowState == PetActivityState.View);
 		menuItem.setOnMenuItemClickListener(getEditMenuItemClickListener());
@@ -341,7 +358,6 @@ public class PetActivity extends Activity {
 		return new OnMenuItemClickListener() {
 			@Override
 			public boolean onMenuItemClick(MenuItem item) {
-				nowPet.setName(petNameEditText.getText().toString());
 				changeState(PetActivityState.Edit);
 				return false;
 			}
