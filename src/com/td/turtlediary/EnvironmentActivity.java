@@ -91,7 +91,7 @@ public class EnvironmentActivity extends Activity {
 			environmentActivityNextButton.setVisibility(View.INVISIBLE);
 			environmentActivityRecoverButton.setVisibility(View.INVISIBLE);
 			environmentActivityEditButton.setVisibility(View.INVISIBLE);
-			ClearEditText();
+			SetEditTextDefaultValue();
 			SetEditTextEnable(true);
 		} else if (state.equals(VIEW)) {
 			this.setTitle("環境資訊");
@@ -115,7 +115,7 @@ public class EnvironmentActivity extends Activity {
 			environmentActivityNextButton.setVisibility(View.VISIBLE);
 			environmentActivityRecoverButton.setVisibility(View.INVISIBLE);
 			environmentActivityEditButton.setVisibility(View.INVISIBLE);
-			ClearEditText();
+			SetEditTextDefaultValue();
 			SetEditTextEnable(true);
 		}
 	}
@@ -131,16 +131,16 @@ public class EnvironmentActivity extends Activity {
 		environmentActivityMinHumidityEditText.setEnabled(isEnable);
 	}
 	
-	private void ClearEditText()
+	private void SetEditTextDefaultValue()
 	{
 		environmentActivityEnvironmentNameEditText.setText("");
-		environmentActivityLengthEditText.setText("");
-		environmentActivityWidthEditText.setText("");
-		environmentActivityHeightEditText.setText("");
-		environmentActivityHotPointEditText.setText("");
-		environmentActivityLowPointEditText.setText("");
-		environmentActivityMaxHumidityEditText.setText("");
-		environmentActivityMinHumidityEditText.setText("");
+		environmentActivityLengthEditText.setText("60");
+		environmentActivityWidthEditText.setText("45");
+		environmentActivityHeightEditText.setText("45");
+		environmentActivityHotPointEditText.setText("32");
+		environmentActivityLowPointEditText.setText("28");
+		environmentActivityMaxHumidityEditText.setText("80");
+		environmentActivityMinHumidityEditText.setText("60");
 	}
 	
 	private void SetEditTextContentFromDB()
