@@ -1,6 +1,7 @@
 package com.td.turtlediary;
 
-import java.util.Date;
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import com.td.models.Environment;
@@ -9,6 +10,8 @@ import com.td.models.TurtleDiaryDatabaseHelper;
 import com.td.models.Type;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -18,12 +21,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 public class PetActivity extends Activity {
+	static final int ID_DATEPICKER = 0;
+
 	TurtleDiaryDatabaseHelper turtleDiaryHelper = new TurtleDiaryDatabaseHelper(
 			this);
 
@@ -43,7 +49,7 @@ public class PetActivity extends Activity {
 	Spinner petTypeSpinner;
 	RadioGroup genderRadioGroup;
 	Spinner environmentSpinner;
-	EditText birthdayEditText;
+	Button birthdayButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +82,9 @@ public class PetActivity extends Activity {
 		petTypeSpinner = (Spinner) findViewById(R.id.petActivityPetTypeSpinner);
 		genderRadioGroup = (RadioGroup) findViewById(R.id.petActivityGenderRadioGroup);
 		environmentSpinner = (Spinner) findViewById(R.id.petActivityEnvironmentSpinner);
-		birthdayEditText = (EditText) findViewById(R.id.petActivityBirthdayEditText);
+		birthdayButton = (Button) findViewById(R.id.petActivityBirthdayButton);
+		birthdayButton.setOnClickListener(getBirthdayEditTextClickListener());
+
 		// Type
 		List<Type> types = turtleDiaryHelper.getTypes();
 		ArrayAdapter<Type> typeAdapter = new ArrayAdapter<Type>(this,
@@ -94,6 +102,46 @@ public class PetActivity extends Activity {
 		environmentSpinner.setAdapter(environmentAdapter);
 	}
 
+	private OnClickListener getBirthdayEditTextClickListener() {
+		return new OnClickListener() {
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void onClick(View v) {
+				showDialog(ID_DATEPICKER);
+			}
+		};
+	}
+
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		switch (id) {
+		case ID_DATEPICKER:
+			Calendar c = Calendar.getInstance();
+			if (nowPet != null) {
+				c.setTime(Date.valueOf(nowPet.getBirthday()));
+			}
+			int myYear = c.get(Calendar.YEAR);
+			int myMonth = c.get(Calendar.MONTH);
+			int myDay = c.get(Calendar.DAY_OF_MONTH);
+			return new DatePickerDialog(this, myDateSetListener, myYear,
+					myMonth, myDay);
+		default:
+			return null;
+
+		}
+	}
+
+	private DatePickerDialog.OnDateSetListener myDateSetListener = new DatePickerDialog.OnDateSetListener() {
+
+		@Override
+		public void onDateSet(DatePicker view, int year, int monthOfYear,
+				int dayOfMonth) {
+			birthdayButton.setText(year + "-" + (monthOfYear + 1) + "-"
+					+ dayOfMonth);
+		}
+	};
+
 	private void changeState(PetActivityState state) {
 		nowState = state;
 		changeButtonState(state);
@@ -109,14 +157,21 @@ public class PetActivity extends Activity {
 			radioButton.setEnabled(enabled);
 		}
 		environmentSpinner.setEnabled(enabled);
-		birthdayEditText.setEnabled(enabled);
+		birthdayButton.setEnabled(enabled);
 	}
 
 	private void changeInputWidgetState(PetActivityState state) {
 		switch (state) {
 		case FirstAdd:
-		case Add:
+		case Add: {
+			// birthday
+			Calendar c = Calendar.getInstance();
+			String dateString = c.get(Calendar.YEAR) + "-"
+					+ (c.get(Calendar.MONTH) + 1) + "-"
+					+ c.get(Calendar.DAY_OF_MONTH);
+			birthdayButton.setText(dateString);
 			break;
+		}
 		case Edit:
 			setWidgetsEnabled(true);
 			break;
@@ -147,9 +202,12 @@ public class PetActivity extends Activity {
 				}
 			}
 			// birthday
-			if (nowPet.getBirthday() != null) {
-				birthdayEditText.setText(nowPet.getBirthday().toString());
-			}
+			Date date = Date.valueOf(nowPet.getBirthday());
+			Calendar c = Calendar.getInstance();
+			c.setTime(date);
+			birthdayButton.setText(c.get(Calendar.YEAR) + "-"
+					+ (c.get(Calendar.MONTH)+1) + "-"
+					+ c.get(Calendar.DAY_OF_MONTH));
 			break;
 		}
 		}
@@ -233,7 +291,7 @@ public class PetActivity extends Activity {
 	private Pet getPetFromWidget() {
 		Pet pet = new Pet();
 		pet.setName(petNameEditText.getText().toString());
-		pet.setBirthday(new Date());
+		pet.setBirthday(getBirthdayFromBirthdayButton());
 		pet.setGender(getGenderFromRadioGroup());
 		pet.setTid(getTidFromTypeSpinner());
 		pet.setEid(getEidFromEnvironmentSpinnerOrIntent());
@@ -244,7 +302,8 @@ public class PetActivity extends Activity {
 		return new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				nowPet.setBirthday(new Date());
+
+				nowPet.setBirthday(getBirthdayFromBirthdayButton());
 				Environment environment = (Environment) environmentSpinner
 						.getSelectedItem();
 				nowPet.setEid(environment.getEid());
@@ -262,7 +321,13 @@ public class PetActivity extends Activity {
 				changeState(PetActivityState.View);
 				turtleDiaryHelper.updatePet(nowPet);
 			}
+
 		};
+	}
+
+	private String getBirthdayFromBirthdayButton() {
+		String dateString = birthdayButton.getText().toString();
+		return dateString;
 	}
 
 	private OnClickListener getRestoreButtonOnClickListener() {
