@@ -17,6 +17,7 @@ public class HomePageActivity extends Activity {
 	private TurtleDiaryDatabaseHelper helper = new TurtleDiaryDatabaseHelper(
 			this);
 	private SimpleSideDrawer mNav;
+	private ViewPager viewPager;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,7 @@ public class HomePageActivity extends Activity {
 		mNav = new SimpleSideDrawer(this);
 
 		mNav.setRightBehindContentView(R.layout.activity_behind_right_simple);
+		viewPager = (ViewPager) findViewById(R.id.homePagePetViewPager);
 
 		findViewById(R.id.homePageMenuButton).setOnClickListener(
 				new OnClickListener() {
@@ -36,9 +38,12 @@ public class HomePageActivity extends Activity {
 								.setOnClickListener(new OnClickListener() {
 									@Override
 									public void onClick(View v) {
-										Intent intent = new Intent();
-										intent.setClass(HomePageActivity.this,
+										Intent intent = new Intent(
+												HomePageActivity.this,
 												ReportActivity.class);
+										Pet pet = helper.getPets().get(
+												viewPager.getCurrentItem());
+										intent.putExtra("pet", pet);
 										startActivity(intent);
 									}
 								});
@@ -48,10 +53,9 @@ public class HomePageActivity extends Activity {
 								.setOnClickListener(new OnClickListener() {
 									@Override
 									public void onClick(View v) {
-										Intent intent = new Intent();
-										intent.setClass(HomePageActivity.this,
-												EnvironmentListActivity.class);
-										startActivity(intent);
+										startActivity(new Intent(
+												HomePageActivity.this,
+												EnvironmentListActivity.class));
 									}
 								});
 
@@ -59,9 +63,12 @@ public class HomePageActivity extends Activity {
 						feedTextView.setOnClickListener(new OnClickListener() {
 							@Override
 							public void onClick(View v) {
-								Intent intent = new Intent();
-								intent.setClass(HomePageActivity.this,
+								Intent intent = new Intent(
+										HomePageActivity.this,
 										SelectFoodsActivity.class);
+								Pet pet = helper.getPets().get(
+										viewPager.getCurrentItem());
+								intent.putExtra("pet", pet);
 								startActivity(intent);
 							}
 						});
@@ -71,10 +78,11 @@ public class HomePageActivity extends Activity {
 								.setOnClickListener(new OnClickListener() {
 									@Override
 									public void onClick(View v) {
-										Intent intent = new Intent();
-										intent.setClass(HomePageActivity.this,
+										Intent intent = new Intent(
+												HomePageActivity.this,
 												MeasureActivity.class);
-										Pet pet = helper.getPets().get(0);
+										Pet pet = helper.getPets().get(
+												viewPager.getCurrentItem());
 										intent.putExtra("pet", pet);
 										startActivity(intent);
 									}
@@ -96,7 +104,6 @@ public class HomePageActivity extends Activity {
 	@Override
 	protected void onStart() {
 		super.onStart();
-		ViewPager viewPager = (ViewPager) findViewById(R.id.homePagePetViewPager);
 		int currentItemIndex = viewPager.getCurrentItem();
 		ImageAdapter adapter = new ImageAdapter(this);
 		adapter.setPets(helper.getPets());
