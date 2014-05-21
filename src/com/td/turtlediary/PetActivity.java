@@ -122,7 +122,7 @@ public class PetActivity extends Activity {
 				c.setTime(Date.valueOf(nowPet.getBirthday()));
 			}
 			int myYear = c.get(Calendar.YEAR);
-			int myMonth = c.get(Calendar.MONTH);
+			int myMonth = c.get(Calendar.MONTH);//這邊不用加1的原因是他跟onDateSet事件的月份一樣都是以0當作January
 			int myDay = c.get(Calendar.DAY_OF_MONTH);
 			return new DatePickerDialog(this, myDateSetListener, myYear,
 					myMonth, myDay);

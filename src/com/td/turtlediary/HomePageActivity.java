@@ -26,11 +26,6 @@ public class HomePageActivity extends Activity {
 
 		mNav.setRightBehindContentView(R.layout.activity_behind_right_simple);
 
-		ViewPager viewPager = (ViewPager) findViewById(R.id.homePagePetViewPager);
-		ImageAdapter adapter = new ImageAdapter(this);
-
-		viewPager.setAdapter(adapter);
-
 		findViewById(R.id.homePageMenuButton).setOnClickListener(
 				new OnClickListener() {
 					@Override
@@ -96,5 +91,16 @@ public class HomePageActivity extends Activity {
 				startActivity(intent);
 			}
 		});
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		ViewPager viewPager = (ViewPager) findViewById(R.id.homePagePetViewPager);
+		int currentItemIndex = viewPager.getCurrentItem();
+		ImageAdapter adapter = new ImageAdapter(this);
+		adapter.setPets(helper.getPets());
+		viewPager.setAdapter(adapter);
+		viewPager.setCurrentItem(currentItemIndex);
 	}
 }

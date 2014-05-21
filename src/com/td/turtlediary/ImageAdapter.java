@@ -16,22 +16,19 @@ import android.widget.ImageView;
 
 public class ImageAdapter extends PagerAdapter {
 	TurtleDiaryDatabaseHelper helper;
-	
 	Context context;
-    private int[] GalImages = new int[] {
-        R.drawable.angonoka,
-        R.drawable.indian_star_tortoise,
-        R.drawable.radiated_tortoise
-    };
+    
+    private List<Pet> pets;
     
     ImageAdapter(Context context){
     	this.context=context;
     	helper = new TurtleDiaryDatabaseHelper(context);
+    	setPets(helper.getPets());
     }
     
     @Override
     public int getCount() {
-      return GalImages.length;
+      return getPets().size();
     }
 
 	@Override
@@ -42,12 +39,12 @@ public class ImageAdapter extends PagerAdapter {
 	}
 
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
+    public Object instantiateItem(ViewGroup container, final int position) {
       ImageView imageView = new ImageView(context);
       int padding = context.getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin);
       imageView.setPadding(padding, padding, padding, padding);
       imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-      imageView.setImageResource(GalImages[position]);
+      imageView.setImageResource(R.drawable.angonoka);
       ((ViewPager) container).addView(imageView, 0);
       
       
@@ -57,7 +54,7 @@ public class ImageAdapter extends PagerAdapter {
 				Intent intent = new Intent();
 				intent.setClass(context, OptionActivity.class);
 				List<Pet> pets =  helper.getPets(); 
-				Pet pet = pets.get(0);
+				Pet pet = pets.get(position);
 				intent.putExtra("pet", pet);
 				intent.putExtra("showPrevious", "true");
 
@@ -73,4 +70,12 @@ public class ImageAdapter extends PagerAdapter {
     public void destroyItem(ViewGroup container, int position, Object object) {
       ((ViewPager) container).removeView((ImageView) object);
     }
+
+	public List<Pet> getPets() {
+		return pets;
+	}
+
+	public void setPets(List<Pet> pets) {
+		this.pets = pets;
+	}
 }
