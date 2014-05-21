@@ -1,6 +1,10 @@
 package com.td.turtlediary;
 
+import java.util.Date;
+
+import com.td.models.HealthyLog;
 import com.td.models.Pet;
+import com.td.models.TurtleDiaryDatabaseHelper;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -17,7 +21,8 @@ import android.widget.TextView;
 public class OptionActivity extends Activity {
 	private TextView favoriteFoodTextView;
 	private Button shitButton;
-	final String[] shitListStrings = { "排便", "排酸", "...." };
+	final String[] unhealthyStrings = { "細長型糞便", "黏膜糞便", "水便", "果凍糞便", "排酸",
+			"排石" };
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +55,17 @@ public class OptionActivity extends Activity {
 
 	private void ShowAlertDialogAndList() {
 		Builder MyAlertDialog = new AlertDialog.Builder(this);
-		MyAlertDialog.setTitle(R.string.shit);
+		MyAlertDialog.setTitle(R.string.healthyRecord);
 		// 建立選擇的事件
 		DialogInterface.OnClickListener ListClick = new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
-				// ShowMsgDialog(ListStr[which]);
+				HealthyLog healthyLog = new HealthyLog();
+				Pet pet = (Pet) getIntent().getSerializableExtra("pet");
+				healthyLog.setPid(pet.getPid());
+				healthyLog.setComment(unhealthyStrings[which]);
+				TurtleDiaryDatabaseHelper helper = new TurtleDiaryDatabaseHelper(OptionActivity.this);
+				healthyLog.setTimeStamp(new Date());
+				helper.addHealthyLog(healthyLog);
 			}
 		};
 		// 建立按下取消什麼事情都不做的事件
@@ -62,7 +73,7 @@ public class OptionActivity extends Activity {
 			public void onClick(DialogInterface dialog, int which) {
 			}
 		};
-		MyAlertDialog.setItems(shitListStrings, ListClick);
+		MyAlertDialog.setItems(unhealthyStrings, ListClick);
 		MyAlertDialog.setNeutralButton("取消", OkClick);
 		MyAlertDialog.show();
 	}
