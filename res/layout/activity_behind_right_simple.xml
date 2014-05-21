@@ -26,6 +26,12 @@
             style="@style/behindMenuItemLabel"
             android:text="@string/measure"
             android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/healthyLogTextView"
+            style="@style/behindMenuItemLabel"
+            android:text="@string/healthyLog"
+            android:textSize="20sp" />
     </LinearLayout>
 
 </ScrollView>

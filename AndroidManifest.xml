@@ -44,6 +44,10 @@
             android:name="com.td.turtlediary.MeasureActivity"
             android:label="@string/title_activity_measure" >
         </activity>
+        <activity
+            android:name="com.td.turtlediary.HealthyLogActivity"
+            android:label="@string/title_activity_main" >
+        </activity>
     </application>
 
 </manifest>

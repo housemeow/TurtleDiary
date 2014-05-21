@@ -19,6 +19,7 @@ public class MeasureActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setTitle("測量記錄");
 		setContentView(R.layout.activity_measure);
 		Button addButton = (Button) findViewById(R.id.measureActivityAddButton);
 		addButton.setOnClickListener(getAddButtonClickListener());

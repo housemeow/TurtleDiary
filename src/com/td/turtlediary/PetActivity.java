@@ -174,13 +174,16 @@ public class PetActivity extends Activity {
 		switch (state) {
 		case FirstAdd:
 		case Add: {
+			setTitle("新增寵物");
 			birthdayButton.setText(getDateString(null));
 			break;
 		}
 		case Edit:
+			setTitle("編輯寵物");
 			setWidgetsEnabled(true);
 			break;
 		case View: {
+			setTitle("檢視寵物");
 			setWidgetsEnabled(false);
 			// name
 			petNameEditText.setText(nowPet.getName());

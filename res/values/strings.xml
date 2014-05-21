@@ -17,7 +17,7 @@
     <string name="shellLength">甲長</string>
     <string name="shellLengthAndWeight">甲長&amp;體重</string>
     <string name="title_activity_option">Option</string>
-    <string name="healthyRecord">健康記錄</string>
+    <string name="healthyLog">健康紀錄</string>
     <string name="petInformation">寵物資訊</string>
     <string name="environmentName">環境名稱</string>
     <string name="length">長</string>
@@ -68,5 +68,7 @@
     <string name="defaultLowPoint">28</string>
     <string name="defaultMaxHumidity">80</string>
     <string name="defaultMinHumidity">60</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="logHealthy">健康記錄</string>
 
 </resources>

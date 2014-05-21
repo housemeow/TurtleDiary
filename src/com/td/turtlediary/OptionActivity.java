@@ -28,7 +28,8 @@ public class OptionActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_option);
-		this.setTitle(R.string.petInformation);
+		Pet pet = (Pet) getIntent().getSerializableExtra("pet");
+		this.setTitle(pet.getName());
 		shitButton = (Button) findViewById(R.id.optionList);
 		favoriteFoodTextView = (TextView) findViewById(R.id.favoriteFoodTextView);
 		favoriteFoodTextView.setText("喜好食物：\n   1.xxx\n   2.xxxx\n   3.xxxxxx");
@@ -55,7 +56,7 @@ public class OptionActivity extends Activity {
 
 	private void ShowAlertDialogAndList() {
 		Builder MyAlertDialog = new AlertDialog.Builder(this);
-		MyAlertDialog.setTitle(R.string.healthyRecord);
+		MyAlertDialog.setTitle(R.string.healthyLog);
 		// 建立選擇的事件
 		DialogInterface.OnClickListener ListClick = new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {

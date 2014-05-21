@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
@@ -18,6 +19,7 @@ public class HomePageActivity extends Activity {
 			this);
 	private SimpleSideDrawer mNav;
 	private ViewPager viewPager;
+	private TextView homePagePetNameEditText;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,9 @@ public class HomePageActivity extends Activity {
 
 		mNav.setRightBehindContentView(R.layout.activity_behind_right_simple);
 		viewPager = (ViewPager) findViewById(R.id.homePagePetViewPager);
+		homePagePetNameEditText = (TextView)findViewById(R.id.homePagePetNameEditText);
+		homePagePetNameEditText.setText(helper.getPets().get(0).getName());
+		viewPager.setOnPageChangeListener(getViewPagerPageChangeListener());
 
 		findViewById(R.id.homePageMenuButton).setOnClickListener(
 				new OnClickListener() {
@@ -87,6 +92,21 @@ public class HomePageActivity extends Activity {
 										startActivity(intent);
 									}
 								});
+
+						TextView healthyLogTextView = (TextView) findViewById(R.id.healthyLogTextView);
+						healthyLogTextView
+								.setOnClickListener(new OnClickListener() {
+									@Override
+									public void onClick(View v) {
+										Intent intent = new Intent(
+												HomePageActivity.this,
+												HealthyLogActivity.class);
+										Pet pet = helper.getPets().get(
+												viewPager.getCurrentItem());
+										intent.putExtra("pet", pet);
+										startActivity(intent);
+									}
+								});
 					}
 				});
 
@@ -99,6 +119,25 @@ public class HomePageActivity extends Activity {
 				startActivity(intent);
 			}
 		});
+	}
+
+	private OnPageChangeListener getViewPagerPageChangeListener() {
+		return new OnPageChangeListener() {
+
+			@Override
+			public void onPageSelected(int which) {
+				Pet pet = helper.getPets().get(which);
+				homePagePetNameEditText.setText(pet.getName());
+			}
+
+			@Override
+			public void onPageScrolled(int arg0, float arg1, int arg2) {
+			}
+
+			@Override
+			public void onPageScrollStateChanged(int arg0) {
+			}
+		};
 	}
 
 	@Override

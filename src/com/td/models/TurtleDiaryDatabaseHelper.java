@@ -10,9 +10,7 @@ import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
-
-public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper 
-{
+public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 	private static final String DATABASE_NAME = "turtleDiary.db";
 	private static final int DATABASE_VERSION = 1;
 	private RuntimeExceptionDao<Pet, Integer> petDao = null;
@@ -23,16 +21,14 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper
 	private RuntimeExceptionDao<FeedLogContainFood, Integer> feedLogContainFoodDao = null;
 	private RuntimeExceptionDao<HealthyLog, Integer> healthyLogDao = null;
 	private RuntimeExceptionDao<MeasureLog, Integer> measureLogDao = null;
-	
-	public TurtleDiaryDatabaseHelper(Context context) 
-	{
+
+	public TurtleDiaryDatabaseHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
-	
-	public void onCreate(SQLiteDatabase database,ConnectionSource connectionSource) 
-	{
-		try
-		{
+
+	public void onCreate(SQLiteDatabase database,
+			ConnectionSource connectionSource) {
+		try {
 			TableUtils.createTable(connectionSource, Pet.class);
 			TableUtils.createTable(connectionSource, Type.class);
 			Type type = new Type();
@@ -41,210 +37,182 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper
 			type = new Type();
 			type.setName("緬甸星龜");
 			getTypeDao().create(type);
-			
+
 			TableUtils.createTable(connectionSource, Environment.class);
 			TableUtils.createTable(connectionSource, Food.class);
 			TableUtils.createTable(connectionSource, FeedLog.class);
 			TableUtils.createTable(connectionSource, FeedLogContainFood.class);
 			TableUtils.createTable(connectionSource, HealthyLog.class);
 			TableUtils.createTable(connectionSource, MeasureLog.class);
-		} 
-		catch (SQLException e) 
-		{
+		} catch (SQLException e) {
 			throw new RuntimeException(e);
-		} 
-		catch (java.sql.SQLException e) 
-		{
+		} catch (java.sql.SQLException e) {
 			e.printStackTrace();
-		} 
+		}
 	}
-	
-	public void onUpgrade(SQLiteDatabase db,ConnectionSource connectionSource, int oldVersion, int newVersion) 
-	{
-		try
-		{
-			onCreate( db, connectionSource);
-		} 
-		catch (SQLException e) 
-		{
+
+	public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource,
+			int oldVersion, int newVersion) {
+		try {
+			onCreate(db, connectionSource);
+		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	// Pet get dao
-	public RuntimeExceptionDao<Pet, Integer> getPetDao() throws SQLException
-	{
-		if (null == petDao) 
-		{
+	public RuntimeExceptionDao<Pet, Integer> getPetDao() throws SQLException {
+		if (null == petDao) {
 			petDao = getRuntimeExceptionDao(Pet.class);
 		}
 		return petDao;
 	}
-	
+
 	// Pet add
-	public void addPet(Pet pet) throws SQLException
-	{
+	public void addPet(Pet pet) throws SQLException {
 		getPetDao().create(pet);
 	}
-	
+
 	// Pet get
-	public Pet getPet(int pid) throws SQLException
-	{
+	public Pet getPet(int pid) throws SQLException {
 		Pet pet = getPetDao().queryForId(pid);
 		return pet;
 	}
-	
+
 	// Pet update
-	public void updatePet(Pet pet) throws SQLException
-	{
+	public void updatePet(Pet pet) throws SQLException {
 		getPetDao().update(pet);
 	}
-	
+
 	// Pet get all
-	public List<Pet> getPets() throws SQLException
-	{
+	public List<Pet> getPets() throws SQLException {
 		return getPetDao().queryForAll();
 	}
-	
+
 	// Type get dao
-	public RuntimeExceptionDao<Type, Integer> getTypeDao() throws SQLException
-	{
-		if (null == typeDao) 
-		{
+	public RuntimeExceptionDao<Type, Integer> getTypeDao() throws SQLException {
+		if (null == typeDao) {
 			typeDao = getRuntimeExceptionDao(Type.class);
 		}
 		return typeDao;
 	}
-	
+
 	// Type get
-	public Type getType(int tid) throws SQLException
-	{
+	public Type getType(int tid) throws SQLException {
 		Type type = getTypeDao().queryForId(tid);
 		return type;
 	}
-	
+
 	// Environment get dao
-	public RuntimeExceptionDao<Environment, Integer> getEnvironmentDao() throws SQLException
-	{
-		if (null == environmentDao) 
-		{
+	public RuntimeExceptionDao<Environment, Integer> getEnvironmentDao()
+			throws SQLException {
+		if (null == environmentDao) {
 			environmentDao = getRuntimeExceptionDao(Environment.class);
 		}
 		return environmentDao;
 	}
-	
+
 	// Environment add
-	public void addEnvironment(Environment environment) throws SQLException
-	{
+	public void addEnvironment(Environment environment) throws SQLException {
 		getEnvironmentDao().create(environment);
 	}
-	
+
 	// Environment get
-	public Environment getEnvironment(int eid) throws SQLException
-	{
+	public Environment getEnvironment(int eid) throws SQLException {
 		Environment environment = getEnvironmentDao().queryForId(eid);
 		return environment;
 	}
-	
+
 	// Environment update
-	public void updateEnvironment(Environment environment) throws SQLException
-	{
+	public void updateEnvironment(Environment environment) throws SQLException {
 		getEnvironmentDao().update(environment);
 	}
-	
+
 	// Environment get count
-	public int getEnvironmentsCount() throws SQLException
-	{
+	public int getEnvironmentsCount() throws SQLException {
 		return getEnvironmentDao().queryForAll().size();
 	}
-	
+
 	// Environment get all
-	public List<Environment> getEnvironments() throws SQLException
-	{
+	public List<Environment> getEnvironments() throws SQLException {
 		return getEnvironmentDao().queryForAll();
 	}
-	
+
 	// Food get dao
-	public RuntimeExceptionDao<Food, Integer> getFoodDao() throws SQLException
-	{
-		if (null == foodDao) 
-		{
+	public RuntimeExceptionDao<Food, Integer> getFoodDao() throws SQLException {
+		if (null == foodDao) {
 			foodDao = getRuntimeExceptionDao(Food.class);
 		}
 		return foodDao;
 	}
-	
+
 	// Food get all
-	public List<Food> getFoods() throws SQLException
-	{
+	public List<Food> getFoods() throws SQLException {
 		return getFoodDao().queryForAll();
 	}
-	
+
 	// FeedLog get dao
-	public RuntimeExceptionDao<FeedLog, Integer> getFeedLogDao() throws SQLException
-	{
-		if (null == feedLogDao) 
-		{
+	public RuntimeExceptionDao<FeedLog, Integer> getFeedLogDao()
+			throws SQLException {
+		if (null == feedLogDao) {
 			feedLogDao = getRuntimeExceptionDao(FeedLog.class);
 		}
 		return feedLogDao;
 	}
-	
+
 	// FeedLog add
-	public void addFeedLog(FeedLog feedLog) throws SQLException
-	{
+	public void addFeedLog(FeedLog feedLog) throws SQLException {
 		getFeedLogDao().create(feedLog);
 	}
-	
+
 	// FeedLogContainFood get dao
-	public RuntimeExceptionDao<FeedLogContainFood, Integer> getFeedLogContainFoodDao() throws SQLException
-	{
-		if (null == feedLogContainFoodDao) 
-		{
+	public RuntimeExceptionDao<FeedLogContainFood, Integer> getFeedLogContainFoodDao()
+			throws SQLException {
+		if (null == feedLogContainFoodDao) {
 			feedLogContainFoodDao = getRuntimeExceptionDao(FeedLogContainFood.class);
 		}
 		return feedLogContainFoodDao;
 	}
-	
+
 	// FeedLogContainFood add
-	public void addFeedLogContainFood(FeedLogContainFood feedLogContainFood) throws SQLException
-	{
+	public void addFeedLogContainFood(FeedLogContainFood feedLogContainFood)
+			throws SQLException {
 		feedLogContainFoodDao.create(feedLogContainFood);
 	}
-	
+
 	// HealthyLog get dao
-	public RuntimeExceptionDao<HealthyLog, Integer> getHealthyLogDao() throws SQLException
-	{
-		if (null == healthyLogDao) 
-		{
+	public RuntimeExceptionDao<HealthyLog, Integer> getHealthyLogDao()
+			throws SQLException {
+		if (null == healthyLogDao) {
 			healthyLogDao = getRuntimeExceptionDao(HealthyLog.class);
 		}
 		return healthyLogDao;
 	}
-	
+
 	// HealthyLog add
-	public void addHealthyLog(HealthyLog healthyLog) throws SQLException
-	{
+	public void addHealthyLog(HealthyLog healthyLog) throws SQLException {
 		getHealthyLogDao().create(healthyLog);
 	}
-	
+
 	// MeasureLog get dao
-	public RuntimeExceptionDao<MeasureLog, Integer> getMeasureLogDao() throws SQLException
-	{
-		if (null == measureLogDao) 
-		{
+	public RuntimeExceptionDao<MeasureLog, Integer> getMeasureLogDao()
+			throws SQLException {
+		if (null == measureLogDao) {
 			measureLogDao = getRuntimeExceptionDao(MeasureLog.class);
 		}
 		return measureLogDao;
 	}
-	
+
 	// MeasureLog add
-	public void addMeasureLog(MeasureLog measureLog) throws SQLException
-	{
+	public void addMeasureLog(MeasureLog measureLog) throws SQLException {
 		getMeasureLogDao().create(measureLog);
 	}
 
 	public List<Type> getTypes() {
 		return getTypeDao().queryForAll();
+	}
+
+	public List<HealthyLog> getHealthyLogs(int pid) {
+		return getHealthyLogDao().queryForEq(HealthyLog.PID_FIELD_NAME, pid);
 	}
 }
