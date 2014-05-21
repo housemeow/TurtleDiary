@@ -128,7 +128,6 @@ public class PetActivity extends Activity {
 					myMonth, myDay);
 		default:
 			return null;
-
 		}
 	}
 
@@ -160,16 +159,22 @@ public class PetActivity extends Activity {
 		birthdayButton.setEnabled(enabled);
 	}
 
+	private String getDateString(Date date) {
+		Calendar c = Calendar.getInstance();
+		if(date!=null){
+			c.setTime(date);
+		}
+		String dateString = c.get(Calendar.YEAR) + "-"
+				+ (c.get(Calendar.MONTH) + 1) + "-"//January is 0
+				+ c.get(Calendar.DAY_OF_MONTH);
+		return dateString;
+	}
+
 	private void changeInputWidgetState(PetActivityState state) {
 		switch (state) {
 		case FirstAdd:
 		case Add: {
-			// birthday
-			Calendar c = Calendar.getInstance();
-			String dateString = c.get(Calendar.YEAR) + "-"
-					+ (c.get(Calendar.MONTH) + 1) + "-"
-					+ c.get(Calendar.DAY_OF_MONTH);
-			birthdayButton.setText(dateString);
+			birthdayButton.setText(getDateString(null));
 			break;
 		}
 		case Edit:
@@ -203,11 +208,7 @@ public class PetActivity extends Activity {
 			}
 			// birthday
 			Date date = Date.valueOf(nowPet.getBirthday());
-			Calendar c = Calendar.getInstance();
-			c.setTime(date);
-			birthdayButton.setText(c.get(Calendar.YEAR) + "-"
-					+ (c.get(Calendar.MONTH)+1) + "-"
-					+ c.get(Calendar.DAY_OF_MONTH));
+			birthdayButton.setText(getDateString(date));
 			break;
 		}
 		}
