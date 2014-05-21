@@ -1,6 +1,5 @@
 package com.td.turtlediary;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,13 +26,14 @@ import android.widget.Spinner;
 public class PetActivity extends Activity {
 	TurtleDiaryDatabaseHelper turtleDiaryHelper = new TurtleDiaryDatabaseHelper(
 			this);
-	Pet nowPet;
-	PetActivityState nowState;
-	private MenuItem menuItem;
 
 	enum PetActivityState {
 		FirstAdd, Add, View, Edit
 	};
+
+	Pet nowPet;
+	PetActivityState nowState;
+	private MenuItem menuItem;
 
 	Button addButton;
 	Button editButton;
@@ -49,23 +49,7 @@ public class PetActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_pet);
-
-		addButton = (Button) findViewById(R.id.petActivityAddButton);
-		editButton = (Button) findViewById(R.id.petActivityEditButton);
-		restoreButton = (Button) findViewById(R.id.petActivityRestoreButton);
-		nextButton = (Button) findViewById(R.id.petActivityNextButton);
-
-		addButton.setOnClickListener(getAddButtonOnClickListener());
-		editButton.setOnClickListener(getEditButtonOnClickListener());
-		restoreButton.setOnClickListener(getRestoreButtonOnClickListener());
-		nextButton.setOnClickListener(getNextButtonOnClickListener());
-		petNameEditText = (EditText) findViewById(R.id.petActivityPetNameEditText);
-		petTypeSpinner = (Spinner) findViewById(R.id.petActivityPetTypeSpinner);
-		genderRadioGroup = (RadioGroup) findViewById(R.id.petActivityGenderRadioGroup);
-		environmentSpinner = (Spinner) findViewById(R.id.petActivityEnvironmentSpinner);
-		birthdayEditText = (EditText) findViewById(R.id.petActivityBirthdayEditText);
-
-		
+		initializeWidgets();
 		nowPet = (Pet) getIntent().getSerializableExtra("pet");
 		if (nowPet != null) {
 			nowPet = turtleDiaryHelper.getPet(nowPet.getPid());
@@ -77,7 +61,37 @@ public class PetActivity extends Activity {
 		} else {
 			changeState(PetActivityState.View);
 		}
+	}
 
+	private void initializeWidgets() {
+		addButton = (Button) findViewById(R.id.petActivityAddButton);
+		editButton = (Button) findViewById(R.id.petActivityEditButton);
+		restoreButton = (Button) findViewById(R.id.petActivityRestoreButton);
+		nextButton = (Button) findViewById(R.id.petActivityNextButton);
+		addButton.setOnClickListener(getAddButtonOnClickListener());
+		editButton.setOnClickListener(getEditButtonOnClickListener());
+		restoreButton.setOnClickListener(getRestoreButtonOnClickListener());
+		nextButton.setOnClickListener(getNextButtonOnClickListener());
+		petNameEditText = (EditText) findViewById(R.id.petActivityPetNameEditText);
+		petTypeSpinner = (Spinner) findViewById(R.id.petActivityPetTypeSpinner);
+		genderRadioGroup = (RadioGroup) findViewById(R.id.petActivityGenderRadioGroup);
+		environmentSpinner = (Spinner) findViewById(R.id.petActivityEnvironmentSpinner);
+		birthdayEditText = (EditText) findViewById(R.id.petActivityBirthdayEditText);
+		// Type
+		List<Type> types = turtleDiaryHelper.getTypes();
+		ArrayAdapter<Type> typeAdapter = new ArrayAdapter<Type>(this,
+				android.R.layout.simple_dropdown_item_1line, types);
+		petTypeSpinner.setAdapter(typeAdapter);
+		// Environment
+		Environment environment = (Environment) getIntent()
+				.getSerializableExtra("environment");
+		List<Environment> environments = turtleDiaryHelper.getEnvironments();
+		if (environment != null) {
+			environments.add(environment);
+		}
+		ArrayAdapter<Environment> environmentAdapter = new ArrayAdapter<Environment>(
+				this, android.R.layout.simple_dropdown_item_1line, environments);
+		environmentSpinner.setAdapter(environmentAdapter);
 	}
 
 	private void changeState(PetActivityState state) {
@@ -86,114 +100,56 @@ public class PetActivity extends Activity {
 		changeInputWidgetState(state);
 	}
 
+	private void setWidgetsEnabled(boolean enabled) {
+		petNameEditText.setEnabled(enabled);
+		petTypeSpinner.setEnabled(enabled);
+		for (int i = 0; i < genderRadioGroup.getChildCount(); i++) {
+			RadioButton radioButton = (RadioButton) genderRadioGroup
+					.getChildAt(i);
+			radioButton.setEnabled(enabled);
+		}
+		environmentSpinner.setEnabled(enabled);
+		birthdayEditText.setEnabled(enabled);
+	}
+
 	private void changeInputWidgetState(PetActivityState state) {
 		switch (state) {
-		case FirstAdd: {
-			// name
-			petNameEditText.setText("");
-			petNameEditText.setEnabled(true);
-			petTypeSpinner.setEnabled(true);
-			// gender
-			for (int i = 0; i < genderRadioGroup.getChildCount(); i++) {
-				genderRadioGroup.getChildAt(i).setEnabled(true);
-			}
-			// type
-			List<Type> types = turtleDiaryHelper.getTypes();
-			ArrayAdapter<Type> typeAdapter = new ArrayAdapter<Type>(this,
-					android.R.layout.simple_dropdown_item_1line, types);
-			petTypeSpinner.setAdapter(typeAdapter);
-
-			// environment
-			Environment environment = (Environment) getIntent()
-					.getSerializableExtra("environment");
-			ArrayList<Environment> environments = new ArrayList<Environment>();
-			environments.add(environment);
-
-			ArrayAdapter<Environment> environmentAdapter = new ArrayAdapter<Environment>(
-					this, android.R.layout.simple_dropdown_item_1line,
-					environments);
-			environmentSpinner.setAdapter(environmentAdapter);
-			// birthday
-			birthdayEditText.setEnabled(true);
+		case FirstAdd:
+		case Add:
 			break;
-		}
-		case Add: {
-			// type
-			List<Type> types = turtleDiaryHelper.getTypes();
-			ArrayAdapter<Type> typeAdapter = new ArrayAdapter<Type>(this,
-					android.R.layout.simple_dropdown_item_1line, types);
-			petTypeSpinner.setAdapter(typeAdapter);
-			// environment
-			ArrayAdapter<Environment> environmentAdapter = new ArrayAdapter<Environment>(
-					this, android.R.layout.simple_dropdown_item_1line,
-					turtleDiaryHelper.getEnvironments());
-			environmentSpinner.setAdapter(environmentAdapter);
-
-			break;
-		}
 		case Edit:
-			petNameEditText.setEnabled(true);
-			petTypeSpinner.setEnabled(true);
-			for (int i = 0; i < genderRadioGroup.getChildCount(); i++) {
-				genderRadioGroup.getChildAt(i).setEnabled(true);
-			}
-			environmentSpinner.setEnabled(true);
-			birthdayEditText.setEnabled(true);
+			setWidgetsEnabled(true);
 			break;
 		case View: {
+			setWidgetsEnabled(false);
 			// name
 			petNameEditText.setText(nowPet.getName());
-			petNameEditText.setEnabled(false);
-
 			// type
 			List<Type> types = turtleDiaryHelper.getTypes();
-			ArrayAdapter<Type> typeAdapter = new ArrayAdapter<Type>(this,
-					android.R.layout.simple_dropdown_item_1line, types);
-			petTypeSpinner.setAdapter(typeAdapter);
-			petTypeSpinner.setEnabled(false);
-			Type type = turtleDiaryHelper.getType(nowPet.getTid());
-			int index = 0;
 			for (Type t : types) {
-				if (t.equals(type)) {
-					break;
+				if (nowPet.getTid() == t.getTid()) {
+					petTypeSpinner.setSelection(types.indexOf(t));
 				}
-				index++;
 			}
-
-			petTypeSpinner.setSelection(index);
 			// gender
 			for (int i = 0; i < genderRadioGroup.getChildCount(); i++) {
 				RadioButton radioButton = (RadioButton) genderRadioGroup
 						.getChildAt(i);
-				genderRadioGroup.getChildAt(i).setEnabled(false);
 				String gender = radioButton.getText().toString();
 				radioButton.setChecked(gender.equals(nowPet.getGender()));
 			}
-
 			// environment
 			List<Environment> environments = turtleDiaryHelper
 					.getEnvironments();
-			ArrayAdapter<Environment> environmentAdapter = new ArrayAdapter<Environment>(
-					this, android.R.layout.simple_dropdown_item_1line,
-					environments);
-			environmentSpinner.setAdapter(environmentAdapter);
-			environmentSpinner.setEnabled(false);
-			Environment environment = turtleDiaryHelper.getEnvironment(nowPet
-					.getEid());
-
-			index = 0;
 			for (Environment e : environments) {
-				if (e.equals(environment)) {
-					break;
+				if (nowPet.getEid() == e.getEid()) {
+					environmentSpinner.setSelection(environments.indexOf(e));
 				}
-				index++;
 			}
-			environmentSpinner.setSelection(index);
 			// birthday
 			if (nowPet.getBirthday() != null) {
 				birthdayEditText.setText(nowPet.getBirthday().toString());
 			}
-			birthdayEditText.setEnabled(false);
 			break;
 		}
 		}
@@ -229,23 +185,9 @@ public class PetActivity extends Activity {
 
 	private OnClickListener getAddButtonOnClickListener() {
 		return new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
-				Pet pet = new Pet();
-				pet.setBirthday(new Date());
-				Environment environment = (Environment) environmentSpinner
-						.getSelectedItem();
-				pet.setEid(environment.getEid());
-
-				int selectedId = genderRadioGroup.getCheckedRadioButtonId();
-				RadioButton selectedRadioButton = (RadioButton) findViewById(selectedId);
-				pet.setGender(selectedRadioButton.getText().toString());
-				pet.setName(petNameEditText.getText().toString());
-
-				Type type = (Type) petTypeSpinner.getSelectedItem();
-				pet.setTid(type.getTid());
-
+				Pet pet = getPetFromWidget();
 				turtleDiaryHelper.addPet(pet);
 				finish();
 			}
@@ -254,50 +196,30 @@ public class PetActivity extends Activity {
 
 	private OnClickListener getNextButtonOnClickListener() {
 		return new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
-				Pet pet = new Pet();
-				pet.setName(petNameEditText.getText().toString());
-				pet.setBirthday(new Date());
-
-				int selectedId = genderRadioGroup.getCheckedRadioButtonId();
-				RadioButton selectedRadioButton = (RadioButton) findViewById(selectedId);
-				pet.setGender(selectedRadioButton.getText().toString());
-
-				Type type = (Type) petTypeSpinner.getSelectedItem();
-				pet.setTid(type.getTid());
-
-				Environment environment = (Environment) getIntent()
-						.getSerializableExtra("environment");
-				turtleDiaryHelper.addEnvironment(environment);
-				pet.setEid(environment.getEid());
+				Pet pet = getPetFromWidget();
 				turtleDiaryHelper.addPet(pet);
-				Intent intent = new Intent();
-
-				intent.setClass(PetActivity.this, HomePageActivity.class);
+				startActivity(new Intent(PetActivity.this,
+						HomePageActivity.class));
 				EnvironmentActivity.finishByOtherActivity();
-				startActivity(intent);
 				finish();
 			}
 		};
 	}
 
-	private void setWidgetFromPet(Pet pet){
-		
-	}
-	
-	private Pet getPetFromWidget() {
-		Pet pet = new Pet();
-		pet.setName(petNameEditText.getText().toString());
-		pet.setBirthday(new Date());
-
+	private String getGenderFromRadioGroup() {
 		int selectedId = genderRadioGroup.getCheckedRadioButtonId();
 		RadioButton selectedRadioButton = (RadioButton) findViewById(selectedId);
-		pet.setGender(selectedRadioButton.getText().toString());
+		return selectedRadioButton.getText().toString();
+	}
 
-		Type type = (Type) petTypeSpinner.getSelectedItem();
-		Environment environment;// = new Environment();
+	private int getTidFromTypeSpinner() {
+		return ((Type) petTypeSpinner.getSelectedItem()).getTid();
+	}
+
+	private int getEidFromEnvironmentSpinnerOrIntent() {
+		Environment environment;
 		if (nowState == PetActivityState.FirstAdd) {
 			environment = (Environment) getIntent().getSerializableExtra(
 					"environment");
@@ -305,8 +227,16 @@ public class PetActivity extends Activity {
 		} else {
 			environment = (Environment) environmentSpinner.getSelectedItem();
 		}
-		pet.setEid(environment.getEid());
-		pet.setTid(type.getTid());
+		return environment.getEid();
+	}
+
+	private Pet getPetFromWidget() {
+		Pet pet = new Pet();
+		pet.setName(petNameEditText.getText().toString());
+		pet.setBirthday(new Date());
+		pet.setGender(getGenderFromRadioGroup());
+		pet.setTid(getTidFromTypeSpinner());
+		pet.setEid(getEidFromEnvironmentSpinnerOrIntent());
 		return pet;
 	}
 
