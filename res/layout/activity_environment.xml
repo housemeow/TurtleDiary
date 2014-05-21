@@ -30,6 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:inputType="text"
+                android:hint="@string/pleaseInputEnvironmentName"
                 android:textSize="20sp" />
         </TableRow>
 
@@ -49,6 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
                 android:inputType="number"
+                android:text="@string/defaultLength"
                 android:textSize="20sp" />
 
             <TextView
@@ -76,6 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
                 android:inputType="number"
+                android:text="@string/defaultWidth"
                 android:textSize="20sp" />
 
             <TextView
@@ -103,6 +106,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
                 android:inputType="number"
+                android:text="@string/defaultHeight"
                 android:textSize="20sp" />
 
             <TextView
@@ -130,6 +134,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
                 android:inputType="numberDecimal"
+                android:text="@string/defaultHotPoint"
                 android:textSize="20sp" />
 
             <TextView
@@ -157,6 +162,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
                 android:inputType="numberDecimal"
+                android:text="@string/defaultLowPoint"
                 android:textSize="20sp" />
 
             <TextView
@@ -184,6 +190,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
                 android:inputType="number"
+                android:text="@string/defaultMaxHumidity"
                 android:textSize="20sp" />
 
             <TextView
@@ -211,6 +218,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
                 android:inputType="number"
+                android:text="@string/defaultMinHumidity"
                 android:textSize="20sp" />
 
             <TextView
