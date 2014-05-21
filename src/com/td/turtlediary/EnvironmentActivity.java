@@ -164,13 +164,67 @@ public class EnvironmentActivity extends Activity {
 		Environment environment = new Environment();
 		environment.setEid(eid);
 		environment.setName(environmentActivityEnvironmentNameEditText.getText().toString());
-		environment.setLength(Integer.parseInt(environmentActivityLengthEditText.getText().toString()));
-		environment.setWidth(Integer.parseInt(environmentActivityWidthEditText.getText().toString()));
-		environment.setHeight(Integer.parseInt(environmentActivityHeightEditText.getText().toString()));
-		environment.setHotPoint(Double.parseDouble(environmentActivityHotPointEditText.getText().toString()));
-		environment.setLowPoint(Double.parseDouble(environmentActivityLowPointEditText.getText().toString()));
-		environment.setMaxHumidity(Integer.parseInt(environmentActivityMaxHumidityEditText.getText().toString()));
-		environment.setMinHumidity(Integer.parseInt(environmentActivityMinHumidityEditText.getText().toString()));
+		if (environmentActivityLengthEditText.getText().toString().equals(""))
+		{
+			environment.setLength(0);
+		}
+		else 
+		{
+			environment.setLength(Integer.parseInt(environmentActivityLengthEditText.getText().toString()));
+		}
+		if (environmentActivityWidthEditText.getText().toString().equals(""))
+		{
+			environment.setWidth(0);
+		}
+		else 
+		{
+			environment.setWidth(Integer.parseInt(environmentActivityWidthEditText.getText().toString()));
+		}
+		
+		if (environmentActivityHeightEditText.getText().toString().equals(""))
+		{
+			environment.setHeight(0);
+		}
+		else 
+		{
+			environment.setHeight(Integer.parseInt(environmentActivityHeightEditText.getText().toString()));
+		}
+		
+		if (environmentActivityHotPointEditText.getText().toString().equals(""))
+		{
+			environment.setHotPoint(0);
+		}
+		else 
+		{
+			environment.setHotPoint(Double.parseDouble(environmentActivityHotPointEditText.getText().toString()));
+		}
+		
+		if (environmentActivityLowPointEditText.getText().toString().equals(""))
+		{
+			environment.setLowPoint(0);
+		}
+		else 
+		{
+			environment.setLowPoint(Double.parseDouble(environmentActivityLowPointEditText.getText().toString()));
+		}
+		
+		if (environmentActivityMaxHumidityEditText.getText().toString().equals(""))
+		{
+			environment.setMaxHumidity(0);
+		}
+		else 
+		{
+			environment.setMaxHumidity(Integer.parseInt(environmentActivityMaxHumidityEditText.getText().toString()));
+		}
+		
+		if (environmentActivityMinHumidityEditText.getText().toString().equals(""))
+		{
+			environment.setMinHumidity(0);
+		}
+		else 
+		{
+			environment.setMinHumidity(Integer.parseInt(environmentActivityMinHumidityEditText.getText().toString()));
+		}
 		return environment;
 	}
 

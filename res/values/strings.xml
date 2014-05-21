@@ -60,5 +60,13 @@
     <string name="title_activity_measure">MeasureActivity</string>
     <string name="measure">測量</string>
     <string name="jacksonRatio">傑克森量表</string>
+    <string name="pleaseInputEnvironmentName">請輸入環境名稱</string>
+    <string name="defaultLength">60</string>
+    <string name="defaultWidth">45</string>
+    <string name="defaultHeight">45</string>
+    <string name="defaultHotPoint">32</string>
+    <string name="defaultLowPoint">28</string>
+    <string name="defaultMaxHumidity">80</string>
+    <string name="defaultMinHumidity">60</string>
 
 </resources>
