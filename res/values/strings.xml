@@ -70,5 +70,7 @@
     <string name="defaultMinHumidity">60</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="logHealthy">健康記錄</string>
+    <string name="picture">照片</string>
+    <string name="getPicture">取得照片</string>
 
 </resources>

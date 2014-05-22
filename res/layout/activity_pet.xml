@@ -10,12 +10,10 @@
     tools:context="com.td.turtlediary.AddPetActivity" >
 
     <TableRow
-        android:id="@+id/tableRow1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/textViewName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/petName"
@@ -34,12 +32,10 @@
     </TableRow>
 
     <TableRow
-        android:id="@+id/tableRow2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/homePagePetNameEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -53,12 +49,30 @@
     </TableRow>
 
     <TableRow
-        android:id="@+id/tableRow3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/picture"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/petActivitySelectPictureButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/getPicture"
+            android:textSize="20sp" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/gender"
@@ -91,17 +105,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/genderUnknown"
                 android:textSize="20sp" />
-
         </RadioGroup>
     </TableRow>
 
     <TableRow
-        android:id="@+id/tableRow4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/petEnvironment"
@@ -114,32 +125,20 @@
     </TableRow>
 
     <TableRow
-        android:id="@+id/tableRow5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/petBirthday"
             android:textSize="20sp" />
 
-        
         <Button
             android:id="@+id/petActivityBirthdayButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp" />
- <!--        <EditText
-            android:id="@+id/petActivityBirthdayEditText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/pleaseInputPetBirthday"
-            android:inputType="date"
-            android:textSize="20sp" /> -->
-
     </TableRow>
 
     <RelativeLayout
@@ -181,7 +180,6 @@
             android:layout_toLeftOf="@+id/petActivityEditButton"
             android:text="@string/restore"
             android:textSize="20sp" />
-
     </RelativeLayout>
 
 </TableLayout>
