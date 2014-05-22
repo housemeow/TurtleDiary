@@ -1,8 +1,11 @@
 package com.td.turtlediary;
 
-import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import com.td.models.Environment;
 import com.td.models.Pet;
@@ -119,7 +122,7 @@ public class PetActivity extends Activity {
 		case ID_DATEPICKER:
 			Calendar c = Calendar.getInstance();
 			if (nowPet != null) {
-				c.setTime(Date.valueOf(nowPet.getBirthday()));
+				c.setTime(nowPet.getBirthday());
 			}
 			int myYear = c.get(Calendar.YEAR);
 			int myMonth = c.get(Calendar.MONTH);//這邊不用加1的原因是他跟onDateSet事件的月份一樣都是以0當作January
@@ -210,7 +213,7 @@ public class PetActivity extends Activity {
 				}
 			}
 			// birthday
-			Date date = Date.valueOf(nowPet.getBirthday());
+			Date date = nowPet.getBirthday();
 			birthdayButton.setText(getDateString(date));
 			break;
 		}
@@ -329,9 +332,19 @@ public class PetActivity extends Activity {
 		};
 	}
 
-	private String getBirthdayFromBirthdayButton() {
+	private Date getBirthdayFromBirthdayButton() {
+		//欲轉換的日期字串
 		String dateString = birthdayButton.getText().toString();
-		return dateString;
+		//設定日期格式
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+		//進行轉換
+		Date date = new Date();
+		try {
+			date = sdf.parse(dateString);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return date;
 	}
 
 	private OnClickListener getRestoreButtonOnClickListener() {

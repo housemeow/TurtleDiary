@@ -1,5 +1,7 @@
 package com.td.models;
 import java.io.Serializable;
+import java.util.Date;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -19,7 +21,7 @@ public class Pet implements Serializable
 	@DatabaseField
 	private int tid;
 	@DatabaseField
-	private String birthday;
+	private Date birthday;
 	//@DatabaseField
 	private byte[] image;
 	@DatabaseField
@@ -56,12 +58,12 @@ public class Pet implements Serializable
 		this.name = name;
 	}
 
-	public String getBirthday() 
+	public Date getBirthday() 
 	{
 		return birthday;
 	}
 
-	public void setBirthday(String birthday) 
+	public void setBirthday(Date birthday) 
 	{
 		this.birthday = birthday;
 	}
