@@ -150,6 +150,12 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 		}
 		return foodDao;
 	}
+	
+	// Food get
+	public Food getFood(int fid) throws SQLException {
+		Food food = getFoodDao().queryForId(fid);
+		return food;
+	}
 
 	// Food get all
 	public List<Food> getFoods() throws SQLException {
