@@ -34,8 +34,22 @@ public class MeasureActivity extends Activity {
 				EditText shellLengthEditText = (EditText) findViewById(R.id.measureActivityShellLengthEditText);
 				EditText weightEditText = (EditText)findViewById(R.id.measureActivityWeightEditText);
 				MeasureLog measureLog = new MeasureLog();
-				measureLog.setLength(Double.parseDouble(shellLengthEditText.getText().toString()));
-				measureLog.setWeight(Double.parseDouble(weightEditText.getText().toString()));
+				if (shellLengthEditText.getText().toString().equals(""))
+				{
+					measureLog.setLength(0);
+				}
+				else 
+				{
+					measureLog.setLength(Double.parseDouble(shellLengthEditText.getText().toString()));
+				}
+				if (weightEditText.getText().toString().equals(""))
+				{
+					measureLog.setWeight(0);
+				}
+				else 
+				{
+					measureLog.setWeight(Double.parseDouble(weightEditText.getText().toString()));
+				}
 				measureLog.setPid(((Pet)getIntent().getSerializableExtra("pet")).getPid());
 				measureLog.setTimeStamp(new Date());
 				TurtleDiaryDatabaseHelper helper = new TurtleDiaryDatabaseHelper(MeasureActivity.this);
