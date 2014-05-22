@@ -1,5 +1,6 @@
 package com.td.turtlediary;
 
+import java.io.ByteArrayOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -20,6 +21,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -146,10 +148,11 @@ public class PetActivity extends Activity {
 			cursor.close();
 
 			Bitmap bitmap = BitmapFactory.decodeFile(picturePath);
-			bitmap = Bitmap.createScaledBitmap(bitmap, 120, 120, false);
+			int width = bitmap.getWidth() / 8;
+			int height = bitmap.getHeight() / 8;
+			bitmap = Bitmap.createScaledBitmap(bitmap, width, height, false);
 			BitmapDrawable bitmapDrawable = new BitmapDrawable(
 					this.getResources(), bitmap);
-
 			selectPictureButton.setBackgroundDrawable(bitmapDrawable);
 		}
 	}
@@ -351,7 +354,17 @@ public class PetActivity extends Activity {
 		pet.setGender(getGenderFromRadioGroup());
 		pet.setTid(getTidFromTypeSpinner());
 		pet.setEid(getEidFromEnvironmentSpinnerOrIntent());
+		pet.setImage(getPictureFromPictureButton());
 		return pet;
+	}
+
+	private byte[] getPictureFromPictureButton() {
+		Drawable drawable = selectPictureButton.getBackground();
+		Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+		byte[] bitmapdata = stream.toByteArray();
+	    return bitmapdata;  
 	}
 
 	private OnClickListener getEditButtonOnClickListener() {
