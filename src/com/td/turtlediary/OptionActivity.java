@@ -19,8 +19,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class OptionActivity extends Activity {
+	private TurtleDiaryDatabaseHelper helper = new TurtleDiaryDatabaseHelper(
+			this);
 	private TextView favoriteFoodTextView;
 	private Button shitButton;
+	private Pet pet;
+	private int pid;
 	final String[] unhealthyStrings = { "細長型糞便", "黏膜糞便", "水便", "果凍糞便", "排酸",
 			"排石" };
 
@@ -28,10 +32,12 @@ public class OptionActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_option);
-		Pet pet = (Pet) getIntent().getSerializableExtra("pet");
+		pid = getIntent().getIntExtra("pid", -1);
+		pet = helper.getPet(pid);
+		// Pet pet = (Pet) getIntent().getSerializableExtra("pet");
 		this.setTitle(pet.getName());
 		shitButton = (Button) findViewById(R.id.optionList);
-		favoriteFoodTextView = (TextView) findViewById(R.id.favoriteFoodTextView);
+		favoriteFoodTextView = (TextView) findViewById(R.id.recommendFoodTextView);
 		favoriteFoodTextView.setText("喜好食物：\n   1.xxx\n   2.xxxx\n   3.xxxxxx");
 		shitButton.setOnClickListener(new OnClickListener() {
 			@Override
@@ -47,8 +53,7 @@ public class OptionActivity extends Activity {
 					public void onClick(View v) {
 						Intent intent = new Intent();
 						intent.setClass(OptionActivity.this, PetActivity.class);
-						Pet pet = (Pet) getIntent().getSerializableExtra("pet");
-						intent.putExtra("pet", pet);
+						intent.putExtra("pid", pid);
 						startActivity(intent);
 					}
 				});
@@ -61,10 +66,10 @@ public class OptionActivity extends Activity {
 		DialogInterface.OnClickListener ListClick = new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
 				HealthyLog healthyLog = new HealthyLog();
-				Pet pet = (Pet) getIntent().getSerializableExtra("pet");
 				healthyLog.setPid(pet.getPid());
 				healthyLog.setComment(unhealthyStrings[which]);
-				TurtleDiaryDatabaseHelper helper = new TurtleDiaryDatabaseHelper(OptionActivity.this);
+				TurtleDiaryDatabaseHelper helper = new TurtleDiaryDatabaseHelper(
+						OptionActivity.this);
 				healthyLog.setTimeStamp(new Date());
 				helper.addHealthyLog(healthyLog);
 			}

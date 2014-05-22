@@ -25,8 +25,10 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -69,9 +71,9 @@ public class PetActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_pet);
 		initializeWidgets();
-		nowPet = (Pet) getIntent().getSerializableExtra("pet");
-		if (nowPet != null) {
-			nowPet = turtleDiaryHelper.getPet(nowPet.getPid());
+		int pid = getIntent().getIntExtra("pid", -1);
+		if (pid != -1) {
+			nowPet = turtleDiaryHelper.getPet(pid);
 		}
 		if (turtleDiaryHelper.getEnvironmentsCount() == 0) {
 			changeState(PetActivityState.FirstAdd);
@@ -148,8 +150,17 @@ public class PetActivity extends Activity {
 			cursor.close();
 
 			Bitmap bitmap = BitmapFactory.decodeFile(picturePath);
-			int width = bitmap.getWidth() / 8;
-			int height = bitmap.getHeight() / 8;
+
+			WindowManager wm = getWindowManager();
+			// Display d = wm.getDefaultDisplay();
+			// int biggerSide = d.getWidth() > d.getHeight() ? d.getWidth() : d
+			// .getHeight();
+			int width = bitmap.getWidth() / 4;
+			int height = bitmap.getHeight() / 4;
+			// if (width > height) {
+			// height = (int) ((height * biggerSide) / (float) width);
+			// width = biggerSide;
+			// }
 			bitmap = Bitmap.createScaledBitmap(bitmap, width, height, false);
 			BitmapDrawable bitmapDrawable = new BitmapDrawable(
 					this.getResources(), bitmap);
@@ -212,6 +223,7 @@ public class PetActivity extends Activity {
 		}
 		environmentSpinner.setEnabled(enabled);
 		birthdayButton.setEnabled(enabled);
+		selectPictureButton.setEnabled(enabled);
 	}
 
 	private String getDateString(Date date) {
@@ -267,6 +279,14 @@ public class PetActivity extends Activity {
 			// birthday
 			Date date = nowPet.getBirthday();
 			birthdayButton.setText(getDateString(date));
+
+			if (nowPet.getImage() != null) {
+				Drawable image = new BitmapDrawable(
+						BitmapFactory.decodeByteArray(nowPet.getImage(), 0,
+								nowPet.getImage().length));
+				// select.setImageDrawable(image);
+				selectPictureButton.setBackgroundDrawable(image);
+			}
 			break;
 		}
 		}
@@ -359,36 +379,29 @@ public class PetActivity extends Activity {
 	}
 
 	private byte[] getPictureFromPictureButton() {
-		Drawable drawable = selectPictureButton.getBackground();
-		Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
-		ByteArrayOutputStream stream = new ByteArrayOutputStream();
-		bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-		byte[] bitmapdata = stream.toByteArray();
-	    return bitmapdata;  
+		try {
+			Drawable drawable = selectPictureButton.getBackground();
+			Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+			ByteArrayOutputStream stream = new ByteArrayOutputStream();
+			bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+			byte[] bitmapdata = stream.toByteArray();
+			return bitmapdata;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	private OnClickListener getEditButtonOnClickListener() {
 		return new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
-				nowPet.setBirthday(getBirthdayFromBirthdayButton());
-				Environment environment = (Environment) environmentSpinner
-						.getSelectedItem();
-				nowPet.setEid(environment.getEid());
-
-				int selectedId = genderRadioGroup.getCheckedRadioButtonId();
-				RadioButton selectedRadioButton = (RadioButton) findViewById(selectedId);
-				nowPet.setGender(selectedRadioButton.getText().toString());
-				nowPet.setName(petNameEditText.getText().toString());
-
-				Type type = (Type) petTypeSpinner.getSelectedItem();
-				nowPet.setTid(type.getTid());
-
+				int pid = nowPet.getPid();
+				nowPet = getPetFromWidget();
+				nowPet.setPid(pid);
 				turtleDiaryHelper.updatePet(nowPet);
-
 				changeState(PetActivityState.View);
-				turtleDiaryHelper.updatePet(nowPet);
 			}
 
 		};

@@ -66,8 +66,7 @@ public class ImageAdapter extends PagerAdapter {
 			public void onClick(View v) {
 				Intent intent = new Intent();
 				intent.setClass(context, OptionActivity.class);
-				intent.putExtra("pet", pet);
-				intent.putExtra("showPrevious", "true");
+				intent.putExtra("pid", pet.getPid());
 
 				context.startActivity(intent);
 			}
