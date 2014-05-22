@@ -13,7 +13,7 @@
     <string name="petType">寵物品種</string>
     <string name="nutrition">營養</string>
     <string name="recommendFood">食材喜好排行</string>
-    <string name="weight">重量</string>
+    <string name="weight">體重</string>
     <string name="shellLength">甲長</string>
     <string name="shellLengthAndWeight">甲長&amp;體重</string>
     <string name="title_activity_option">Option</string>
