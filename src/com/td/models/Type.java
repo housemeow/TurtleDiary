@@ -1,5 +1,6 @@
 package com.td.models;
 
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -27,7 +28,7 @@ public class Type {
 	private int tid;
 	@DatabaseField
 	private String name;
-	// @DatabaseField
+	@DatabaseField(dataType = DataType.BYTE_ARRAY)
 	private byte[] image;
 	@DatabaseField
 	private String description;

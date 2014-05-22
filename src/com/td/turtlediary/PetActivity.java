@@ -1,5 +1,6 @@
 package com.td.turtlediary;
 
+import java.io.ByteArrayOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,7 +17,14 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
@@ -32,6 +40,7 @@ import android.widget.Spinner;
 
 public class PetActivity extends Activity {
 	static final int ID_DATEPICKER = 0;
+	protected static final int RESULT_LOAD_IMAGE = 1;
 
 	TurtleDiaryDatabaseHelper turtleDiaryHelper = new TurtleDiaryDatabaseHelper(
 			this);
@@ -53,6 +62,7 @@ public class PetActivity extends Activity {
 	RadioGroup genderRadioGroup;
 	Spinner environmentSpinner;
 	Button birthdayButton;
+	Button selectPictureButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +97,9 @@ public class PetActivity extends Activity {
 		environmentSpinner = (Spinner) findViewById(R.id.petActivityEnvironmentSpinner);
 		birthdayButton = (Button) findViewById(R.id.petActivityBirthdayButton);
 		birthdayButton.setOnClickListener(getBirthdayEditTextClickListener());
+		selectPictureButton = (Button) findViewById(R.id.petActivitySelectPictureButton);
+		selectPictureButton
+				.setOnClickListener(getSelectPictureButtonOnClickListener());
 
 		// Type
 		List<Type> types = turtleDiaryHelper.getTypes();
@@ -103,6 +116,45 @@ public class PetActivity extends Activity {
 		ArrayAdapter<Environment> environmentAdapter = new ArrayAdapter<Environment>(
 				this, android.R.layout.simple_dropdown_item_1line, environments);
 		environmentSpinner.setAdapter(environmentAdapter);
+	}
+
+	private OnClickListener getSelectPictureButtonOnClickListener() {
+		return new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(
+						Intent.ACTION_PICK,
+						android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+				startActivityForResult(intent, RESULT_LOAD_IMAGE);
+			}
+		};
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+
+		if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK
+				&& null != data) {
+			Uri selectedImage = data.getData();
+			String[] filePathColumn = { MediaStore.Images.Media.DATA };
+			Cursor cursor = getContentResolver().query(selectedImage,
+					filePathColumn, null, null, null);
+			cursor.moveToFirst();
+
+			int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+			String picturePath = cursor.getString(columnIndex);
+			cursor.close();
+
+			Bitmap bitmap = BitmapFactory.decodeFile(picturePath);
+			int width = bitmap.getWidth() / 8;
+			int height = bitmap.getHeight() / 8;
+			bitmap = Bitmap.createScaledBitmap(bitmap, width, height, false);
+			BitmapDrawable bitmapDrawable = new BitmapDrawable(
+					this.getResources(), bitmap);
+			selectPictureButton.setBackgroundDrawable(bitmapDrawable);
+		}
 	}
 
 	private OnClickListener getBirthdayEditTextClickListener() {
@@ -125,7 +177,7 @@ public class PetActivity extends Activity {
 				c.setTime(nowPet.getBirthday());
 			}
 			int myYear = c.get(Calendar.YEAR);
-			int myMonth = c.get(Calendar.MONTH);//這邊不用加1的原因是他跟onDateSet事件的月份一樣都是以0當作January
+			int myMonth = c.get(Calendar.MONTH);// 這邊不用加1的原因是他跟onDateSet事件的月份一樣都是以0當作January
 			int myDay = c.get(Calendar.DAY_OF_MONTH);
 			return new DatePickerDialog(this, myDateSetListener, myYear,
 					myMonth, myDay);
@@ -164,11 +216,11 @@ public class PetActivity extends Activity {
 
 	private String getDateString(Date date) {
 		Calendar c = Calendar.getInstance();
-		if(date!=null){
+		if (date != null) {
 			c.setTime(date);
 		}
 		String dateString = c.get(Calendar.YEAR) + "-"
-				+ (c.get(Calendar.MONTH) + 1) + "-"//January is 0
+				+ (c.get(Calendar.MONTH) + 1) + "-"// January is 0
 				+ c.get(Calendar.DAY_OF_MONTH);
 		return dateString;
 	}
@@ -302,7 +354,17 @@ public class PetActivity extends Activity {
 		pet.setGender(getGenderFromRadioGroup());
 		pet.setTid(getTidFromTypeSpinner());
 		pet.setEid(getEidFromEnvironmentSpinnerOrIntent());
+		pet.setImage(getPictureFromPictureButton());
 		return pet;
+	}
+
+	private byte[] getPictureFromPictureButton() {
+		Drawable drawable = selectPictureButton.getBackground();
+		Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+		byte[] bitmapdata = stream.toByteArray();
+	    return bitmapdata;  
 	}
 
 	private OnClickListener getEditButtonOnClickListener() {
@@ -333,11 +395,12 @@ public class PetActivity extends Activity {
 	}
 
 	private Date getBirthdayFromBirthdayButton() {
-		//欲轉換的日期字串
+		// 欲轉換的日期字串
 		String dateString = birthdayButton.getText().toString();
-		//設定日期格式
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-		//進行轉換
+		// 設定日期格式
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd",
+				Locale.getDefault());
+		// 進行轉換
 		Date date = new Date();
 		try {
 			date = sdf.parse(dateString);

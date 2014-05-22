@@ -2,6 +2,7 @@ package com.td.models;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -22,7 +23,7 @@ public class Pet implements Serializable
 	private int tid;
 	@DatabaseField
 	private Date birthday;
-	//@DatabaseField
+	@DatabaseField(dataType = DataType.BYTE_ARRAY)
 	private byte[] image;
 	@DatabaseField
 	private int eid;
