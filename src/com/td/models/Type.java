@@ -73,27 +73,27 @@ public class Type {
 		this.description = description;
 	}
 
-	public int getRecommondFood1() {
+	public int getRecommendFood1() {
 		return recommendFood1;
 	}
 
-	public void setRecommondFood1(int recommondFood1) {
+	public void setRecommendFood1(int recommondFood1) {
 		this.recommendFood1 = recommondFood1;
 	}
 
-	public int getRecommondFood2() {
+	public int getRecommendFood2() {
 		return recommendFood2;
 	}
 
-	public void setRecommondFood2(int recommondFood2) {
+	public void setRecommendFood2(int recommondFood2) {
 		this.recommendFood2 = recommondFood2;
 	}
 
-	public int getRecommondFood3() {
+	public int getRecommendFood3() {
 		return recommendFood3;
 	}
 
-	public void setRecommondFood3(int recommondFood3) {
+	public void setRecommendFood3(int recommondFood3) {
 		this.recommendFood3 = recommondFood3;
 	}
 }

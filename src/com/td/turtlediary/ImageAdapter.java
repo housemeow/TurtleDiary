@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class ImageAdapter extends PagerAdapter {
 	TurtleDiaryDatabaseHelper helper;
@@ -55,9 +56,7 @@ public class ImageAdapter extends PagerAdapter {
 				intent.setClass(context, OptionActivity.class);
 				List<Pet> pets =  helper.getPets(); 
 				Pet pet = pets.get(position);
-				intent.putExtra("pet", pet);
-				intent.putExtra("showPrevious", "true");
-
+				intent.putExtra("pid", pet.getPid());
 				context.startActivity(intent);
 			}
 		});
