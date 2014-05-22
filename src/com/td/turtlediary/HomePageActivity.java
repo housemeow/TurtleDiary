@@ -38,6 +38,7 @@ public class HomePageActivity extends Activity {
 					@Override
 					public void onClick(View v) {
 						mNav.toggleRightDrawer();
+						// 報表
 						TextView reportTextView = (TextView) findViewById(R.id.pointTextView);
 						reportTextView
 								.setOnClickListener(new OnClickListener() {
@@ -52,7 +53,7 @@ public class HomePageActivity extends Activity {
 										startActivity(intent);
 									}
 								});
-
+						// 環境設定
 						TextView environmentTextView = (TextView) findViewById(R.id.settingTextView);
 						environmentTextView
 								.setOnClickListener(new OnClickListener() {
@@ -63,7 +64,7 @@ public class HomePageActivity extends Activity {
 												EnvironmentListActivity.class));
 									}
 								});
-
+						// 餵食記錄
 						TextView feedTextView = (TextView) findViewById(R.id.recordTextView);
 						feedTextView.setOnClickListener(new OnClickListener() {
 							@Override
@@ -77,7 +78,7 @@ public class HomePageActivity extends Activity {
 								startActivity(intent);
 							}
 						});
-
+						// 測量
 						TextView measureTextView = (TextView) findViewById(R.id.measureTextView);
 						measureTextView
 								.setOnClickListener(new OnClickListener() {
@@ -92,7 +93,7 @@ public class HomePageActivity extends Activity {
 										startActivity(intent);
 									}
 								});
-
+						// 健康紀錄
 						TextView healthyLogTextView = (TextView) findViewById(R.id.healthyLogTextView);
 						healthyLogTextView
 								.setOnClickListener(new OnClickListener() {

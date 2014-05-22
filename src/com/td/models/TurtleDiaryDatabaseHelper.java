@@ -102,6 +102,11 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 		Type type = getTypeDao().queryForId(tid);
 		return type;
 	}
+	
+	// Type get all
+	public List<Type> getTypes() {
+		return getTypeDao().queryForAll();
+	}
 
 	// Environment get dao
 	public RuntimeExceptionDao<Environment, Integer> getEnvironmentDao()
@@ -193,6 +198,11 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 	public void addHealthyLog(HealthyLog healthyLog) throws SQLException {
 		getHealthyLogDao().create(healthyLog);
 	}
+	
+	// HealthyLog get all by pid
+	public List<HealthyLog> getHealthyLogs(int pid) {
+		return getHealthyLogDao().queryForEq(HealthyLog.PID_FIELD_NAME, pid);
+	}
 
 	// MeasureLog get dao
 	public RuntimeExceptionDao<MeasureLog, Integer> getMeasureLogDao()
@@ -206,13 +216,5 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 	// MeasureLog add
 	public void addMeasureLog(MeasureLog measureLog) throws SQLException {
 		getMeasureLogDao().create(measureLog);
-	}
-
-	public List<Type> getTypes() {
-		return getTypeDao().queryForAll();
-	}
-
-	public List<HealthyLog> getHealthyLogs(int pid) {
-		return getHealthyLogDao().queryForEq(HealthyLog.PID_FIELD_NAME, pid);
 	}
 }
