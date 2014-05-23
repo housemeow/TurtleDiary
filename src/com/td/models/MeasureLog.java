@@ -10,7 +10,8 @@ public class MeasureLog implements Serializable
 	private static final long serialVersionUID = 8762657374300875526L;
 	@DatabaseField(generatedId = true)
 	private int mid;
-	@DatabaseField
+	public static final String PID_FIELD_NAME = "pid";
+	@DatabaseField(columnName = PID_FIELD_NAME)
 	private int pid;
 	@DatabaseField
 	private Date timeStamp;
