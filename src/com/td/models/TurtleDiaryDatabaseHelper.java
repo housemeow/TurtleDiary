@@ -31,16 +31,52 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 	public void onCreate(SQLiteDatabase database,
 			ConnectionSource connectionSource) {
 		try {
+			// 讀Food csv檔
+			Food food1 = new Food();
+			food1.setName("車前草");
+			food1.setWater(79);
+			food1.setFat(1);
+			food1.setProtein(4);
+			food1.setFabric(3.3);
+			food1.setCa(309);
+			food1.setP(175);
+			getFoodDao().create(food1);
+
+			Food food2 = new Food();
+			food2.setName("桑葉");
+			food2.setWater(75);
+			food2.setFat(1);
+			food2.setProtein(6);
+			food2.setFabric(11.25);
+			food2.setCa(674);
+			food2.setP(59.5);
+			getFoodDao().create(food2);
+
+			Food food3 = new Food();
+			food3.setName("黃鵪菜");
+			food3.setWater(88.4);
+			food3.setFat(0);
+			food3.setProtein(0);
+			food3.setFabric(0.2);
+			food3.setCa(218);
+			food3.setP(30);
+			getFoodDao().create(food3);
+
+			// 讀Type csv檔
 			TableUtils.createTable(connectionSource, Pet.class);
 			TableUtils.createTable(connectionSource, Type.class);
 			Type type = new Type();
 			type.setName("印度星龜");
+			type.setRecommendFood1(food1.getFid());
+			type.setRecommendFood2(food2.getFid());
+			type.setRecommendFood3(food3.getFid());
 			getTypeDao().create(type);
 			type = new Type();
 			type.setName("緬甸星龜");
+			type.setRecommendFood1(food1.getFid());
+			type.setRecommendFood2(food2.getFid());
+			type.setRecommendFood3(food3.getFid());
 			getTypeDao().create(type);
-			// 讀Food csv檔
-			// 讀Type csv檔
 			TableUtils.createTable(connectionSource, Environment.class);
 			TableUtils.createTable(connectionSource, Food.class);
 			TableUtils.createTable(connectionSource, FeedLog.class);
@@ -105,7 +141,7 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 		Type type = getTypeDao().queryForId(tid);
 		return type;
 	}
-	
+
 	// Type get all
 	public List<Type> getTypes() {
 		return getTypeDao().queryForAll();
@@ -184,9 +220,12 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 		// getFeedLogDao().create(feedLog);
 
 		try {
-			QueryBuilder<FeedLog, Integer> builder = getFeedLogDao().queryBuilder();
+			QueryBuilder<FeedLog, Integer> builder = getFeedLogDao()
+					.queryBuilder();
 			builder.limit(1L);
-			builder.orderBy(FeedLog.FLID_FIELD_NAME, false); // true for ascending, descending
+			builder.orderBy(FeedLog.FLID_FIELD_NAME, false); // true for
+																// ascending,
+																// descending
 			List<FeedLog> list = getFeedLogDao().query(builder.prepare());
 			if (list.size() > 0) {
 				return list.get(0);
