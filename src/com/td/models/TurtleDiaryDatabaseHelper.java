@@ -32,6 +32,15 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 	public void onCreate(SQLiteDatabase database,
 			ConnectionSource connectionSource) {
 		try {
+			TableUtils.createTable(connectionSource, Pet.class);
+			TableUtils.createTable(connectionSource, Type.class);
+			TableUtils.createTable(connectionSource, Environment.class);
+			TableUtils.createTable(connectionSource, Food.class);
+			TableUtils.createTable(connectionSource, FeedLog.class);
+			TableUtils.createTable(connectionSource, FeedLogContainFood.class);
+			TableUtils.createTable(connectionSource, HealthyLog.class);
+			TableUtils.createTable(connectionSource, MeasureLog.class);
+
 			// 讀Food csv檔
 			Food food1 = new Food();
 			food1.setName("車前草");
@@ -64,8 +73,6 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 			getFoodDao().create(food3);
 
 			// 讀Type csv檔
-			TableUtils.createTable(connectionSource, Pet.class);
-			TableUtils.createTable(connectionSource, Type.class);
 			Type type = new Type();
 			type.setName("印度星龜");
 			type.setRecommendFood1(food1.getFid());
@@ -78,12 +85,6 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 			type.setRecommendFood2(food2.getFid());
 			type.setRecommendFood3(food3.getFid());
 			getTypeDao().create(type);
-			TableUtils.createTable(connectionSource, Environment.class);
-			TableUtils.createTable(connectionSource, Food.class);
-			TableUtils.createTable(connectionSource, FeedLog.class);
-			TableUtils.createTable(connectionSource, FeedLogContainFood.class);
-			TableUtils.createTable(connectionSource, HealthyLog.class);
-			TableUtils.createTable(connectionSource, MeasureLog.class);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} catch (java.sql.SQLException e) {
@@ -254,22 +255,18 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 			throws SQLException {
 		feedLogContainFoodDao.create(feedLogContainFood);
 	}
-	
+
 	// FeedLogContainFood get weight from same FeedLog
-	public double getWeightFromSameFeedLog(int flid)
-			throws SQLException {
+	public double getWeightFromSameFeedLog(int flid) throws SQLException {
 		double weight = 0;
-		GenericRawResults<String[]> rawResults =
-				getFeedLogContainFoodDao().queryRaw(
-				    "select sum(WEIGHT_FIELD_NAME) from FeedLogContainFood group by FLID_FIELD_NAME");
+		GenericRawResults<String[]> rawResults = getFeedLogContainFoodDao()
+				.queryRaw(
+						"select sum(WEIGHT_FIELD_NAME) from FeedLogContainFood group by FLID_FIELD_NAME");
 		try {
 			String[] resultArray = rawResults.getFirstResult();
-			if (resultArray[0].equals(""))
-			{
+			if (resultArray[0].equals("")) {
 				weight = 0;
-			}
-			else
-			{
+			} else {
 				weight = Double.parseDouble(resultArray[0]);
 			}
 			return weight;
