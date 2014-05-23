@@ -12,9 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class EnvironmentActivity extends Activity {	
+public class EnvironmentActivity extends Activity {
 	private static EnvironmentActivity activity;
-
 
 	private String state = new String("");
 	private String SET = new String("set");
@@ -22,7 +21,8 @@ public class EnvironmentActivity extends Activity {
 	private String VIEW = new String("view");
 	private String EDIT = new String("edit");
 	private int eid;
-	private TurtleDiaryDatabaseHelper turtleDiaryDatabaseHelper = new TurtleDiaryDatabaseHelper(this);
+	private TurtleDiaryDatabaseHelper turtleDiaryDatabaseHelper = new TurtleDiaryDatabaseHelper(
+			this);
 	private Button environmentActivityNextButton, environmentActivityAddButton,
 			environmentActivityRecoverButton, environmentActivityEditButton;
 	private EditText environmentActivityEnvironmentNameEditText,
@@ -70,11 +70,10 @@ public class EnvironmentActivity extends Activity {
 			if (state.equals(VIEW)) {
 				eid = intent.getIntExtra("environmentEid", -1);
 			}
-		} else if(turtleDiaryDatabaseHelper.getEnvironmentsCount()==0){
+		} else if (turtleDiaryDatabaseHelper.getEnvironmentsCount() == 0) {
 			// call GetEenvironmentsCount() API
 			state = SET;
-		}else
-		{
+		} else {
 			intent = new Intent();
 			intent.setClass(EnvironmentActivity.this, HomePageActivity.class);
 			startActivity(intent);
@@ -130,9 +129,8 @@ public class EnvironmentActivity extends Activity {
 		environmentActivityMaxHumidityEditText.setEnabled(isEnable);
 		environmentActivityMinHumidityEditText.setEnabled(isEnable);
 	}
-	
-	private void SetEditTextDefaultValue()
-	{
+
+	private void SetEditTextDefaultValue() {
 		environmentActivityEnvironmentNameEditText.setText("");
 		environmentActivityLengthEditText.setText("60");
 		environmentActivityWidthEditText.setText("45");
@@ -142,88 +140,90 @@ public class EnvironmentActivity extends Activity {
 		environmentActivityMaxHumidityEditText.setText("80");
 		environmentActivityMinHumidityEditText.setText("60");
 	}
-	
-	private void SetEditTextContentFromDB()
-	{
-		if (eid > 0)
-		{
-			Environment environment = turtleDiaryDatabaseHelper.getEnvironment(eid); 
-			environmentActivityEnvironmentNameEditText.setText(environment.getName());
-			environmentActivityLengthEditText.setText(environment.getLength() + "");
-			environmentActivityWidthEditText.setText(environment.getWidth() + "");
-			environmentActivityHeightEditText.setText(environment.getHeight() + "");
-			environmentActivityHotPointEditText.setText(environment.getHotPoint() + "");
-			environmentActivityLowPointEditText.setText(environment.getLowPoint() + "");
-			environmentActivityMaxHumidityEditText.setText(environment.getMaxHumidity() + "");
-			environmentActivityMinHumidityEditText.setText(environment.getMinHumidity() + "");
+
+	private void SetEditTextContentFromDB() {
+		if (eid > 0) {
+			Environment environment = turtleDiaryDatabaseHelper
+					.getEnvironment(eid);
+			environmentActivityEnvironmentNameEditText.setText(environment
+					.getName());
+			environmentActivityLengthEditText.setText(environment.getLength()
+					+ "");
+			environmentActivityWidthEditText.setText(environment.getWidth()
+					+ "");
+			environmentActivityHeightEditText.setText(environment.getHeight()
+					+ "");
+			environmentActivityHotPointEditText.setText(environment
+					.getHotPoint() + "");
+			environmentActivityLowPointEditText.setText(environment
+					.getLowPoint() + "");
+			environmentActivityMaxHumidityEditText.setText(environment
+					.getMaxHumidity() + "");
+			environmentActivityMinHumidityEditText.setText(environment
+					.getMinHumidity() + "");
 		}
 	}
-	
-	public Environment GetEnvironmentFromEditText()
-	{
+
+	public Environment GetEnvironmentFromEditText() {
 		Environment environment = new Environment();
 		environment.setEid(eid);
-		environment.setName(environmentActivityEnvironmentNameEditText.getText().toString());
-		if (environmentActivityLengthEditText.getText().toString().equals(""))
-		{
+		environment.setName(environmentActivityEnvironmentNameEditText
+				.getText().toString());
+		if (environmentActivityLengthEditText.getText().toString().equals("")) {
 			environment.setLength(0);
+		} else {
+			environment.setLength(Integer
+					.parseInt(environmentActivityLengthEditText.getText()
+							.toString()));
 		}
-		else 
-		{
-			environment.setLength(Integer.parseInt(environmentActivityLengthEditText.getText().toString()));
-		}
-		if (environmentActivityWidthEditText.getText().toString().equals(""))
-		{
+		if (environmentActivityWidthEditText.getText().toString().equals("")) {
 			environment.setWidth(0);
+		} else {
+			environment.setWidth(Integer
+					.parseInt(environmentActivityWidthEditText.getText()
+							.toString()));
 		}
-		else 
-		{
-			environment.setWidth(Integer.parseInt(environmentActivityWidthEditText.getText().toString()));
-		}
-		
-		if (environmentActivityHeightEditText.getText().toString().equals(""))
-		{
+
+		if (environmentActivityHeightEditText.getText().toString().equals("")) {
 			environment.setHeight(0);
+		} else {
+			environment.setHeight(Integer
+					.parseInt(environmentActivityHeightEditText.getText()
+							.toString()));
 		}
-		else 
-		{
-			environment.setHeight(Integer.parseInt(environmentActivityHeightEditText.getText().toString()));
-		}
-		
-		if (environmentActivityHotPointEditText.getText().toString().equals(""))
-		{
+
+		if (environmentActivityHotPointEditText.getText().toString().equals("")) {
 			environment.setHotPoint(0);
+		} else {
+			environment.setHotPoint(Double
+					.parseDouble(environmentActivityHotPointEditText.getText()
+							.toString()));
 		}
-		else 
-		{
-			environment.setHotPoint(Double.parseDouble(environmentActivityHotPointEditText.getText().toString()));
-		}
-		
-		if (environmentActivityLowPointEditText.getText().toString().equals(""))
-		{
+
+		if (environmentActivityLowPointEditText.getText().toString().equals("")) {
 			environment.setLowPoint(0);
+		} else {
+			environment.setLowPoint(Double
+					.parseDouble(environmentActivityLowPointEditText.getText()
+							.toString()));
 		}
-		else 
-		{
-			environment.setLowPoint(Double.parseDouble(environmentActivityLowPointEditText.getText().toString()));
-		}
-		
-		if (environmentActivityMaxHumidityEditText.getText().toString().equals(""))
-		{
+
+		if (environmentActivityMaxHumidityEditText.getText().toString()
+				.equals("")) {
 			environment.setMaxHumidity(0);
+		} else {
+			environment.setMaxHumidity(Integer
+					.parseInt(environmentActivityMaxHumidityEditText.getText()
+							.toString()));
 		}
-		else 
-		{
-			environment.setMaxHumidity(Integer.parseInt(environmentActivityMaxHumidityEditText.getText().toString()));
-		}
-		
-		if (environmentActivityMinHumidityEditText.getText().toString().equals(""))
-		{
+
+		if (environmentActivityMinHumidityEditText.getText().toString()
+				.equals("")) {
 			environment.setMinHumidity(0);
-		}
-		else 
-		{
-			environment.setMinHumidity(Integer.parseInt(environmentActivityMinHumidityEditText.getText().toString()));
+		} else {
+			environment.setMinHumidity(Integer
+					.parseInt(environmentActivityMinHumidityEditText.getText()
+							.toString()));
 		}
 		return environment;
 	}
@@ -270,7 +270,8 @@ public class EnvironmentActivity extends Activity {
 	private Button.OnClickListener clickEnvironmentActivityAddButton = new Button.OnClickListener() {
 		@Override
 		public void onClick(View view) {
-			turtleDiaryDatabaseHelper.addEnvironment(GetEnvironmentFromEditText());
+			turtleDiaryDatabaseHelper
+					.addEnvironment(GetEnvironmentFromEditText());
 			finish();
 		}
 	};
@@ -289,15 +290,15 @@ public class EnvironmentActivity extends Activity {
 		@Override
 		public void onClick(View view) {
 			// call EditEnvironment(environment) API
-			turtleDiaryDatabaseHelper.updateEnvironment(GetEnvironmentFromEditText());
+			turtleDiaryDatabaseHelper
+					.updateEnvironment(GetEnvironmentFromEditText());
 			state = VIEW;
 			RefreshView();
 		}
 	};
 
 	public static void finishByOtherActivity() {
-		if(activity!=null)
-		{
+		if (activity != null) {
 			activity.finish();
 			activity = null;
 		}

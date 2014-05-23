@@ -5,8 +5,10 @@ import java.util.List;
 import android.content.Context;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
+import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
@@ -135,8 +137,8 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 	}
 
 	// Environment get count
-	public int getEnvironmentsCount() throws SQLException {
-		return getEnvironmentDao().queryForAll().size();
+	public long getEnvironmentsCount() throws SQLException {
+		return getEnvironmentDao().countOf();
 	}
 
 	// Environment get all
@@ -175,6 +177,22 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 	// FeedLog add
 	public void addFeedLog(FeedLog feedLog) throws SQLException {
 		getFeedLogDao().create(feedLog);
+	}
+	
+	// FeedLog get Last
+	public FeedLog getLastFeedLog(int pid) throws SQLException, java.sql.SQLException {
+		// getFeedLogDao().create(feedLog);
+		QueryBuilder<FeedLog, Integer> builder = getFeedLogDao().queryBuilder();
+		builder.limit(1L);
+		builder.orderBy(FeedLog.FLID_FIELD_NAME, false);  // true for ascending, false for descending
+		List<FeedLog> list = getFeedLogDao().query(builder.prepare());  // returns list of ten items
+		if (list.size() > 0)
+		{
+			return list.get(0);
+		}
+		else {
+			return null;
+		}
 	}
 
 	// FeedLogContainFood get dao
