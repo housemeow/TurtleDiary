@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
+import com.j256.ormlite.dao.GenericRawResults;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.support.ConnectionSource;
@@ -252,6 +253,31 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 	public void addFeedLogContainFood(FeedLogContainFood feedLogContainFood)
 			throws SQLException {
 		feedLogContainFoodDao.create(feedLogContainFood);
+	}
+	
+	// FeedLogContainFood get weight from same FeedLog
+	public double getWeightFromSameFeedLog(int flid)
+			throws SQLException {
+		double weight = 0;
+		GenericRawResults<String[]> rawResults =
+				getFeedLogContainFoodDao().queryRaw(
+				    "select sum(WEIGHT_FIELD_NAME) from FeedLogContainFood group by FLID_FIELD_NAME");
+		try {
+			String[] resultArray = rawResults.getFirstResult();
+			if (resultArray[0].equals(""))
+			{
+				weight = 0;
+			}
+			else
+			{
+				weight = Double.parseDouble(resultArray[0]);
+			}
+			return weight;
+		} catch (java.sql.SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return weight;
 	}
 
 	// HealthyLog get dao
