@@ -153,7 +153,7 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 		}
 		return foodDao;
 	}
-	
+
 	// Food get
 	public Food getFood(int fid) throws SQLException {
 		Food food = getFoodDao().queryForId(fid);
@@ -178,21 +178,26 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 	public void addFeedLog(FeedLog feedLog) throws SQLException {
 		getFeedLogDao().create(feedLog);
 	}
-	
+
 	// FeedLog get Last
-	public FeedLog getLastFeedLog(int pid) throws SQLException, java.sql.SQLException {
+	public FeedLog getLastFeedLog(int pid) {
 		// getFeedLogDao().create(feedLog);
-		QueryBuilder<FeedLog, Integer> builder = getFeedLogDao().queryBuilder();
-		builder.limit(1L);
-		builder.orderBy(FeedLog.FLID_FIELD_NAME, false);  // true for ascending, false for descending
-		List<FeedLog> list = getFeedLogDao().query(builder.prepare());  // returns list of ten items
-		if (list.size() > 0)
-		{
-			return list.get(0);
+
+		try {
+			QueryBuilder<FeedLog, Integer> builder = getFeedLogDao().queryBuilder();
+			builder.limit(1L);
+			builder.orderBy(FeedLog.FLID_FIELD_NAME, false); // true for ascending, descending
+			List<FeedLog> list = getFeedLogDao().query(builder.prepare());
+			if (list.size() > 0) {
+				return list.get(0);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (java.sql.SQLException e) {
+			e.printStackTrace();
 		}
-		else {
-			return null;
-		}
+		// returns list of ten items
+		return null;
 	}
 
 	// FeedLogContainFood get dao
@@ -223,7 +228,7 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 	public void addHealthyLog(HealthyLog healthyLog) throws SQLException {
 		getHealthyLogDao().create(healthyLog);
 	}
-	
+
 	// HealthyLog get all by pid
 	public List<HealthyLog> getHealthyLogs(int pid) {
 		return getHealthyLogDao().queryForEq(HealthyLog.PID_FIELD_NAME, pid);
@@ -242,7 +247,7 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 	public void addMeasureLog(MeasureLog measureLog) throws SQLException {
 		getMeasureLogDao().create(measureLog);
 	}
-	
+
 	// MeasureLog get all by pid
 	public List<MeasureLog> getMeasureLogs(int pid) {
 		return getMeasureLogDao().queryForEq(MeasureLog.PID_FIELD_NAME, pid);

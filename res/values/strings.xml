@@ -72,5 +72,6 @@
     <string name="logHealthy">健康記錄</string>
     <string name="picture">照片</string>
     <string name="getPicture">取得照片</string>
+    <string name="foodWeight">重量</string>
 
 </resources>

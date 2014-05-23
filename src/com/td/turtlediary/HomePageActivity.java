@@ -74,7 +74,7 @@ public class HomePageActivity extends Activity {
 										SelectFoodsActivity.class);
 								Pet pet = helper.getPets().get(
 										viewPager.getCurrentItem());
-								intent.putExtra("pet", pet);
+								intent.putExtra("pid", pet.getPid());
 								startActivity(intent);
 							}
 						});

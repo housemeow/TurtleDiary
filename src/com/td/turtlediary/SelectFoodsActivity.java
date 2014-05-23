@@ -1,22 +1,39 @@
 package com.td.turtlediary;
 
+import com.td.models.FeedLog;
+import com.td.models.TurtleDiaryDatabaseHelper;
+
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class SelectFoodsActivity extends Activity {
 
+	private TurtleDiaryDatabaseHelper turtleDiaryDatabaseHelper = new TurtleDiaryDatabaseHelper(this);
+	
+	private int pid;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_select_foods);
 		this.setTitle("選擇食物");
-
+		Intent intent = getIntent();
+		intent.getIntExtra("pid", -1);
 		Button feedButton = (Button) findViewById(R.id.selectFoodsFeedButton);
 		feedButton.setOnClickListener(getFeedFoodsButtonOnClickListener());
+		FeedLog lastFeedLog = turtleDiaryDatabaseHelper.getLastFeedLog(pid);
+		if (lastFeedLog != null)
+		{
+			Toast.makeText(this, "lastFeedLog not null", Toast.LENGTH_LONG).show();
+		}
+		else {
+			Toast.makeText(this, "lastFeedLog null", Toast.LENGTH_LONG).show();
+		}
 	}
 
 	private OnClickListener getFeedFoodsButtonOnClickListener() {
