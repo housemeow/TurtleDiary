@@ -8,7 +8,7 @@ public class Food implements Serializable
 {
 	@Override
 	public String toString() {
-		return name;
+		return getName();
 	}
 	
 	private static final long serialVersionUID = -594085769965941949L;
@@ -17,99 +17,85 @@ public class Food implements Serializable
 	@DatabaseField
 	private String name;
 	@DatabaseField
-	private int kcal;
+	private double water; // 水分 (g)
 	@DatabaseField
-	private int water;
+	private double protein; // 蛋白質 (g)
 	@DatabaseField
-	private double fat;
+	private double fat; // 脂肪 (g)
 	@DatabaseField
-	private double fabric;
+	private double fabric; // 纖維 (g)
 	@DatabaseField
-	private int ca;
+	private double ca; // 鈣 (mg)
 	@DatabaseField
-	private int p;
+	private double p; // 磷 (mg)
 	
 	public Food()
 	{
 	}
 
-	public int getFid() 
-	{
+	public int getFid() {
 		return fid;
 	}
 
-	public void setFid(int fid) 
-	{
+	public void setFid(int fid) {
 		this.fid = fid;
 	}
 
-	public String getName() 
-	{
+	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) 
-	{
+	public void setName(String name) {
 		this.name = name;
 	}
 
-	public int getKcal() 
-	{
-		return kcal;
-	}
-
-	public void setKcal(int kcal) 
-	{
-		this.kcal = kcal;
-	}
-
-	public int getWater() 
-	{
+	public double getWater() {
 		return water;
 	}
 
-	public void setWater(int water) 
-	{
+	public void setWater(double water) {
 		this.water = water;
 	}
 
-	public double getFat() 
-	{
+	public double getProtein() {
+		return protein;
+	}
+
+	public void setProtein(double protein) {
+		this.protein = protein;
+	}
+
+	public double getFat() {
 		return fat;
 	}
 
-	public void setFat(double fat) 
-	{
+	public void setFat(double fat) {
 		this.fat = fat;
 	}
 
-	public double getFabric() 
-	{
+	public double getFabric() {
 		return fabric;
 	}
 
-	public void setFabric(double fabric) 
-	{
+	public void setFabric(double fabric) {
 		this.fabric = fabric;
 	}
 
-	public int getCa() 
-	{
+	public double getCa() {
 		return ca;
 	}
 
-	public void setCa(int ca) 
-	{
+	public void setCa(double ca) {
 		this.ca = ca;
 	}
 
-	public int getP() 
-	{
+	public double getP() {
 		return p;
 	}
 
-	public void setP(int p) 
-	{
+	public void setP(double p) {
 		this.p = p;
 	}
+
+	
 }

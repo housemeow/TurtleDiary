@@ -14,8 +14,6 @@ public class FeedLog implements Serializable
 	private int pid;
 	@DatabaseField
 	private Date timeStamp;
-	@DatabaseField
-	private Boolean isEatOut;
 	
 	public FeedLog()
 	{
@@ -49,15 +47,5 @@ public class FeedLog implements Serializable
 	public void setTimeStamp(Date timeStamp) 
 	{
 		this.timeStamp = timeStamp;
-	}
-
-	public Boolean getIsEatOut() 
-	{
-		return isEatOut;
-	}
-
-	public void setIsEatOut(Boolean isEatOut) 
-	{
-		this.isEatOut = isEatOut;
 	}
 }
