@@ -2,10 +2,6 @@ package com.td.turtlediary;
 
 import java.util.Date;
 
-import com.td.models.MeasureLog;
-import com.td.models.Pet;
-import com.td.models.TurtleDiaryDatabaseHelper;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +9,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.td.models.MeasureLog;
+import com.td.models.Pet;
+import com.td.models.TurtleDiaryDatabaseHelper;
 
 public class MeasureActivity extends Activity {
 
@@ -34,20 +35,14 @@ public class MeasureActivity extends Activity {
 				EditText shellLengthEditText = (EditText) findViewById(R.id.measureActivityShellLengthEditText);
 				EditText weightEditText = (EditText)findViewById(R.id.measureActivityWeightEditText);
 				MeasureLog measureLog = new MeasureLog();
-				if (shellLengthEditText.getText().toString().equals(""))
+				if (shellLengthEditText.getText().toString().equals("") || weightEditText.getText().toString().equals(""))
 				{
-					measureLog.setLength(0);
+					Toast.makeText(MeasureActivity.this, "尚有未輸入欄位", Toast.LENGTH_LONG).show();
+					return ;
 				}
 				else 
 				{
 					measureLog.setLength(Double.parseDouble(shellLengthEditText.getText().toString()));
-				}
-				if (weightEditText.getText().toString().equals(""))
-				{
-					measureLog.setWeight(0);
-				}
-				else 
-				{
 					measureLog.setWeight(Double.parseDouble(weightEditText.getText().toString()));
 				}
 				measureLog.setPid(((Pet)getIntent().getSerializableExtra("pet")).getPid());
