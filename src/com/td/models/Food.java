@@ -15,6 +15,8 @@ public class Food implements Serializable
 	@DatabaseField(generatedId = true)
 	private int fid;
 	@DatabaseField
+	private String foodType;
+	@DatabaseField
 	private String name;
 	@DatabaseField
 	private double water; // 水分 (g)
@@ -95,6 +97,14 @@ public class Food implements Serializable
 
 	public void setP(double p) {
 		this.p = p;
+	}
+
+	public String getFoodType() {
+		return foodType;
+	}
+
+	public void setFoodType(String foodType) {
+		this.foodType = foodType;
 	}
 
 	

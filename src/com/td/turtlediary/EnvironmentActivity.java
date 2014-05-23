@@ -21,8 +21,7 @@ public class EnvironmentActivity extends Activity {
 	private String VIEW = new String("view");
 	private String EDIT = new String("edit");
 	private int eid;
-	private TurtleDiaryDatabaseHelper turtleDiaryDatabaseHelper = new TurtleDiaryDatabaseHelper(
-			this);
+	private TurtleDiaryDatabaseHelper turtleDiaryDatabaseHelper;
 	private Button environmentActivityNextButton, environmentActivityAddButton,
 			environmentActivityRecoverButton, environmentActivityEditButton;
 	private EditText environmentActivityEnvironmentNameEditText,
@@ -38,6 +37,8 @@ public class EnvironmentActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		activity = this;
+		turtleDiaryDatabaseHelper = new TurtleDiaryDatabaseHelper(this);
+
 		setContentView(R.layout.activity_environment);
 		// get edit text id
 		environmentActivityEnvironmentNameEditText = (EditText) findViewById(R.id.environmentActivityEnvironmentNameEditText);

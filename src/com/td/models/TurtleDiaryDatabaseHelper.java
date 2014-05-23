@@ -24,9 +24,11 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 	private RuntimeExceptionDao<FeedLogContainFood, Integer> feedLogContainFoodDao = null;
 	private RuntimeExceptionDao<HealthyLog, Integer> healthyLogDao = null;
 	private RuntimeExceptionDao<MeasureLog, Integer> measureLogDao = null;
+	private Context context;
 
 	public TurtleDiaryDatabaseHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		this.context = context;
 	}
 
 	public void onCreate(SQLiteDatabase database,
@@ -42,48 +44,25 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 			TableUtils.createTable(connectionSource, MeasureLog.class);
 
 			// 讀Food csv檔
-			Food food1 = new Food();
-			food1.setName("車前草");
-			food1.setWater(79);
-			food1.setFat(1);
-			food1.setProtein(4);
-			food1.setFabric(3.3);
-			food1.setCa(309);
-			food1.setP(175);
-			getFoodDao().create(food1);
 
-			Food food2 = new Food();
-			food2.setName("桑葉");
-			food2.setWater(75);
-			food2.setFat(1);
-			food2.setProtein(6);
-			food2.setFabric(11.25);
-			food2.setCa(674);
-			food2.setP(59.5);
-			getFoodDao().create(food2);
-
-			Food food3 = new Food();
-			food3.setName("黃鵪菜");
-			food3.setWater(88.4);
-			food3.setFat(0);
-			food3.setProtein(0);
-			food3.setFabric(0.2);
-			food3.setCa(218);
-			food3.setP(30);
-			getFoodDao().create(food3);
+			TurtleDiaryCsvReader reader = new TurtleDiaryCsvReader();
+			List<Food> foods = reader.getFoodsFromCsv(context);
+			for (Food food : foods) {
+				getFoodDao().create(food);
+			}
 
 			// 讀Type csv檔
 			Type type = new Type();
 			type.setName("印度星龜");
-			type.setRecommendFood1(food1.getFid());
-			type.setRecommendFood2(food2.getFid());
-			type.setRecommendFood3(food3.getFid());
+			type.setRecommendFood1(126);
+			type.setRecommendFood2(127);
+			type.setRecommendFood3(128);
 			getTypeDao().create(type);
 			type = new Type();
 			type.setName("緬甸星龜");
-			type.setRecommendFood1(food1.getFid());
-			type.setRecommendFood2(food2.getFid());
-			type.setRecommendFood3(food3.getFid());
+			type.setRecommendFood1(127);
+			type.setRecommendFood2(128);
+			type.setRecommendFood3(129);
 			getTypeDao().create(type);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -271,7 +250,6 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 			}
 			return weight;
 		} catch (java.sql.SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return weight;
