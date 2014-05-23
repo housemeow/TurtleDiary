@@ -7,11 +7,13 @@ import com.j256.ormlite.table.DatabaseTable;
 public class FeedLogContainFood implements Serializable
 {
 	private static final long serialVersionUID = 6065328707258243173L;
-	@DatabaseField(generatedId = true)
+	public static final String FLID_FIELD_NAME = "flid";
+	@DatabaseField(generatedId = true, columnName = FLID_FIELD_NAME)
 	private int flid;
 	@DatabaseField
 	private int fid;
-	@DatabaseField
+	public static final String WEIGHT_FIELD_NAME = "weight";
+	@DatabaseField(columnName = WEIGHT_FIELD_NAME)
 	private int weight;
 	
 	public FeedLogContainFood()
