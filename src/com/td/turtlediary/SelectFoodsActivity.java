@@ -29,6 +29,8 @@ public class SelectFoodsActivity extends Activity {
 		FeedLog lastFeedLog = turtleDiaryDatabaseHelper.getLastFeedLog(pid);
 		if (lastFeedLog != null)
 		{
+			// double weight = turtleDiaryDatabaseHelper.getWeightFromSameFeedLog(lastFeedLog.getFlid());
+			// Toast.makeText(this, "上次餵食記錄日期：\n" + lastFeedLog.getTimeStamp() + "\n共餵食" + weight + "g", Toast.LENGTH_LONG).show();
 			Toast.makeText(this, "lastFeedLog not null", Toast.LENGTH_LONG).show();
 		}
 		else {
