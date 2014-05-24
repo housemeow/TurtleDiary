@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.td.models.FeedLog;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.GenericRawResults;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
@@ -197,26 +198,23 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 	}
 
 	// FeedLog get Last
-	public FeedLog getLastFeedLog(int pid) {
-		// getFeedLogDao().create(feedLog);
-
+	public FeedLog getLastFeedLog(int pid) throws SQLException{
+		QueryBuilder<FeedLog, Integer> queryBuilder = getFeedLogDao().queryBuilder();
+		queryBuilder.limit(1L);
+		queryBuilder.orderBy("flid", false);
 		try {
-			QueryBuilder<FeedLog, Integer> builder = getFeedLogDao()
-					.queryBuilder();
-			builder.limit(1L);
-			builder.orderBy(FeedLog.FLID_FIELD_NAME, false); // true for
-																// ascending,
-																// descending
-			List<FeedLog> list = getFeedLogDao().query(builder.prepare());
-			if (list.size() > 0) {
-				return list.get(0);
+			queryBuilder.where().eq("pid", pid);
+			FeedLog lastFeedLog = getFeedLogDao().queryForFirst(queryBuilder.prepare());
+			if (lastFeedLog == null) {
+				return null;
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+			else{
+				return lastFeedLog;
+			}
 		} catch (java.sql.SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// returns list of ten items
 		return null;
 	}
 
