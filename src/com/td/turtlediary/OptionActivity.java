@@ -7,16 +7,13 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.SQLException;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.td.models.FeedLog;
 import com.td.models.Food;
 import com.td.models.HealthyLog;
 import com.td.models.Pet;
@@ -27,7 +24,7 @@ public class OptionActivity extends Activity {
 	private TurtleDiaryDatabaseHelper helper = new TurtleDiaryDatabaseHelper(
 			this);
 	private TextView favoriteFoodTextView;
-	private Button shitButton;
+	private Button healthyLogButton;
 	private Pet pet;
 	private int pid;
 	final String[] unhealthyStrings = { "細長型糞便", "黏膜糞便", "水便", "果凍糞便", "排酸",
@@ -37,29 +34,25 @@ public class OptionActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_option);
+
 		pid = getIntent().getIntExtra("pid", -1);
 		pet = helper.getPet(pid);
-		shitButton = (Button) findViewById(R.id.optionList);
-		favoriteFoodTextView = (TextView) findViewById(R.id.recommendFoodTextView);
-		/*
-		 * Type type = turtleDiaryDatabaseHelper.getType(pet.getTid()); Food
-		 * theFirstRecommendFood =
-		 * turtleDiaryDatabaseHelper.getFood(type.getRecommendFood1()); Food
-		 * theSecondRecommendFood =
-		 * turtleDiaryDatabaseHelper.getFood(type.getRecommendFood2()); Food
-		 * theThirdRecommendFood =
-		 * turtleDiaryDatabaseHelper.getFood(type.getRecommendFood3());
-		 * StringBuilder stringBuilder = new StringBuilder();
-		 * stringBuilder.append
-		 * ("建議食材：\n   1.").append(theFirstRecommendFood.getName
-		 * ()).append("\n   2."
-		 * ).append(theSecondRecommendFood.getName()).append(
-		 * "\n   3.").append(theThirdRecommendFood.getName());
-		 * favoriteFoodTextView.setText(stringBuilder.toString());
-		 */
-		favoriteFoodTextView.setText("建議食材：\n   1.xxx\n   2.xxxx\n   3.xxxxxx");
 		this.setTitle(pet.getName());
-		shitButton.setOnClickListener(new OnClickListener() {
+		healthyLogButton = (Button) findViewById(R.id.optionList);
+		favoriteFoodTextView = (TextView) findViewById(R.id.recommendFoodTextView);
+
+		Type type = helper.getType(pet.getTid());
+		Food theFirstRecommendFood = helper.getFood(type.getRecommendFood1());
+		Food theSecondRecommendFood = helper.getFood(type.getRecommendFood2());
+		Food theThirdRecommendFood = helper.getFood(type.getRecommendFood3());
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append("建議食材：\n   1.")
+				.append(theFirstRecommendFood.getName()).append("\n   2.")
+				.append(theSecondRecommendFood.getName()).append("\n   3.")
+				.append(theThirdRecommendFood.getName());
+		favoriteFoodTextView.setText(stringBuilder.toString());
+
+		healthyLogButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				ShowAlertDialogAndList();
