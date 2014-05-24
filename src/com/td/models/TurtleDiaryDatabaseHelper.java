@@ -256,13 +256,12 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 	}
 	
 	// FeedLogContainFood get weight from same FeedLog
-	/*
 	public double getWeightFromSameFeedLog(int flid)
 			throws SQLException {
 		double weight = 0;
 		GenericRawResults<String[]> rawResults =
 				getFeedLogContainFoodDao().queryRaw(
-				    "select sum(WEIGHT_FIELD_NAME) from FeedLogContainFood group by FLID_FIELD_NAME where FLID_FIELD_NAME = flid");
+				    "select sum(WEIGHT_FIELD_NAME) from FeedLogContainFood group by FLID_FIELD_NAME");
 		try {
 			String[] resultArray = rawResults.getFirstResult();
 			if (resultArray[0].equals(""))
@@ -280,7 +279,6 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 		}
 		return weight;
 	}
-	*/
 
 	// HealthyLog get dao
 	public RuntimeExceptionDao<HealthyLog, Integer> getHealthyLogDao()
