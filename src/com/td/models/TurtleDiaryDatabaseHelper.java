@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.td.models.FeedLog;
+import com.td.models.FeedLogContainFood;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.GenericRawResults;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
@@ -233,24 +234,29 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 		feedLogContainFoodDao.create(feedLogContainFood);
 	}
 
-	// FeedLogContainFood get weight from same FeedLog
-	public double getWeightFromSameFeedLog(int flid) throws SQLException {
-		double weight = 0;
-		GenericRawResults<String[]> rawResults = getFeedLogContainFoodDao()
-				.queryRaw(
-						"select sum(WEIGHT_FIELD_NAME) from FeedLogContainFood group by FLID_FIELD_NAME");
+	// FeedLogContainFood get foods weight from same feed log
+	public double getFoodsWeight(int flid) throws SQLException {
+		
 		try {
-			String[] resultArray = rawResults.getFirstResult();
-			if (resultArray[0].equals("")) {
-				weight = 0;
-			} else {
-				weight = Double.parseDouble(resultArray[0]);
+			
+			QueryBuilder<FeedLogContainFood, Integer> queryBuilder = getFeedLogContainFoodDao().queryBuilder();
+			queryBuilder.selectRaw("SUM(weight)");
+			queryBuilder.groupBy("flid");
+			queryBuilder.where().eq("flid", flid);
+			GenericRawResults<String[]> results = getFeedLogDao().queryRaw(queryBuilder.prepareStatementString());
+			if (results != null){
+				String[] result = results.getResults().get(0);
+				return Double.parseDouble(result[0]);
 			}
-			return weight;
+			else {
+				return 0;
+			}
+			
 		} catch (java.sql.SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return weight;
+		return 0;
 	}
 
 	// HealthyLog get dao
