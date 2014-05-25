@@ -49,7 +49,7 @@ public class HomePageActivity extends Activity {
 												ReportActivity.class);
 										Pet pet = helper.getPets().get(
 												viewPager.getCurrentItem());
-										intent.putExtra("pet", pet);
+										intent.putExtra("pid", pet.getPid());
 										startActivity(intent);
 									}
 								});
