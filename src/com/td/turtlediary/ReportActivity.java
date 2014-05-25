@@ -84,10 +84,12 @@ public class ReportActivity extends Activity {
 		GraphViewSeries maxProteinSeries = new GraphViewSeries("Max",
 				new GraphViewSeriesStyle(Color.RED, 1), FData);
 		graphView1.addSeries(maxProteinSeries);
-		List<GraphViewData> proteinGraphViewDataList = helper.getProteinGraphViewDataList(pid);
+		List<GraphViewData> proteinGraphViewDataList = helper
+				.getProteinGraphViewDataList(pid);
 		GraphViewSeries graphViewSeries = new GraphViewSeries(
-				proteinGraphViewDataList.toArray(new GraphViewData[proteinGraphViewDataList
-						.size()]));
+				proteinGraphViewDataList
+						.toArray(new GraphViewData[proteinGraphViewDataList
+								.size()]));
 		graphView1.addSeries(graphViewSeries);
 		graphView1.addSeries(new GraphViewSeries(tgd2
 				.toArray(new GraphViewData[tgd2.size()]))); // data
@@ -204,7 +206,7 @@ public class ReportActivity extends Activity {
 
 		List<GraphViewData> graphViewDataList = helper
 				.getShellLengthGraphViewDataList(pid);
-		createChart(graphViewDataList);
+		createMeasureLogGraphView(graphViewDataList);
 	}
 
 	// 體重
@@ -213,43 +215,7 @@ public class ReportActivity extends Activity {
 
 		List<GraphViewData> graphViewDataList = helper
 				.getWeightGraphViewDataList(pid);
-
-		createChart(graphViewDataList);
-	}
-
-	private void createChart(List<GraphViewData> graphViewDataList) {
-		int size = graphViewDataList.size();
-		GraphViewSeries shellLengthSeries = new GraphViewSeries(
-				graphViewDataList.toArray(new GraphViewData[size]));
-
-		GraphView graphView = new LineGraphView(this, "");
-		int width = getWindowManager().getDefaultDisplay().getWidth();
-		LinearLayout.LayoutParams params = new LayoutParams(
-				LayoutParams.MATCH_PARENT, width);
-		Resources r = this.getResources(); // 取得手機資源
-		int px2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-				20, r.getDisplayMetrics());
-		params.setMargins(px2, px2, px2, px2);
-		graphView.setLayoutParams(params);
-		graphView.addSeries(shellLengthSeries); // data
-		graphView.getGraphViewStyle().setGridColor(Color.BLACK);
-		graphView.getGraphViewStyle().setHorizontalLabelsColor(Color.RED);
-		graphView.getGraphViewStyle().setVerticalLabelsColor(Color.RED);
-		int measureLogCount = (int) helper.getMeasureLogCount(pid);
-		graphView.getGraphViewStyle().setNumHorizontalLabels(measureLogCount);
-
-		if (size > 0) {
-			String[] labels = new String[size];
-			for (int i = 1; i < size - 1; i++) {
-				labels[i] = "";
-			}
-			labels[0] = helper.getMeasureLogDateString(pid, true);
-			labels[size - 1] = helper.getMeasureLogDateString(pid, false);
-			graphView.setHorizontalLabels(labels);
-		}
-
-		graphView.getGraphViewStyle().setNumVerticalLabels(8);
-		layout.addView(graphView);
+		createMeasureLogGraphView(graphViewDataList);
 	}
 
 	// 傑克森量表
@@ -258,7 +224,54 @@ public class ReportActivity extends Activity {
 
 		List<GraphViewData> graphViewDataList = helper
 				.getJacksonGraphViewDataList(pid);
-		createChart(graphViewDataList);
+		createMeasureLogGraphView(graphViewDataList);
+	}
+
+	private void createMeasureLogGraphView(List<GraphViewData> graphViewDataList) {
+		String firstLabel = helper.getMeasureLogDateString(pid, true);
+		String lastLabel = helper.getMeasureLogDateString(pid, false);
+		createGraphView(graphViewDataList, firstLabel, lastLabel);
+	}
+
+	private void createGraphView(List<GraphViewData> graphViewDataList,
+			String firstLabel, String lastLabel) {
+		int size = graphViewDataList.size();
+		GraphViewSeries shellLengthSeries = new GraphViewSeries(
+				graphViewDataList.toArray(new GraphViewData[size]));
+
+		GraphView graphView = createLineGraphView();
+
+		graphView.addSeries(shellLengthSeries); // data
+
+		if (size > 0) {
+			String[] labels = new String[size];
+			for (int i = 1; i < size - 1; i++) {
+				labels[i] = "";
+			}
+			labels[0] = firstLabel;
+			labels[size - 1] = lastLabel;
+			graphView.setHorizontalLabels(labels);
+		}
+
+		graphView.getGraphViewStyle().setNumVerticalLabels(8);
+		layout.addView(graphView);
+	}
+
+	private GraphView createLineGraphView() {
+		GraphView graphView = new LineGraphView(this, "");
+		int width = getWindowManager().getDefaultDisplay().getWidth();
+		LinearLayout.LayoutParams params = new LayoutParams(
+				LayoutParams.MATCH_PARENT, width);
+		int px2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
+				20, getResources().getDisplayMetrics());
+		params.setMargins(px2, px2, px2, px2);
+		graphView.setLayoutParams(params);
+		graphView.getGraphViewStyle().setGridColor(Color.BLACK);
+		graphView.getGraphViewStyle().setHorizontalLabelsColor(Color.RED);
+		graphView.getGraphViewStyle().setVerticalLabelsColor(Color.RED);
+		int measureLogCount = (int) helper.getMeasureLogCount(pid);
+		graphView.getGraphViewStyle().setNumHorizontalLabels(measureLogCount);
+		return graphView;
 	}
 
 	@Override
