@@ -312,7 +312,7 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 		return getMeasureLogDao().queryForEq(MeasureLog.PID_FIELD_NAME, pid);
 	}
 
-	// Report page helper get Protein GraphViewSeries
+	// Report page helper get Protein GraphViewDataList
 	public List<GraphViewData> getProteinGraphViewDataList(int pid) {
 		List<GraphViewData> graphViewDataList = new ArrayList<GraphViewData>();
 		List<FeedLog> petFeedLogs = getPetFeedLog(pid);
@@ -333,49 +333,44 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 				FeedLogContainFood.FLID_FIELD_NAME, flid);
 	}
 
-	// Report page helper get Fat GraphViewSeries
-	public GraphViewSeries getFatGraphViewSeries(int pid) {
+	// Report page helper get Fat GraphViewDataLis
+	public List<GraphViewData> getFatGraphViewDataList(int pid) {
+		List<GraphViewData> graphViewDataList = new ArrayList<GraphViewData>();
 		List<FeedLog> petFeedLogs = getPetFeedLog(pid);
 		// 根據每筆FeedLog算出的集合做出營養報表頁面六個圖表需要的graphViewSeries並回傳
-		GraphViewSeries graphViewSeries = new GraphViewSeries(
-				petFeedLogs.toArray(new GraphViewData[petFeedLogs.size()]));
-		return graphViewSeries;
+		return graphViewDataList;
 	}
 
-	// Report page helper get Fabric GraphViewSeries
-	public GraphViewSeries getFabricGraphViewSeries(int pid) {
+	// Report page helper get Fabric GraphViewDataList
+	public List<GraphViewData> getFabricGraphViewDataList(int pid) {
+		List<GraphViewData> graphViewDataList = new ArrayList<GraphViewData>();
 		List<FeedLog> petFeedLogs = getPetFeedLog(pid);
 		// 根據每筆FeedLog算出的集合做出營養報表頁面六個圖表需要的graphViewSeries並回傳
-		GraphViewSeries graphViewSeries = new GraphViewSeries(
-				petFeedLogs.toArray(new GraphViewData[petFeedLogs.size()]));
-		return graphViewSeries;
+		return graphViewDataList;
 	}
 
-	// Report page helper get Ca GraphViewSeries
-	public GraphViewSeries getCaGraphViewSeries(int pid) {
+	// Report page helper get Ca GraphViewDataList
+	public List<GraphViewData> getCaGraphViewDataList(int pid) {
+		List<GraphViewData> graphViewDataList = new ArrayList<GraphViewData>();
 		List<FeedLog> petFeedLogs = getPetFeedLog(pid);
 		// 根據每筆FeedLog算出的集合做出營養報表頁面六個圖表需要的graphViewSeries並回傳
-		GraphViewSeries graphViewSeries = new GraphViewSeries(
-				petFeedLogs.toArray(new GraphViewData[petFeedLogs.size()]));
-		return graphViewSeries;
+		return graphViewDataList;
 	}
 
-	// Report page helper get P GraphViewSeries
-	public GraphViewSeries getPGraphViewSeries(int pid) {
+	// Report page helper get P GraphViewDataList
+	public List<GraphViewData> getPGraphViewDataList(int pid) {
+		List<GraphViewData> graphViewDataList = new ArrayList<GraphViewData>();
 		List<FeedLog> petFeedLogs = getPetFeedLog(pid);
 		// 根據每筆FeedLog算出的集合做出營養報表頁面六個圖表需要的graphViewSeries並回傳
-		GraphViewSeries graphViewSeries = new GraphViewSeries(
-				petFeedLogs.toArray(new GraphViewData[petFeedLogs.size()]));
-		return graphViewSeries;
+		return graphViewDataList;
 	}
 
-	// Report page helper get CaPRatio GraphViewSeries
-	public GraphViewSeries getCaPRatioGraphViewSeries(int pid) {
+	// Report page helper get CaPRatio GraphViewDataList
+	public List<GraphViewData> getCaPRatioGraphViewDataList(int pid) {
+		List<GraphViewData> graphViewDataList = new ArrayList<GraphViewData>();
 		List<FeedLog> petFeedLogs = getPetFeedLog(pid);
 		// 根據每筆FeedLog算出的集合做出營養報表頁面六個圖表需要的graphViewSeries並回傳
-		GraphViewSeries graphViewSeries = new GraphViewSeries(
-				petFeedLogs.toArray(new GraphViewData[petFeedLogs.size()]));
-		return graphViewSeries;
+		return graphViewDataList;
 	}
 
 	// Report page helper get ShellLength GraphViewSeries
