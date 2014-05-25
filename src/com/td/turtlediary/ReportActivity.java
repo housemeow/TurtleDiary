@@ -238,7 +238,13 @@ public class ReportActivity extends Activity {
 	// 體重
 	public void createWeightChart() {
 		layout.removeAllViews();
-		GraphViewSeries WSeries = new GraphViewSeries(WData);
+
+		List<GraphViewData> graphViewDataList = helper
+				.getWeightGraphViewDataList(pid);
+		int size = graphViewDataList.size();
+		GraphViewSeries shellLengthSeries = new GraphViewSeries(
+				graphViewDataList.toArray(new GraphViewData[size]));
+
 		GraphView graphView = new LineGraphView(this, "");
 		int width = getWindowManager().getDefaultDisplay().getWidth();
 		LinearLayout.LayoutParams params = new LayoutParams(
@@ -248,13 +254,23 @@ public class ReportActivity extends Activity {
 				20, r.getDisplayMetrics());
 		params.setMargins(px2, px2, px2, px2);
 		graphView.setLayoutParams(params);
-		graphView.addSeries(WSeries); // data
-		graphView.setHorizontalLabels(new String[] { "4/11", "4/12", "4/13",
-				"4/14" });
+		graphView.addSeries(shellLengthSeries); // data
 		graphView.getGraphViewStyle().setGridColor(Color.BLACK);
 		graphView.getGraphViewStyle().setHorizontalLabelsColor(Color.RED);
 		graphView.getGraphViewStyle().setVerticalLabelsColor(Color.RED);
-		graphView.getGraphViewStyle().setNumHorizontalLabels(4);
+		int measureLogCount = (int) helper.getMeasureLogCount(pid);
+		graphView.getGraphViewStyle().setNumHorizontalLabels(measureLogCount);
+
+		if (size > 0) {
+			String[] labels = new String[size];
+			for(int i=1;i<size-1;i++){
+				labels[i]="";
+			}
+			labels[0] = helper.getFirstMeasureLogDateString(pid);
+			labels[size-1] = helper.getLastMeasureLogDateString(pid);
+			graphView.setHorizontalLabels(labels);
+		}
+
 		graphView.getGraphViewStyle().setNumVerticalLabels(8);
 		layout.addView(graphView);
 	}

@@ -384,8 +384,6 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 		QueryBuilder<MeasureLog, Integer> queryBuilder = getMeasureLogDao()
 				.queryBuilder();
 		queryBuilder.selectRaw("shellLength");
-		GraphViewSeries graphViewSeries = new GraphViewSeries(
-				new GraphViewData[0]);
 		try {
 			queryBuilder.where().eq("pid", pid);
 			GenericRawResults<String[]> results = getMeasureLogDao().queryRaw(
@@ -488,5 +486,30 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 			return year + "-" + month + "-" + day;
 		}
 		return "";
+	}
+
+	public List<GraphViewData> getWeightGraphViewDataList(int pid) {
+		QueryBuilder<MeasureLog, Integer> queryBuilder = getMeasureLogDao()
+				.queryBuilder();
+		queryBuilder.selectRaw("weight");
+		try {
+			queryBuilder.where().eq("pid", pid);
+			GenericRawResults<String[]> results = getMeasureLogDao().queryRaw(
+					queryBuilder.prepareStatementString());
+			if (results != null) {
+				List<GraphViewData> graphViewDataArray = new ArrayList<GraphViewData>();
+				int index = 1;
+				for (String[] result : results) {
+					double weight = Double.parseDouble(result[0]);
+					GraphViewData graphViewData = new GraphViewData(index++,
+							weight);
+					graphViewDataArray.add(graphViewData);
+				}
+				return graphViewDataArray;
+			}
+		} catch (java.sql.SQLException e) {
+			e.printStackTrace();
+		}
+		return new ArrayList<GraphViewData>();
 	}
 }
