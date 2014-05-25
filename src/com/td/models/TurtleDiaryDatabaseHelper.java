@@ -6,6 +6,7 @@ import java.util.List;
 import android.content.Context;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.DropBoxManager;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.GenericRawResults;
@@ -18,7 +19,7 @@ import com.jjoe64.graphview.GraphView.GraphViewData;
 
 public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 	private static final String DATABASE_NAME = "turtleDiary.db";
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 2;
 	private RuntimeExceptionDao<Pet, Integer> petDao = null;
 	private RuntimeExceptionDao<Type, Integer> typeDao = null;
 	private RuntimeExceptionDao<Environment, Integer> environmentDao = null;
@@ -55,19 +56,14 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 			}
 
 			// 讀Type csv檔
-			Type type = new Type();
-			type.setName("印度星龜");
-			type.setRecommendFood1(126);
-			type.setRecommendFood2(127);
-			type.setRecommendFood3(128);
-			getTypeDao().create(type);
-			type = new Type();
-			type.setName("緬甸星龜");
-			type.setRecommendFood1(127);
-			type.setRecommendFood2(128);
-			type.setRecommendFood3(129);
-			getTypeDao().create(type);
 
+			List<Type> types = reader.getTypesFromCsv(context);
+			for (Type type : types) {
+				type.setRecommendFood1(127);
+				type.setRecommendFood2(128);
+				type.setRecommendFood3(129);
+				getTypeDao().create(type);
+			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} catch (java.sql.SQLException e) {
@@ -78,6 +74,13 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource,
 			int oldVersion, int newVersion) {
 		try {
+			try {
+				TableUtils.dropTable(connectionSource, Food.class, true);
+				TableUtils.dropTable(connectionSource, Type.class, true);
+				
+			} catch (java.sql.SQLException e) {
+				e.printStackTrace();
+			}
 			onCreate(db, connectionSource);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

@@ -28,6 +28,18 @@ public class Type {
 	private int tid;
 	@DatabaseField
 	private String name;
+	@DatabaseField
+	private String english;
+	@DatabaseField
+	private String scientificName;
+	@DatabaseField
+	private String place;
+	@DatabaseField
+	private String habitation;
+	@DatabaseField
+	private String length;
+	@DatabaseField
+	private String temprature;
 	@DatabaseField(dataType = DataType.BYTE_ARRAY)
 	private byte[] image;
 	@DatabaseField
@@ -96,5 +108,53 @@ public class Type {
 
 	public void setRecommendFood3(int recommondFood3) {
 		this.recommendFood3 = recommondFood3;
+	}
+
+	public String getEnglish() {
+		return english;
+	}
+
+	public void setEnglish(String english) {
+		this.english = english;
+	}
+
+	public String getScientificName() {
+		return scientificName;
+	}
+
+	public void setScientificName(String scientificName) {
+		this.scientificName = scientificName;
+	}
+
+	public String getPlace() {
+		return place;
+	}
+
+	public void setPlace(String place) {
+		this.place = place;
+	}
+
+	public String getHabitation() {
+		return habitation;
+	}
+
+	public void setHabitation(String habitation) {
+		this.habitation = habitation;
+	}
+
+	public String getTemprature() {
+		return temprature;
+	}
+
+	public void setTemprature(String temprature) {
+		this.temprature = temprature;
+	}
+
+	public String getLength() {
+		return length;
+	}
+
+	public void setLength(String length) {
+		this.length = length;
 	}
 }
