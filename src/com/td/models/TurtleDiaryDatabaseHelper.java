@@ -6,6 +6,8 @@ import android.content.Context;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.td.models.FeedLog;
+import com.td.models.FeedLogContainFood;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.GenericRawResults;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
@@ -197,26 +199,23 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 	}
 
 	// FeedLog get Last
-	public FeedLog getLastFeedLog(int pid) {
-		// getFeedLogDao().create(feedLog);
-
+	public FeedLog getLastFeedLog(int pid) throws SQLException{
+		QueryBuilder<FeedLog, Integer> queryBuilder = getFeedLogDao().queryBuilder();
+		queryBuilder.limit(1L);
+		queryBuilder.orderBy("flid", false);
 		try {
-			QueryBuilder<FeedLog, Integer> builder = getFeedLogDao()
-					.queryBuilder();
-			builder.limit(1L);
-			builder.orderBy(FeedLog.FLID_FIELD_NAME, false); // true for
-																// ascending,
-																// descending
-			List<FeedLog> list = getFeedLogDao().query(builder.prepare());
-			if (list.size() > 0) {
-				return list.get(0);
+			queryBuilder.where().eq("pid", pid);
+			FeedLog lastFeedLog = getFeedLogDao().queryForFirst(queryBuilder.prepare());
+			if (lastFeedLog == null) {
+				return null;
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+			else{
+				return lastFeedLog;
+			}
 		} catch (java.sql.SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// returns list of ten items
 		return null;
 	}
 
@@ -235,24 +234,29 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 		feedLogContainFoodDao.create(feedLogContainFood);
 	}
 
-	// FeedLogContainFood get weight from same FeedLog
-	public double getWeightFromSameFeedLog(int flid) throws SQLException {
-		double weight = 0;
-		GenericRawResults<String[]> rawResults = getFeedLogContainFoodDao()
-				.queryRaw(
-						"select sum(WEIGHT_FIELD_NAME) from FeedLogContainFood group by FLID_FIELD_NAME");
+	// FeedLogContainFood get foods weight from same feed log
+	public double getFoodsWeight(int flid) throws SQLException {
+		
 		try {
-			String[] resultArray = rawResults.getFirstResult();
-			if (resultArray[0].equals("")) {
-				weight = 0;
-			} else {
-				weight = Double.parseDouble(resultArray[0]);
+			
+			QueryBuilder<FeedLogContainFood, Integer> queryBuilder = getFeedLogContainFoodDao().queryBuilder();
+			queryBuilder.selectRaw("SUM(weight)");
+			queryBuilder.groupBy("flid");
+			queryBuilder.where().eq("flid", flid);
+			GenericRawResults<String[]> results = getFeedLogDao().queryRaw(queryBuilder.prepareStatementString());
+			if (results != null){
+				String[] result = results.getResults().get(0);
+				return Double.parseDouble(result[0]);
 			}
-			return weight;
+			else {
+				return 0;
+			}
+			
 		} catch (java.sql.SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return weight;
+		return 0;
 	}
 
 	// HealthyLog get dao
