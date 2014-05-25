@@ -11,6 +11,12 @@ public class Nutrition
 	
 	public Nutrition()
 	{
+		dryWeight = 0;
+		protein = 0;
+		fat = 0;
+		fabric = 0;
+		ca = 0;
+		p = 0;
 	}
 
 	public double getDryWeight() {
