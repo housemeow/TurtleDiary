@@ -13,9 +13,10 @@ public class MeasureLog implements Serializable {
 	public static final String PID_FIELD_NAME = "pid";
 	private static final String LENGTH_FIELD_NAME = "shellLength";
 	private static final String WEIGHT_FIELD_NAME = "weight";
+	public static final String TIME_STAMP_FILED_NAME = "timeStamp";
 	@DatabaseField(columnName = PID_FIELD_NAME)
 	private int pid;
-	@DatabaseField
+	@DatabaseField(columnName = TIME_STAMP_FILED_NAME)
 	private Date timeStamp;
 	@DatabaseField(columnName = LENGTH_FIELD_NAME)
 	private double shellLength;
