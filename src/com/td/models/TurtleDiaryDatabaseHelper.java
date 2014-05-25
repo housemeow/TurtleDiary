@@ -512,4 +512,29 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 		}
 		return new ArrayList<GraphViewData>();
 	}
+
+	public List<GraphViewData> getJacksonGraphViewDataList(int pid) {
+		QueryBuilder<MeasureLog, Integer> queryBuilder = getMeasureLogDao()
+				.queryBuilder();
+		queryBuilder.selectRaw("weight/(shellLength*shellLength*shellLength)");
+		try {
+			queryBuilder.where().eq("pid", pid);
+			GenericRawResults<String[]> results = getMeasureLogDao().queryRaw(
+					queryBuilder.prepareStatementString());
+			if (results != null) {
+				List<GraphViewData> graphViewDataArray = new ArrayList<GraphViewData>();
+				int index = 1;
+				for (String[] result : results) {
+					double weight = Double.parseDouble(result[0]);
+					GraphViewData graphViewData = new GraphViewData(index++,
+							weight);
+					graphViewDataArray.add(graphViewData);
+				}
+				return graphViewDataArray;
+			}
+		} catch (java.sql.SQLException e) {
+			e.printStackTrace();
+		}
+		return new ArrayList<GraphViewData>();
+	}
 }

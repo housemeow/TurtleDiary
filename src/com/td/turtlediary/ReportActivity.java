@@ -278,10 +278,13 @@ public class ReportActivity extends Activity {
 	// 傑克森量表
 	public void createJacksonRatioChart() {
 		layout.removeAllViews();
-		GraphViewSeries FSeries = new GraphViewSeries("甲長",
-				new GraphViewSeriesStyle(Color.MAGENTA, 1), FData);
-		GraphViewSeries WSeries = new GraphViewSeries("體重",
-				new GraphViewSeriesStyle(Color.BLUE, 1), WData);
+
+		List<GraphViewData> graphViewDataList = helper
+				.getJacksonGraphViewDataList(pid);
+		int size = graphViewDataList.size();
+		GraphViewSeries shellLengthSeries = new GraphViewSeries(
+				graphViewDataList.toArray(new GraphViewData[size]));
+
 		GraphView graphView = new LineGraphView(this, "");
 		int width = getWindowManager().getDefaultDisplay().getWidth();
 		LinearLayout.LayoutParams params = new LayoutParams(
@@ -291,15 +294,23 @@ public class ReportActivity extends Activity {
 				20, r.getDisplayMetrics());
 		params.setMargins(px2, px2, px2, px2);
 		graphView.setLayoutParams(params);
-		graphView.addSeries(FSeries); // data
-		graphView.addSeries(WSeries);
-		graphView.setShowLegend(true);
-		graphView
-				.setHorizontalLabels(new String[] { "xxx", "xxx", "xxx", "xxx" });
+		graphView.addSeries(shellLengthSeries); // data
 		graphView.getGraphViewStyle().setGridColor(Color.BLACK);
 		graphView.getGraphViewStyle().setHorizontalLabelsColor(Color.RED);
 		graphView.getGraphViewStyle().setVerticalLabelsColor(Color.RED);
-		graphView.getGraphViewStyle().setNumHorizontalLabels(4);
+		int measureLogCount = (int) helper.getMeasureLogCount(pid);
+		graphView.getGraphViewStyle().setNumHorizontalLabels(measureLogCount);
+
+		if (size > 0) {
+			String[] labels = new String[size];
+			for(int i=1;i<size-1;i++){
+				labels[i]="";
+			}
+			labels[0] = helper.getFirstMeasureLogDateString(pid);
+			labels[size-1] = helper.getLastMeasureLogDateString(pid);
+			graphView.setHorizontalLabels(labels);
+		}
+
 		graphView.getGraphViewStyle().setNumVerticalLabels(8);
 		layout.addView(graphView);
 	}
