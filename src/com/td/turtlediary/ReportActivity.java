@@ -22,8 +22,8 @@ public class ReportActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_report);
+		this.setTitle("營養");
 		// init example series data
-		this.setTitle("甲長");
 		layout = (LinearLayout) findViewById(R.id.chart);
 		FData = new GraphViewData[4];
 		WData = new GraphViewData[4];
@@ -123,15 +123,19 @@ public class ReportActivity extends Activity {
 		this.setTitle(item.getTitle());
 		switch (item.getItemId()) {
 		case R.id.nutrition:
+			this.setTitle("營養");
 			createNutritionChart();
 			return super.onOptionsItemSelected(item);
 		case R.id.shellLength:
+			this.setTitle("甲長");
 			createShellLengthChart();
 			return super.onOptionsItemSelected(item);
 		case R.id.weight:
+			this.setTitle("體重");
 			createWeightChart();
 			return super.onOptionsItemSelected(item);
 		case R.id.jacksonRatio:
+			this.setTitle("傑克森量表");
 			createJacksonRatioChart();
 			return super.onOptionsItemSelected(item);
 		default:
