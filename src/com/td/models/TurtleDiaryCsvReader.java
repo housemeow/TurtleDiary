@@ -1,6 +1,5 @@
 package com.td.models;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -10,7 +9,6 @@ import java.util.List;
 import com.td.turtlediary.R.raw;
 
 import android.content.Context;
-import android.util.Log;
 import au.com.bytecode.opencsv.CSVReader;
 
 public class TurtleDiaryCsvReader {

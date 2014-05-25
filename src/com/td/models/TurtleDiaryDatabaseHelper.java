@@ -77,7 +77,7 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 			try {
 				TableUtils.dropTable(connectionSource, Food.class, true);
 				TableUtils.dropTable(connectionSource, Type.class, true);
-				
+
 			} catch (java.sql.SQLException e) {
 				e.printStackTrace();
 			}
@@ -242,7 +242,7 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 	// FeedLogContainFood add
 	public void addFeedLogContainFood(FeedLogContainFood feedLogContainFood)
 			throws SQLException {
-		feedLogContainFoodDao.create(feedLogContainFood);
+		getFeedLogContainFoodDao().create(feedLogContainFood);
 	}
 
 	// FeedLogContainFood get foods weight from same feed log
@@ -427,5 +427,14 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 		Nutrition foodNutrition = new Nutrition();
 		// 取出一筆FeedLogContainFood的乾重營養含量
 		return foodNutrition;
+	}
+
+	public Food getFood(String string) {
+		List<Food> foods = getFoodDao()
+				.queryForEq(Food.NAME_FIELD_NAME, string);
+		if (foods.size() > 0) {
+			return foods.get(0);
+		}
+		return null;
 	}
 }

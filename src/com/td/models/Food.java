@@ -12,11 +12,12 @@ public class Food implements Serializable
 	}
 	
 	private static final long serialVersionUID = -594085769965941949L;
+	public static final String NAME_FIELD_NAME = "name";
 	@DatabaseField(generatedId = true)
 	private int fid;
 	@DatabaseField
 	private String foodType;
-	@DatabaseField
+	@DatabaseField(columnName = NAME_FIELD_NAME)
 	private String name;
 	@DatabaseField
 	private double water; // 水分 (g)

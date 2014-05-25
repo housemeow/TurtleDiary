@@ -73,5 +73,8 @@
     <string name="picture">照片</string>
     <string name="getPicture">取得照片</string>
     <string name="foodWeight">重量</string>
+    <string name="selectedFoods">已選擇的食物</string>
+    <string name="nextFood">下一個食物</string>
+    <string name="addToFoodList">加入食物清單</string>
 
 </resources>

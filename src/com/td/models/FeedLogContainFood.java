@@ -14,7 +14,7 @@ public class FeedLogContainFood implements Serializable
 	private int fid;
 	public static final String WEIGHT_FIELD_NAME = "weight";
 	@DatabaseField(columnName = WEIGHT_FIELD_NAME)
-	private int weight;
+	private double weight;
 	
 	public FeedLogContainFood()
 	{
@@ -40,12 +40,12 @@ public class FeedLogContainFood implements Serializable
 		this.fid = fid;
 	}
 
-	public int getWeight() 
+	public double getWeight() 
 	{
 		return weight;
 	}
 
-	public void setWeight(int weight) 
+	public void setWeight(double weight) 
 	{
 		this.weight = weight;
 	}
