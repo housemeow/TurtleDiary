@@ -48,6 +48,7 @@ public class ReportActivity extends Activity {
 		WData[1] = new GraphViewData(2, 0.74d);
 		WData[2] = new GraphViewData(3, 0.84d);
 		WData[3] = new GraphViewData(4, 0.9d);
+		// createNutritionChart();
 		createNutritionChart();
 	}
 
@@ -198,6 +199,50 @@ public class ReportActivity extends Activity {
 		layout.addView(graphView4);
 		layout.addView(graphView5);
 		layout.addView(graphView6);
+	}
+	
+	// 營養報表
+	public void createNutritionReport() {
+		layout.removeAllViews(); // 清除畫面
+		layout.addView(getProteinGraphView()); // 加入粗蛋白報表
+	}
+	
+	// 粗蛋白
+	public GraphView getProteinGraphView() {
+		List<GraphViewData> graphViewDataList = helper.getProteinGraphViewDataList(pid);
+		GraphView graphView = new LineGraphView(this, "粗蛋白 (%)");
+		// GraphViewData[] maxProteinData = new GraphViewData[2];
+		// maxProteinData[0] = new GraphViewData(1, 20d);
+		// maxProteinData[1] = new GraphViewData(4, 20d);
+		// GraphViewSeries maxProteinSeries = new GraphViewSeries("Max",
+		//		new GraphViewSeriesStyle(Color.RED, 1), FData);
+		// graphView.addSeries(maxProteinSeries);
+		List<GraphViewData> proteinGraphViewDataList = helper
+				.getProteinGraphViewDataList(pid);
+		GraphViewSeries graphViewSeries = new GraphViewSeries(
+				proteinGraphViewDataList
+						.toArray(new GraphViewData[proteinGraphViewDataList
+								.size()]));
+		graphView.addSeries(graphViewSeries);
+		int width = getWindowManager().getDefaultDisplay().getWidth();
+		LinearLayout.LayoutParams params = new LayoutParams(
+				LayoutParams.MATCH_PARENT, width);
+		Resources r = this.getResources(); // 取得手機資源
+		int pixelInt = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
+				20, r.getDisplayMetrics());
+		params.setMargins(pixelInt, pixelInt, pixelInt, pixelInt);
+		graphView.setLayoutParams(params);
+		// graphView.setHorizontalLabels(new String[] {"123, 234"});
+		graphView.getGraphViewStyle().setGridColor(Color.BLACK);
+		graphView.getGraphViewStyle().setHorizontalLabelsColor(Color.RED);
+		graphView.getGraphViewStyle().setVerticalLabelsColor(Color.RED);
+		graphView.getGraphViewStyle().setNumHorizontalLabels(4);
+		graphView.getGraphViewStyle().setNumVerticalLabels(10);
+		float pixelFloat = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 20,
+				r.getDisplayMetrics());
+		graphView.getGraphViewStyle().setTextSize(pixelFloat);
+		createMeasureLogGraphView(graphViewDataList);
+		return graphView;
 	}
 
 	// 甲長
