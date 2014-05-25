@@ -34,7 +34,7 @@ public class TurtleDiaryCsvReader {
 
 	public List<Food> getFoodsFromCsv(Context context) {
 		List<Food> foods = new ArrayList<Food>();
-		InputStream inputStream = context.getApplicationContext()
+		InputStream inputStream = context
 				.getResources().openRawResource(raw.food);
 		InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
 		BufferedReader reader = new BufferedReader(inputStreamReader);
