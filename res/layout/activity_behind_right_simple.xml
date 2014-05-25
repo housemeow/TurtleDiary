@@ -7,31 +7,31 @@
             android:id="@+id/recordTextView"
             style="@style/behindMenuItemLabel"
             android:text="@string/FeedLog"
-            android:textSize="20sp" />
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/pointTextView"
             style="@style/behindMenuItemLabel"
             android:text="@string/report"
-            android:textSize="20sp" />
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/settingTextView"
             style="@style/behindMenuItemLabel"
             android:text="@string/environmentSetting"
-            android:textSize="20sp" />
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/measureTextView"
             style="@style/behindMenuItemLabel"
             android:text="@string/measure"
-            android:textSize="20sp" />
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/healthyLogTextView"
             style="@style/behindMenuItemLabel"
             android:text="@string/healthyLog"
-            android:textSize="20sp" />
+            android:textSize="30sp" />
     </LinearLayout>
 
 </ScrollView>

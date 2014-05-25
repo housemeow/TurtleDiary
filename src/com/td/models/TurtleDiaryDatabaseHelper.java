@@ -1,5 +1,6 @@
 package com.td.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -7,14 +8,14 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.DropBoxManager;
 
-import com.td.models.FeedLog;
-import com.td.models.FeedLogContainFood;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.GenericRawResults;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
+import com.jjoe64.graphview.GraphViewSeries;
+import com.jjoe64.graphview.GraphView.GraphViewData;
 
 public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 	private static final String DATABASE_NAME = "turtleDiary.db";
@@ -213,6 +214,11 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 	public void addFeedLog(FeedLog feedLog) throws SQLException {
 		getFeedLogDao().create(feedLog);
 	}
+	
+	// FeedLog get pet's feed log
+	public List<FeedLog> getPetFeedLog(int pid) throws SQLException {
+		return getFeedLogDao().queryForEq(FeedLog.PID_FIELD_NAME, pid);
+	}
 
 	// FeedLog get Last
 	public FeedLog getLastFeedLog(int pid) throws SQLException {
@@ -313,5 +319,74 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 	// MeasureLog get all by pid
 	public List<MeasureLog> getMeasureLogs(int pid) {
 		return getMeasureLogDao().queryForEq(MeasureLog.PID_FIELD_NAME, pid);
+	}
+	
+	// Report page helper get Protein GraphViewSeries
+	public GraphViewSeries getProteinGraphViewSeries(int pid) {
+		List<FeedLog> petFeedLogs = getPetFeedLog(pid);
+		// 根據每筆FeedLog算出的集合做出營養報表頁面六個圖表需要的graphViewSeries並回傳
+		GraphViewSeries graphViewSeries = new GraphViewSeries(petFeedLogs.toArray(new GraphViewData[petFeedLogs.size()]));
+		return graphViewSeries;
+	}
+	
+	// Report page helper get Fat GraphViewSeries
+	public GraphViewSeries getFatGraphViewSeries(int pid) {
+		List<FeedLog> petFeedLogs = getPetFeedLog(pid);
+		// 根據每筆FeedLog算出的集合做出營養報表頁面六個圖表需要的graphViewSeries並回傳
+		GraphViewSeries graphViewSeries = new GraphViewSeries(petFeedLogs.toArray(new GraphViewData[petFeedLogs.size()]));
+		return graphViewSeries;
+	}
+	
+	// Report page helper get Fabric GraphViewSeries
+	public GraphViewSeries getFabricGraphViewSeries(int pid) {
+		List<FeedLog> petFeedLogs = getPetFeedLog(pid);
+		// 根據每筆FeedLog算出的集合做出營養報表頁面六個圖表需要的graphViewSeries並回傳
+		GraphViewSeries graphViewSeries = new GraphViewSeries(petFeedLogs.toArray(new GraphViewData[petFeedLogs.size()]));
+		return graphViewSeries;
+	}
+	
+	// Report page helper get Ca GraphViewSeries
+	public GraphViewSeries getCaGraphViewSeries(int pid) {
+		List<FeedLog> petFeedLogs = getPetFeedLog(pid);
+		// 根據每筆FeedLog算出的集合做出營養報表頁面六個圖表需要的graphViewSeries並回傳
+		GraphViewSeries graphViewSeries = new GraphViewSeries(petFeedLogs.toArray(new GraphViewData[petFeedLogs.size()]));
+		return graphViewSeries;
+	}
+	
+	// Report page helper get P GraphViewSeries
+	public GraphViewSeries getPGraphViewSeries(int pid) {
+		List<FeedLog> petFeedLogs = getPetFeedLog(pid);
+		// 根據每筆FeedLog算出的集合做出營養報表頁面六個圖表需要的graphViewSeries並回傳
+		GraphViewSeries graphViewSeries = new GraphViewSeries(petFeedLogs.toArray(new GraphViewData[petFeedLogs.size()]));
+		return graphViewSeries;
+	}
+	
+	// Report page helper get CaPRatio GraphViewSeries
+	public GraphViewSeries getCaPRatioGraphViewSeries(int pid) {
+		List<FeedLog> petFeedLogs = getPetFeedLog(pid);
+		// 根據每筆FeedLog算出的集合做出營養報表頁面六個圖表需要的graphViewSeries並回傳
+		GraphViewSeries graphViewSeries = new GraphViewSeries(petFeedLogs.toArray(new GraphViewData[petFeedLogs.size()]));
+		return graphViewSeries;
+	}
+	
+	// Report page helper getFeedLogNutrition
+	public Nutrition getFeedLogNutrition(int flid) {
+		Nutrition feedLogNutrition = new Nutrition();
+		// 取出一筆FeedLog所有FeedLogContainFood的乾重營養含量
+		return feedLogNutrition;
+	}
+	
+	// Report page helper getFeedLogContainFoodsNutrition
+	public Nutrition getFeedLogContainFoodsNutrition(List<FeedLogContainFood> feedLogContainFood) {
+		Nutrition feedLogContainFoodsNutrition = new Nutrition();
+		// 取出FeedLogContainFoods的乾重營養含量
+		return feedLogContainFoodsNutrition;
+	}
+	
+	// Report page helper getFeedLogContainFoodNutrition
+	public Nutrition getFeedLogContainFoodNutrition(FeedLogContainFood feedLogContainFood) {
+		Nutrition foodNutrition = new Nutrition();
+		// 取出一筆FeedLogContainFood的乾重營養含量
+		return foodNutrition;
 	}
 }
