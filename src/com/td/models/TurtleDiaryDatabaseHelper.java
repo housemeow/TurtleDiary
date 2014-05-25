@@ -5,6 +5,7 @@ import java.util.List;
 import android.content.Context;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.DropBoxManager;
 
 import com.td.models.FeedLog;
 import com.td.models.FeedLogContainFood;
@@ -17,7 +18,7 @@ import com.j256.ormlite.table.TableUtils;
 
 public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 	private static final String DATABASE_NAME = "turtleDiary.db";
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 2;
 	private RuntimeExceptionDao<Pet, Integer> petDao = null;
 	private RuntimeExceptionDao<Type, Integer> typeDao = null;
 	private RuntimeExceptionDao<Environment, Integer> environmentDao = null;
@@ -54,18 +55,26 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 			}
 
 			// 讀Type csv檔
-			Type type = new Type();
-			type.setName("印度星龜");
-			type.setRecommendFood1(126);
-			type.setRecommendFood2(127);
-			type.setRecommendFood3(128);
-			getTypeDao().create(type);
-			type = new Type();
-			type.setName("緬甸星龜");
-			type.setRecommendFood1(127);
-			type.setRecommendFood2(128);
-			type.setRecommendFood3(129);
-			getTypeDao().create(type);
+			List<Type> types = reader.getTypesFromCsv(context);
+			for (Type type : types) {
+				type.setRecommendFood1(127);
+				type.setRecommendFood2(128);
+				type.setRecommendFood3(129);
+				getTypeDao().create(type);
+			}
+//			
+//			Type type = new Type();
+//			type.setName("印度星龜");
+//			type.setRecommendFood1(126);
+//			type.setRecommendFood2(127);
+//			type.setRecommendFood3(128);
+//			getTypeDao().create(type);
+//			type = new Type();
+//			type.setName("緬甸星龜");
+//			type.setRecommendFood1(127);
+//			type.setRecommendFood2(128);
+//			type.setRecommendFood3(129);
+//			getTypeDao().create(type);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} catch (java.sql.SQLException e) {
@@ -76,6 +85,13 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource,
 			int oldVersion, int newVersion) {
 		try {
+			try {
+				TableUtils.dropTable(connectionSource, Food.class, true);
+				TableUtils.dropTable(connectionSource, Type.class, true);
+				
+			} catch (java.sql.SQLException e) {
+				e.printStackTrace();
+			}
 			onCreate(db, connectionSource);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -199,17 +215,18 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 	}
 
 	// FeedLog get Last
-	public FeedLog getLastFeedLog(int pid) throws SQLException{
-		QueryBuilder<FeedLog, Integer> queryBuilder = getFeedLogDao().queryBuilder();
+	public FeedLog getLastFeedLog(int pid) throws SQLException {
+		QueryBuilder<FeedLog, Integer> queryBuilder = getFeedLogDao()
+				.queryBuilder();
 		queryBuilder.limit(1L);
 		queryBuilder.orderBy("flid", false);
 		try {
 			queryBuilder.where().eq("pid", pid);
-			FeedLog lastFeedLog = getFeedLogDao().queryForFirst(queryBuilder.prepare());
+			FeedLog lastFeedLog = getFeedLogDao().queryForFirst(
+					queryBuilder.prepare());
 			if (lastFeedLog == null) {
 				return null;
-			}
-			else{
+			} else {
 				return lastFeedLog;
 			}
 		} catch (java.sql.SQLException e) {
@@ -236,22 +253,23 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 
 	// FeedLogContainFood get foods weight from same feed log
 	public double getFoodsWeight(int flid) throws SQLException {
-		
+
 		try {
-			
-			QueryBuilder<FeedLogContainFood, Integer> queryBuilder = getFeedLogContainFoodDao().queryBuilder();
+
+			QueryBuilder<FeedLogContainFood, Integer> queryBuilder = getFeedLogContainFoodDao()
+					.queryBuilder();
 			queryBuilder.selectRaw("SUM(weight)");
 			queryBuilder.groupBy("flid");
 			queryBuilder.where().eq("flid", flid);
-			GenericRawResults<String[]> results = getFeedLogDao().queryRaw(queryBuilder.prepareStatementString());
-			if (results != null){
+			GenericRawResults<String[]> results = getFeedLogDao().queryRaw(
+					queryBuilder.prepareStatementString());
+			if (results != null) {
 				String[] result = results.getResults().get(0);
 				return Double.parseDouble(result[0]);
-			}
-			else {
+			} else {
 				return 0;
 			}
-			
+
 		} catch (java.sql.SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
