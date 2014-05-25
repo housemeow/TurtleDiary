@@ -17,16 +17,21 @@ import com.jjoe64.graphview.GraphView.GraphViewData;
 import com.jjoe64.graphview.GraphViewSeries;
 import com.jjoe64.graphview.GraphViewSeries.GraphViewSeriesStyle;
 import com.jjoe64.graphview.LineGraphView;
+import com.td.models.TurtleDiaryDatabaseHelper;
 
 public class ReportActivity extends Activity {
 	private LinearLayout layout;
 	private GraphViewData[] FData = new GraphViewData[4];
 	private GraphViewData[] WData = new GraphViewData[4];
-
+	private TurtleDiaryDatabaseHelper helper = new TurtleDiaryDatabaseHelper(this);
+	private int pid = 0;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_report);
+		
+		pid = getIntent().getIntExtra("pid", -1);
 		this.setTitle("營養");
 		// init example series data
 		layout = (LinearLayout) findViewById(R.id.chart);
@@ -76,7 +81,9 @@ public class ReportActivity extends Activity {
 		GraphViewSeries maxProteinSeries = new GraphViewSeries("Max",
 				new GraphViewSeriesStyle(Color.RED, 1), FData);
 		graphView1.addSeries(maxProteinSeries);
-		// graphView.addSeries(NSeries); // data
+
+		
+		graphView1.addSeries(helper.getProteinGraphViewSeries(pid));
 		graphView1.addSeries(new GraphViewSeries(tgd2
 				.toArray(new GraphViewData[tgd2.size()]))); // data
 		//graphView
