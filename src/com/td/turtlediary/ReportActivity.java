@@ -65,26 +65,12 @@ public class ReportActivity extends Activity {
 		tgd2.add(viewData3);
 		tgd2.add(viewData4);
 		ArrayList<String> tgds = new ArrayList<String>();
-		tgds.add(new String(""));
-		tgds.add(new String(""));
-		tgds.add(new String(""));
-		tgds.add(new String(""));
 		tgds.set(0, new String("123"));
 		tgds.set(tgds.size() - 1, new String("456"));
-		/*
-		 * GraphViewSeries NSeries = new GraphViewSeries( new
-		 * GraphView.GraphViewData[] { new GraphViewData(1, 80d), new
-		 * GraphViewData(2, 57d), new GraphViewData(3, 99d), new
-		 * GraphViewData(4, 92d) });
-		 */
+		
+		
 		// Graph 1
 		GraphView graphView1 = new LineGraphView(this, "粗蛋白 (%)");
-		GraphViewData[] maxProteinData = new GraphViewData[2];
-		maxProteinData[0] = new GraphViewData(1, 20d);
-		maxProteinData[1] = new GraphViewData(4, 20d);
-		GraphViewSeries maxProteinSeries = new GraphViewSeries("Max",
-				new GraphViewSeriesStyle(Color.RED, 1), FData);
-		graphView1.addSeries(maxProteinSeries);
 		List<GraphViewData> proteinGraphViewDataList = helper
 				.getProteinGraphViewDataList(pid);
 		GraphViewSeries graphViewSeries = new GraphViewSeries(
@@ -92,10 +78,8 @@ public class ReportActivity extends Activity {
 						.toArray(new GraphViewData[proteinGraphViewDataList
 								.size()]));
 		graphView1.addSeries(graphViewSeries);
-		graphView1.addSeries(new GraphViewSeries(tgd2
-				.toArray(new GraphViewData[tgd2.size()]))); // data
-		// graphView
-		// .setHorizontalLabels(new String[] { "xxx", "xxx", "xxx", "xxx" });
+		
+		
 		int width = getWindowManager().getDefaultDisplay().getWidth();
 		LinearLayout.LayoutParams params = new LayoutParams(
 				LayoutParams.MATCH_PARENT, width);
@@ -104,7 +88,7 @@ public class ReportActivity extends Activity {
 				20, r.getDisplayMetrics());
 		params.setMargins(px2, px2, px2, px2);
 		graphView1.setLayoutParams(params);
-		graphView1.setHorizontalLabels(tgds.toArray(new String[tgds.size()]));
+		graphView1.setHorizontalLabels(proteinGraphViewDataList.toArray(new String[proteinGraphViewDataList.size()]));
 		graphView1.getGraphViewStyle().setGridColor(Color.BLACK);
 		graphView1.getGraphViewStyle().setHorizontalLabelsColor(Color.RED);
 		graphView1.getGraphViewStyle().setVerticalLabelsColor(Color.RED);
