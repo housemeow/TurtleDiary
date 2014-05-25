@@ -84,8 +84,11 @@ public class ReportActivity extends Activity {
 		GraphViewSeries maxProteinSeries = new GraphViewSeries("Max",
 				new GraphViewSeriesStyle(Color.RED, 1), FData);
 		graphView1.addSeries(maxProteinSeries);
-
-		graphView1.addSeries(helper.getProteinGraphViewSeries(pid));
+		List<GraphViewData> proteinGraphViewDataList = helper.getProteinGraphViewDataList(pid);
+		GraphViewSeries graphViewSeries = new GraphViewSeries(
+				proteinGraphViewDataList.toArray(new GraphViewData[proteinGraphViewDataList
+						.size()]));
+		graphView1.addSeries(graphViewSeries);
 		graphView1.addSeries(new GraphViewSeries(tgd2
 				.toArray(new GraphViewData[tgd2.size()]))); // data
 		// graphView

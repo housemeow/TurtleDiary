@@ -313,7 +313,7 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 	}
 
 	// Report page helper get Protein GraphViewSeries
-	public GraphViewSeries getProteinGraphViewSeries(int pid) {
+	public List<GraphViewData> getProteinGraphViewDataList(int pid) {
 		List<GraphViewData> graphViewDataList = new ArrayList<GraphViewData>();
 		List<FeedLog> petFeedLogs = getPetFeedLog(pid);
 		// 根據每筆FeedLog算出的集合做出營養報表頁面六個圖表需要的graphViewSeries並回傳
@@ -325,11 +325,7 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 			graphViewDataList.add(new GraphViewData(index++, nutrition
 					.getProteinPercentage()));
 		}
-
-		GraphViewSeries graphViewSeries = new GraphViewSeries(
-				graphViewDataList.toArray(new GraphViewData[graphViewDataList
-						.size()]));
-		return graphViewSeries;
+		return graphViewDataList;
 	}
 
 	private List<FeedLogContainFood> getFeedLogContainFoods(int flid) {
