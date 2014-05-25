@@ -1,13 +1,13 @@
 package com.td.models;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import android.content.Context;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.DropBoxManager;
-
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.GenericRawResults;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
@@ -380,12 +380,31 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 	}
 
 	// Report page helper get ShellLength GraphViewSeries
-	public GraphViewSeries getShellLengthGraphViewSeries(int pid) {
-		List<FeedLog> petFeedLogs = getPetFeedLog(pid);
-		// 根據每筆FeedLog算出的集合做出營養報表頁面六個圖表需要的graphViewSeries並回傳
+	public List<GraphViewData> getShellLengthGraphViewDataList(int pid) {
+		QueryBuilder<MeasureLog, Integer> queryBuilder = getMeasureLogDao()
+				.queryBuilder();
+		queryBuilder.selectRaw("shellLength");
 		GraphViewSeries graphViewSeries = new GraphViewSeries(
-				petFeedLogs.toArray(new GraphViewData[petFeedLogs.size()]));
-		return graphViewSeries;
+				new GraphViewData[0]);
+		try {
+			queryBuilder.where().eq("pid", pid);
+			GenericRawResults<String[]> results = getMeasureLogDao().queryRaw(
+					queryBuilder.prepareStatementString());
+			if (results != null) {
+				List<GraphViewData> graphViewDataArray = new ArrayList<GraphViewData>();
+				int index = 1;
+				for (String[] result : results) {
+					double shellLength = Double.parseDouble(result[0]);
+					GraphViewData graphViewData = new GraphViewData(index++,
+							shellLength);
+					graphViewDataArray.add(graphViewData);
+				}
+				return graphViewDataArray;
+			}
+		} catch (java.sql.SQLException e) {
+			e.printStackTrace();
+		}
+		return new ArrayList<GraphViewData>();
 	}
 
 	// Report page helper get Weight GraphViewSeries
@@ -436,5 +455,38 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 			return foods.get(0);
 		}
 		return null;
+	}
+
+	public long getMeasureLogCount(int pid) {
+		return getMeasureLogDao().countOf();
+	}
+
+	public String getFirstMeasureLogDateString(int pid) {
+		List<MeasureLog> measureLogList = getMeasureLogDao().queryForAll();
+		if (measureLogList.size() > 0) {
+			Date date = measureLogList.get(0).getTimeStamp();
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(date);
+			int year = calendar.get(Calendar.YEAR);
+			int month = calendar.get(Calendar.MONTH) + 1;
+			int day = calendar.get(Calendar.DAY_OF_MONTH);
+			return year + "-" + month + "-" + day;
+		}
+		return "";
+	}
+
+	public String getLastMeasureLogDateString(int pid) {
+		List<MeasureLog> measureLogList = getMeasureLogDao().queryForAll();
+		if (measureLogList.size() > 0) {
+			Date date = measureLogList.get(measureLogList.size() - 1)
+					.getTimeStamp();
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(date);
+			int year = calendar.get(Calendar.YEAR);
+			int month = calendar.get(Calendar.MONTH) + 1;
+			int day = calendar.get(Calendar.DAY_OF_MONTH);
+			return year + "-" + month + "-" + day;
+		}
+		return "";
 	}
 }

@@ -1,6 +1,7 @@
 package com.td.turtlediary;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
 import android.content.res.Resources;
@@ -17,20 +18,22 @@ import com.jjoe64.graphview.GraphView.GraphViewData;
 import com.jjoe64.graphview.GraphViewSeries;
 import com.jjoe64.graphview.GraphViewSeries.GraphViewSeriesStyle;
 import com.jjoe64.graphview.LineGraphView;
+import com.td.models.MeasureLog;
 import com.td.models.TurtleDiaryDatabaseHelper;
 
 public class ReportActivity extends Activity {
 	private LinearLayout layout;
 	private GraphViewData[] FData = new GraphViewData[4];
 	private GraphViewData[] WData = new GraphViewData[4];
-	private TurtleDiaryDatabaseHelper helper = new TurtleDiaryDatabaseHelper(this);
+	private TurtleDiaryDatabaseHelper helper = new TurtleDiaryDatabaseHelper(
+			this);
 	private int pid = 0;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_report);
-		
+
 		pid = getIntent().getIntExtra("pid", -1);
 		this.setTitle("營養");
 		// init example series data
@@ -73,7 +76,7 @@ public class ReportActivity extends Activity {
 		 * GraphViewData(2, 57d), new GraphViewData(3, 99d), new
 		 * GraphViewData(4, 92d) });
 		 */
-		// Graph 1 
+		// Graph 1
 		GraphView graphView1 = new LineGraphView(this, "粗蛋白 (%)");
 		GraphViewData[] maxProteinData = new GraphViewData[2];
 		maxProteinData[0] = new GraphViewData(1, 20d);
@@ -82,21 +85,20 @@ public class ReportActivity extends Activity {
 				new GraphViewSeriesStyle(Color.RED, 1), FData);
 		graphView1.addSeries(maxProteinSeries);
 
-		
 		graphView1.addSeries(helper.getProteinGraphViewSeries(pid));
 		graphView1.addSeries(new GraphViewSeries(tgd2
 				.toArray(new GraphViewData[tgd2.size()]))); // data
-		//graphView
-		//		.setHorizontalLabels(new String[] { "xxx", "xxx", "xxx", "xxx" });
+		// graphView
+		// .setHorizontalLabels(new String[] { "xxx", "xxx", "xxx", "xxx" });
 		int width = getWindowManager().getDefaultDisplay().getWidth();
-		LinearLayout.LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, width);
+		LinearLayout.LayoutParams params = new LayoutParams(
+				LayoutParams.MATCH_PARENT, width);
 		Resources r = this.getResources(); // 取得手機資源
-		int px2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 20,
-				r.getDisplayMetrics());
+		int px2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
+				20, r.getDisplayMetrics());
 		params.setMargins(px2, px2, px2, px2);
 		graphView1.setLayoutParams(params);
-		graphView1
-		.setHorizontalLabels(tgds.toArray(new String[tgds.size()]));
+		graphView1.setHorizontalLabels(tgds.toArray(new String[tgds.size()]));
 		graphView1.getGraphViewStyle().setGridColor(Color.BLACK);
 		graphView1.getGraphViewStyle().setHorizontalLabelsColor(Color.RED);
 		graphView1.getGraphViewStyle().setVerticalLabelsColor(Color.RED);
@@ -105,85 +107,80 @@ public class ReportActivity extends Activity {
 		float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 20,
 				r.getDisplayMetrics());
 		graphView1.getGraphViewStyle().setTextSize(px);
-		
+
 		// Graph 2
 		GraphView graphView2 = new LineGraphView(this, "粗脂肪 (%)");
 		// graphView.addSeries(NSeries); // data
 		graphView2.addSeries(new GraphViewSeries(tgd2
 				.toArray(new GraphViewData[tgd2.size()]))); // data
-		//graphView
-		//		.setHorizontalLabels(new String[] { "xxx", "xxx", "xxx", "xxx" });
+		// graphView
+		// .setHorizontalLabels(new String[] { "xxx", "xxx", "xxx", "xxx" });
 		graphView2.setLayoutParams(params);
-		graphView2
-		.setHorizontalLabels(tgds.toArray(new String[tgds.size()]));
+		graphView2.setHorizontalLabels(tgds.toArray(new String[tgds.size()]));
 		graphView2.getGraphViewStyle().setGridColor(Color.BLACK);
 		graphView2.getGraphViewStyle().setHorizontalLabelsColor(Color.RED);
 		graphView2.getGraphViewStyle().setVerticalLabelsColor(Color.RED);
 		graphView2.getGraphViewStyle().setNumHorizontalLabels(4);
 		graphView2.getGraphViewStyle().setNumVerticalLabels(10);
 		graphView2.getGraphViewStyle().setTextSize(px);
-		
+
 		// Graph 3
 		GraphView graphView3 = new LineGraphView(this, "粗纖維 (%)");
 		// graphView.addSeries(NSeries); // data
 		graphView3.addSeries(new GraphViewSeries(tgd2
 				.toArray(new GraphViewData[tgd2.size()]))); // data
-		//graphView
-		//		.setHorizontalLabels(new String[] { "xxx", "xxx", "xxx", "xxx" });
+		// graphView
+		// .setHorizontalLabels(new String[] { "xxx", "xxx", "xxx", "xxx" });
 		graphView3.setLayoutParams(params);
-		graphView3
-		.setHorizontalLabels(tgds.toArray(new String[tgds.size()]));
+		graphView3.setHorizontalLabels(tgds.toArray(new String[tgds.size()]));
 		graphView3.getGraphViewStyle().setGridColor(Color.BLACK);
 		graphView3.getGraphViewStyle().setHorizontalLabelsColor(Color.RED);
 		graphView3.getGraphViewStyle().setVerticalLabelsColor(Color.RED);
 		graphView3.getGraphViewStyle().setNumHorizontalLabels(4);
 		graphView3.getGraphViewStyle().setNumVerticalLabels(10);
 		graphView3.getGraphViewStyle().setTextSize(px);
-		
+
 		// Graph 4
 		GraphView graphView4 = new LineGraphView(this, "鈣 (%)");
 		// graphView.addSeries(NSeries); // data
 		graphView4.addSeries(new GraphViewSeries(tgd2
 				.toArray(new GraphViewData[tgd2.size()]))); // data
-		//graphView
-		//		.setHorizontalLabels(new String[] { "xxx", "xxx", "xxx", "xxx" });
+		// graphView
+		// .setHorizontalLabels(new String[] { "xxx", "xxx", "xxx", "xxx" });
 		graphView4.setLayoutParams(params);
-		graphView4
-		.setHorizontalLabels(tgds.toArray(new String[tgds.size()]));
+		graphView4.setHorizontalLabels(tgds.toArray(new String[tgds.size()]));
 		graphView4.getGraphViewStyle().setGridColor(Color.BLACK);
 		graphView4.getGraphViewStyle().setHorizontalLabelsColor(Color.RED);
 		graphView4.getGraphViewStyle().setVerticalLabelsColor(Color.RED);
 		graphView4.getGraphViewStyle().setNumHorizontalLabels(4);
 		graphView4.getGraphViewStyle().setNumVerticalLabels(10);
 		graphView4.getGraphViewStyle().setTextSize(px);
-		
+
 		// Graph 5
 		GraphView graphView5 = new LineGraphView(this, "磷 (%)");
 		// graphView.addSeries(NSeries); // data
 		graphView5.addSeries(new GraphViewSeries(tgd2
 				.toArray(new GraphViewData[tgd2.size()]))); // data
-		//graphView
-		//		.setHorizontalLabels(new String[] { "xxx", "xxx", "xxx", "xxx" });
+		// graphView
+		// .setHorizontalLabels(new String[] { "xxx", "xxx", "xxx", "xxx" });
 		graphView5.setLayoutParams(params);
-		graphView5
-		.setHorizontalLabels(tgds.toArray(new String[tgds.size()]));
+		graphView5.setHorizontalLabels(tgds.toArray(new String[tgds.size()]));
 		graphView5.getGraphViewStyle().setGridColor(Color.BLACK);
 		graphView5.getGraphViewStyle().setHorizontalLabelsColor(Color.RED);
 		graphView5.getGraphViewStyle().setVerticalLabelsColor(Color.RED);
 		graphView5.getGraphViewStyle().setNumHorizontalLabels(4);
 		graphView5.getGraphViewStyle().setNumVerticalLabels(10);
 		graphView5.getGraphViewStyle().setTextSize(px);
-		
+
 		// Graph 5
 		GraphView graphView6 = new LineGraphView(this, "鈣:磷 (比值)");
 		// graphView.addSeries(NSeries); // data
 		graphView6.addSeries(new GraphViewSeries(tgd2
 				.toArray(new GraphViewData[tgd2.size()]))); // data
-		//graphView
-		//		.setHorizontalLabels(new String[] { "xxx", "xxx", "xxx", "xxx" });
+		// graphView
+		// .setHorizontalLabels(new String[] { "xxx", "xxx", "xxx", "xxx" });
 		graphView6.setLayoutParams(params);
-		graphView6
-		.setHorizontalLabels(tgds.toArray(new String[tgds.size()]));
+		graphView6.setHorizontalLabels(tgds.toArray(new String[tgds.size()]));
 		graphView6.getGraphViewStyle().setGridColor(Color.BLACK);
 		graphView6.getGraphViewStyle().setHorizontalLabelsColor(Color.RED);
 		graphView6.getGraphViewStyle().setVerticalLabelsColor(Color.RED);
@@ -201,23 +198,39 @@ public class ReportActivity extends Activity {
 	// 甲長
 	public void createShellLengthChart() {
 		layout.removeAllViews();
-		
-		GraphViewSeries FSeries = new GraphViewSeries(FData);
+
+		List<GraphViewData> graphViewDataList = helper
+				.getShellLengthGraphViewDataList(pid);
+		int size = graphViewDataList.size();
+		GraphViewSeries shellLengthSeries = new GraphViewSeries(
+				graphViewDataList.toArray(new GraphViewData[size]));
+
 		GraphView graphView = new LineGraphView(this, "");
 		int width = getWindowManager().getDefaultDisplay().getWidth();
-		LinearLayout.LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, width);
+		LinearLayout.LayoutParams params = new LayoutParams(
+				LayoutParams.MATCH_PARENT, width);
 		Resources r = this.getResources(); // 取得手機資源
-		int px2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 20,
-				r.getDisplayMetrics());
+		int px2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
+				20, r.getDisplayMetrics());
 		params.setMargins(px2, px2, px2, px2);
 		graphView.setLayoutParams(params);
-		graphView.addSeries(FSeries); // data
-		graphView.setHorizontalLabels(new String[] { "4/11", "4/12", "4/13",
-				"4/14" });
+		graphView.addSeries(shellLengthSeries); // data
 		graphView.getGraphViewStyle().setGridColor(Color.BLACK);
 		graphView.getGraphViewStyle().setHorizontalLabelsColor(Color.RED);
 		graphView.getGraphViewStyle().setVerticalLabelsColor(Color.RED);
-		graphView.getGraphViewStyle().setNumHorizontalLabels(4);
+		int measureLogCount = (int) helper.getMeasureLogCount(pid);
+		graphView.getGraphViewStyle().setNumHorizontalLabels(measureLogCount);
+
+		if (size > 0) {
+			String[] labels = new String[size];
+			for(int i=1;i<size-1;i++){
+				labels[i]="";
+			}
+			labels[0] = helper.getFirstMeasureLogDateString(pid);
+			labels[size-1] = helper.getLastMeasureLogDateString(pid);
+			graphView.setHorizontalLabels(labels);
+		}
+
 		graphView.getGraphViewStyle().setNumVerticalLabels(8);
 		layout.addView(graphView);
 	}
@@ -228,10 +241,11 @@ public class ReportActivity extends Activity {
 		GraphViewSeries WSeries = new GraphViewSeries(WData);
 		GraphView graphView = new LineGraphView(this, "");
 		int width = getWindowManager().getDefaultDisplay().getWidth();
-		LinearLayout.LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, width);
+		LinearLayout.LayoutParams params = new LayoutParams(
+				LayoutParams.MATCH_PARENT, width);
 		Resources r = this.getResources(); // 取得手機資源
-		int px2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 20,
-				r.getDisplayMetrics());
+		int px2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
+				20, r.getDisplayMetrics());
 		params.setMargins(px2, px2, px2, px2);
 		graphView.setLayoutParams(params);
 		graphView.addSeries(WSeries); // data
@@ -254,10 +268,11 @@ public class ReportActivity extends Activity {
 				new GraphViewSeriesStyle(Color.BLUE, 1), WData);
 		GraphView graphView = new LineGraphView(this, "");
 		int width = getWindowManager().getDefaultDisplay().getWidth();
-		LinearLayout.LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, width);
+		LinearLayout.LayoutParams params = new LayoutParams(
+				LayoutParams.MATCH_PARENT, width);
 		Resources r = this.getResources(); // 取得手機資源
-		int px2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 20,
-				r.getDisplayMetrics());
+		int px2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
+				20, r.getDisplayMetrics());
 		params.setMargins(px2, px2, px2, px2);
 		graphView.setLayoutParams(params);
 		graphView.addSeries(FSeries); // data

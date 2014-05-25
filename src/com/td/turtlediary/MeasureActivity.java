@@ -33,23 +33,27 @@ public class MeasureActivity extends Activity {
 			public void onClick(View v) {
 				// Add add measure API
 				EditText shellLengthEditText = (EditText) findViewById(R.id.measureActivityShellLengthEditText);
-				EditText weightEditText = (EditText)findViewById(R.id.measureActivityWeightEditText);
+				EditText weightEditText = (EditText) findViewById(R.id.measureActivityWeightEditText);
 				MeasureLog measureLog = new MeasureLog();
-				if (shellLengthEditText.getText().toString().equals("") || weightEditText.getText().toString().equals(""))
-				{
-					Toast.makeText(MeasureActivity.this, "尚有未輸入欄位", Toast.LENGTH_LONG).show();
-					return ;
+				if (shellLengthEditText.getText().toString().equals("")
+						|| weightEditText.getText().toString().equals("")) {
+					Toast.makeText(MeasureActivity.this, "尚有未輸入欄位",
+							Toast.LENGTH_LONG).show();
+					return;
+				} else {
+					measureLog.setShellLength(Double
+							.parseDouble(shellLengthEditText.getText()
+									.toString()));
+					measureLog.setWeight(Double.parseDouble(weightEditText
+							.getText().toString()));
 				}
-				else 
-				{
-					measureLog.setLength(Double.parseDouble(shellLengthEditText.getText().toString()));
-					measureLog.setWeight(Double.parseDouble(weightEditText.getText().toString()));
-				}
-				measureLog.setPid(((Pet)getIntent().getSerializableExtra("pet")).getPid());
+				measureLog.setPid(((Pet) getIntent()
+						.getSerializableExtra("pet")).getPid());
 				measureLog.setTimeStamp(new Date());
-				TurtleDiaryDatabaseHelper helper = new TurtleDiaryDatabaseHelper(MeasureActivity.this);
+				TurtleDiaryDatabaseHelper helper = new TurtleDiaryDatabaseHelper(
+						MeasureActivity.this);
 				helper.addMeasureLog(measureLog);
-				Log.i("measureLog", measureLog.getMid()+"");
+				Log.i("measureLog", measureLog.getMid() + "");
 				finish();
 			}
 		};
