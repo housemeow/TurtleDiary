@@ -223,11 +223,11 @@ public class ReportActivity extends Activity {
 
 		if (size > 0) {
 			String[] labels = new String[size];
-			for(int i=1;i<size-1;i++){
-				labels[i]="";
+			for (int i = 1; i < size - 1; i++) {
+				labels[i] = "";
 			}
-			labels[0] = helper.getFirstMeasureLogDateString(pid);
-			labels[size-1] = helper.getLastMeasureLogDateString(pid);
+			labels[0] = helper.getMeasureLogDateString(pid, true);
+			labels[size - 1] = helper.getMeasureLogDateString(pid, false);
 			graphView.setHorizontalLabels(labels);
 		}
 
@@ -263,11 +263,11 @@ public class ReportActivity extends Activity {
 
 		if (size > 0) {
 			String[] labels = new String[size];
-			for(int i=1;i<size-1;i++){
-				labels[i]="";
+			for (int i = 1; i < size - 1; i++) {
+				labels[i] = "";
 			}
-			labels[0] = helper.getFirstMeasureLogDateString(pid);
-			labels[size-1] = helper.getLastMeasureLogDateString(pid);
+			labels[0] = helper.getMeasureLogDateString(pid, true);
+			labels[size - 1] = helper.getMeasureLogDateString(pid, false);
 			graphView.setHorizontalLabels(labels);
 		}
 
@@ -303,11 +303,11 @@ public class ReportActivity extends Activity {
 
 		if (size > 0) {
 			String[] labels = new String[size];
-			for(int i=1;i<size-1;i++){
-				labels[i]="";
+			for (int i = 1; i < size - 1; i++) {
+				labels[i] = "";
 			}
-			labels[0] = helper.getFirstMeasureLogDateString(pid);
-			labels[size-1] = helper.getLastMeasureLogDateString(pid);
+			labels[0] = helper.getMeasureLogDateString(pid, true);
+			labels[size - 1] = helper.getMeasureLogDateString(pid, false);
 			graphView.setHorizontalLabels(labels);
 		}
 

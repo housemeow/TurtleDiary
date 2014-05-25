@@ -1,9 +1,12 @@
 package com.td.models;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import android.content.Context;
 import android.database.SQLException;
@@ -459,31 +462,47 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 		return getMeasureLogDao().countOf();
 	}
 
-	public String getFirstMeasureLogDateString(int pid) {
-		List<MeasureLog> measureLogList = getMeasureLogDao().queryForAll();
-		if (measureLogList.size() > 0) {
-			Date date = measureLogList.get(0).getTimeStamp();
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(date);
-			int year = calendar.get(Calendar.YEAR);
-			int month = calendar.get(Calendar.MONTH) + 1;
-			int day = calendar.get(Calendar.DAY_OF_MONTH);
-			return year + "-" + month + "-" + day;
-		}
-		return "";
-	}
+//	public String getFirstMeasureLogDateString(int pid) {
+//		List<MeasureLog> measureLogList = getMeasureLogDao().queryForAll();
+//		if (measureLogList.size() > 0) {
+//			Date date = measureLogList.get(0).getTimeStamp();
+//			Calendar calendar = Calendar.getInstance();
+//			calendar.setTime(date);
+//			int year = calendar.get(Calendar.YEAR);
+//			int month = calendar.get(Calendar.MONTH) + 1;
+//			int day = calendar.get(Calendar.DAY_OF_MONTH);
+//			return year + "-" + month + "-" + day;
+//		}
+//		return "";
+//	}
+	
+	public String getMeasureLogDateString(int pid, boolean isFirst) {
+		QueryBuilder<MeasureLog, Integer> queryBuilder = getMeasureLogDao()
+				.queryBuilder();
+		queryBuilder.selectRaw(MeasureLog.TIME_STAMP_FILED_NAME);
+		try {
+			queryBuilder.limit(1L);
+			queryBuilder.orderBy(MeasureLog.TIME_STAMP_FILED_NAME, isFirst);
+			queryBuilder.where().eq("pid", pid);
+			GenericRawResults<String[]> results = getFeedLogDao().queryRaw(
+					queryBuilder.prepareStatementString());
+			if (results != null) {
+				String[] result = results.getResults().get(0);
+				SimpleDateFormat sdf = new SimpleDateFormat(
+						"yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+				Date date = sdf.parse(result[0]);
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(date);
+				int year = calendar.get(Calendar.YEAR);
+				int month = calendar.get(Calendar.MONTH) + 1;
+				int day = calendar.get(Calendar.DAY_OF_MONTH);
+				return year + "-" + month + "-" + day;
+			}
+		} catch (java.sql.SQLException e) {
+			e.printStackTrace();
 
-	public String getLastMeasureLogDateString(int pid) {
-		List<MeasureLog> measureLogList = getMeasureLogDao().queryForAll();
-		if (measureLogList.size() > 0) {
-			Date date = measureLogList.get(measureLogList.size() - 1)
-					.getTimeStamp();
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(date);
-			int year = calendar.get(Calendar.YEAR);
-			int month = calendar.get(Calendar.MONTH) + 1;
-			int day = calendar.get(Calendar.DAY_OF_MONTH);
-			return year + "-" + month + "-" + day;
+		} catch (ParseException e) {
+			e.printStackTrace();
 		}
 		return "";
 	}
