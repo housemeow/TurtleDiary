@@ -201,38 +201,7 @@ public class ReportActivity extends Activity {
 
 		List<GraphViewData> graphViewDataList = helper
 				.getShellLengthGraphViewDataList(pid);
-		int size = graphViewDataList.size();
-		GraphViewSeries shellLengthSeries = new GraphViewSeries(
-				graphViewDataList.toArray(new GraphViewData[size]));
-
-		GraphView graphView = new LineGraphView(this, "");
-		int width = getWindowManager().getDefaultDisplay().getWidth();
-		LinearLayout.LayoutParams params = new LayoutParams(
-				LayoutParams.MATCH_PARENT, width);
-		Resources r = this.getResources(); // 取得手機資源
-		int px2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-				20, r.getDisplayMetrics());
-		params.setMargins(px2, px2, px2, px2);
-		graphView.setLayoutParams(params);
-		graphView.addSeries(shellLengthSeries); // data
-		graphView.getGraphViewStyle().setGridColor(Color.BLACK);
-		graphView.getGraphViewStyle().setHorizontalLabelsColor(Color.RED);
-		graphView.getGraphViewStyle().setVerticalLabelsColor(Color.RED);
-		int measureLogCount = (int) helper.getMeasureLogCount(pid);
-		graphView.getGraphViewStyle().setNumHorizontalLabels(measureLogCount);
-
-		if (size > 0) {
-			String[] labels = new String[size];
-			for (int i = 1; i < size - 1; i++) {
-				labels[i] = "";
-			}
-			labels[0] = helper.getMeasureLogDateString(pid, true);
-			labels[size - 1] = helper.getMeasureLogDateString(pid, false);
-			graphView.setHorizontalLabels(labels);
-		}
-
-		graphView.getGraphViewStyle().setNumVerticalLabels(8);
-		layout.addView(graphView);
+		createChart(graphViewDataList);
 	}
 
 	// 體重
@@ -241,6 +210,11 @@ public class ReportActivity extends Activity {
 
 		List<GraphViewData> graphViewDataList = helper
 				.getWeightGraphViewDataList(pid);
+
+		createChart(graphViewDataList);
+	}
+
+	private void createChart(List<GraphViewData> graphViewDataList) {
 		int size = graphViewDataList.size();
 		GraphViewSeries shellLengthSeries = new GraphViewSeries(
 				graphViewDataList.toArray(new GraphViewData[size]));
@@ -281,38 +255,7 @@ public class ReportActivity extends Activity {
 
 		List<GraphViewData> graphViewDataList = helper
 				.getJacksonGraphViewDataList(pid);
-		int size = graphViewDataList.size();
-		GraphViewSeries shellLengthSeries = new GraphViewSeries(
-				graphViewDataList.toArray(new GraphViewData[size]));
-
-		GraphView graphView = new LineGraphView(this, "");
-		int width = getWindowManager().getDefaultDisplay().getWidth();
-		LinearLayout.LayoutParams params = new LayoutParams(
-				LayoutParams.MATCH_PARENT, width);
-		Resources r = this.getResources(); // 取得手機資源
-		int px2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-				20, r.getDisplayMetrics());
-		params.setMargins(px2, px2, px2, px2);
-		graphView.setLayoutParams(params);
-		graphView.addSeries(shellLengthSeries); // data
-		graphView.getGraphViewStyle().setGridColor(Color.BLACK);
-		graphView.getGraphViewStyle().setHorizontalLabelsColor(Color.RED);
-		graphView.getGraphViewStyle().setVerticalLabelsColor(Color.RED);
-		int measureLogCount = (int) helper.getMeasureLogCount(pid);
-		graphView.getGraphViewStyle().setNumHorizontalLabels(measureLogCount);
-
-		if (size > 0) {
-			String[] labels = new String[size];
-			for (int i = 1; i < size - 1; i++) {
-				labels[i] = "";
-			}
-			labels[0] = helper.getMeasureLogDateString(pid, true);
-			labels[size - 1] = helper.getMeasureLogDateString(pid, false);
-			graphView.setHorizontalLabels(labels);
-		}
-
-		graphView.getGraphViewStyle().setNumVerticalLabels(8);
-		layout.addView(graphView);
+		createChart(graphViewDataList);
 	}
 
 	@Override
