@@ -319,9 +319,8 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 		// 根據每筆FeedLog算出的集合做出營養報表頁面六個圖表需要的graphViewSeries並回傳
 		int index = 1;
 		for (FeedLog feedLog : petFeedLogs) {
-			List<FeedLogContainFood> feedLogContainFoods = getFeedLogContainFoods(feedLog
-					.getFlid());
-			Nutrition nutrition = getFeedLogContainFoodsNutrition(feedLogContainFoods);
+			Nutrition nutrition = getFeedLogNutrition(feedLog.getFlid());
+			GraphViewData graphViewData = new GraphViewData(index++, nutrition.getProteinPercentage());
 			graphViewDataList.add(new GraphViewData(index++, nutrition
 					.getProteinPercentage()));
 		}
@@ -419,25 +418,47 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 
 	// Report page helper getFeedLogNutrition
 	public Nutrition getFeedLogNutrition(int flid) {
-		Nutrition feedLogNutrition = new Nutrition();
-		// 取出一筆FeedLog所有FeedLogContainFood的乾重營養含量
-		return feedLogNutrition;
+		List<FeedLogContainFood> feedLogContainFoods = getFeedLogContainFoods(flid);
+		return getFeedLogContainFoodsNutrition(feedLogContainFoods);
 	}
 
 	// Report page helper getFeedLogContainFoodsNutrition
 	public Nutrition getFeedLogContainFoodsNutrition(
-			List<FeedLogContainFood> feedLogContainFood) {
-		Nutrition feedLogContainFoodsNutrition = new Nutrition();
-		// 取出FeedLogContainFoods的乾重營養含量
-		return feedLogContainFoodsNutrition;
+			List<FeedLogContainFood> feedLogContainFoodList) {
+		Nutrition nutrition = new Nutrition();
+		for (FeedLogContainFood feedLogContainFood : feedLogContainFoodList)
+		{
+			Nutrition foodNutrition = getFeedLogContainFoodNutrition(feedLogContainFood);
+			nutrition.setDryWeight(nutrition.getDryWeight() + foodNutrition.getDryWeight());
+			nutrition.setProtein(nutrition.getProtein() + foodNutrition.getProtein());
+			nutrition.setFat(nutrition.getFat() + foodNutrition.getFat());
+			nutrition.setFabric(nutrition.getFabric() + foodNutrition.getFabric());
+			nutrition.setCa(nutrition.getCa() + foodNutrition.getCa());
+			nutrition.setP(nutrition.getP() + foodNutrition.getP());
+		}
+		return nutrition;
 	}
 
 	// Report page helper getFeedLogContainFoodNutrition
 	public Nutrition getFeedLogContainFoodNutrition(
 			FeedLogContainFood feedLogContainFood) {
-		Nutrition foodNutrition = new Nutrition();
-		// 取出一筆FeedLogContainFood的乾重營養含量
-		return foodNutrition;
+		Nutrition nutrition = new Nutrition();
+		Food food = getFood(feedLogContainFood.getFid());
+		double foodWeight = feedLogContainFood.getWeight();
+		double waterWeight = food.getWater();
+		double dryWeight = foodWeight * (100 - waterWeight) / 100;	// 乾重 (g)
+		double protein = foodWeight * food.getProtein() / 100; 		// 蛋白質 (g)
+		double fat = foodWeight * food.getFat() / 100; 				// 脂肪 (g)
+		double fabric = foodWeight * food.getFabric() / 100; 		// 纖維 (g)
+		double ca = foodWeight * food.getCa() / 100000; 			// 鈣 (g)
+		double p = foodWeight * food.getP() / 100000; 				// 磷 (g)
+		nutrition.setDryWeight(dryWeight);
+		nutrition.setProtein(protein);
+		nutrition.setFat(fat);
+		nutrition.setFabric(fabric);
+		nutrition.setCa(ca);
+		nutrition.setP(p);
+		return nutrition;
 	}
 
 	public Food getFood(String string) {
