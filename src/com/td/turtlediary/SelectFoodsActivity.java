@@ -118,6 +118,7 @@ public class SelectFoodsActivity extends Activity {
 				feedLogContainFood.setWeight(weight);
 				feedLogContainFoods.add(feedLogContainFood);
 				TableRow row = new TableRow(SelectFoodsActivity.this);
+				row.setId(1);
 				TextView textView = new TextView(SelectFoodsActivity.this);
 				textView.setText(food.getName() + weight + "克");
 				float size = TypedValue.applyDimension(
@@ -125,6 +126,7 @@ public class SelectFoodsActivity extends Activity {
 								.getDisplayMetrics());
 
 				textView.setTextSize(size);
+				textView.setId(1);
 
 				row.addView(textView);
 				foodAutoCompleteTextView.setText("");

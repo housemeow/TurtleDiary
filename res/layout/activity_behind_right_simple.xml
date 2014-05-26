@@ -6,32 +6,41 @@
         <TextView
             android:id="@+id/recordTextView"
             style="@style/behindMenuItemLabel"
+            android:background="@drawable/whatever"
             android:text="@string/FeedLog"
-            android:textSize="30sp" 
-            android:background="@drawable/whatever" />
+            android:layout_width="match_parent"
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/pointTextView"
             style="@style/behindMenuItemLabel"
+            android:background="@drawable/whatever"
             android:text="@string/report"
+            android:layout_width="match_parent"
             android:textSize="30sp" />
 
         <TextView
             android:id="@+id/settingTextView"
             style="@style/behindMenuItemLabel"
+            android:background="@drawable/whatever"
             android:text="@string/environmentSetting"
+            android:layout_width="match_parent"
             android:textSize="30sp" />
 
         <TextView
             android:id="@+id/measureTextView"
             style="@style/behindMenuItemLabel"
+            android:background="@drawable/whatever"
             android:text="@string/measure"
+            android:layout_width="match_parent"
             android:textSize="30sp" />
 
         <TextView
             android:id="@+id/healthyLogTextView"
             style="@style/behindMenuItemLabel"
+            android:background="@drawable/whatever"
             android:text="@string/healthyLog"
+            android:layout_width="match_parent"
             android:textSize="30sp" />
     </LinearLayout>
 

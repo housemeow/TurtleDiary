@@ -81,7 +81,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/dynamicGenerate"
                 android:textSize="20sp" />
 
             <TextView
@@ -108,14 +107,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/dynamicGenerate"
                 android:textSize="20sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/gram"
+                android:text="@string/percent"
                 android:textSize="20sp" />
         </TableRow>
 
@@ -136,14 +134,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/dynamicGenerate"
                 android:textSize="20sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/gram"
+                android:text="@string/percent"
                 android:textSize="20sp" />
         </TableRow>
 
@@ -163,14 +160,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/dynamicGenerate"
                 android:textSize="20sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/gram"
+                android:text="@string/percent"
                 android:textSize="20sp" />
         </TableRow>
 
@@ -190,14 +186,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/dynamicGenerate"
                 android:textSize="20sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/gram"
+                android:text="@string/percent"
                 android:textSize="20sp" />
         </TableRow>
 
@@ -217,14 +212,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/dynamicGenerate"
                 android:textSize="20sp" />
 
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/gram"
+                android:text="@string/percent"
                 android:textSize="20sp" />
         </TableRow>
 
@@ -244,14 +238,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/dynamicGenerate"
                 android:textSize="20sp" />
 
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/gram"
                 android:textSize="20sp" />
         </TableRow>
 
