@@ -85,8 +85,38 @@ public class SelectFoodsActivity extends Activity {
 			double weight = helper.getFoodsWeight(lastFeedLog.getFlid());
 			Toast.makeText(this, "上次餵食總重量為" + weight, Toast.LENGTH_LONG).show();
 		} else {
-			Toast.makeText(this, "lastFeedLog null", Toast.LENGTH_LONG).show();
+			// Toast.makeText(this, "lastFeedLog null",
+			// Toast.LENGTH_LONG).show();
 		}
+
+		if (savedInstanceState != null) {
+			dryWeightEditText
+					.setText(savedInstanceState.getString("dryWeight"));
+			proteinEditText.setText(savedInstanceState.getString("protein"));
+			fabricEditText.setText(savedInstanceState.getString("fabric"));
+			fatEditText.setText(savedInstanceState.getString("fat"));
+			caEditText.setText(savedInstanceState.getString("ca"));
+			pEditText.setText(savedInstanceState.getString("p"));
+			caPRatioEditText.setText(savedInstanceState.getString("caPRatio"));
+			for (FeedLogContainFood flcf : feedLogContainFoods) {
+				Food food = helper.getFood(flcf.getFid());
+				TableRow row = getRaw(food, flcf.getWeight());
+				selectedFoodsTableLayout.addView(row);
+
+			}
+		}
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putString("dryWeight", dryWeightEditText.getText().toString());
+		outState.putString("protein", proteinEditText.getText().toString());
+		outState.putString("fabric", fabricEditText.getText().toString());
+		outState.putString("fat", fatEditText.getText().toString());
+		outState.putString("ca", caEditText.getText().toString());
+		outState.putString("p", pEditText.getText().toString());
+		outState.putString("caPRatio", caPRatioEditText.getText().toString());
 	}
 
 	private OnClickListener getNextButtonOnClickListener() {
@@ -113,34 +143,27 @@ public class SelectFoodsActivity extends Activity {
 					e.printStackTrace();
 					return;
 				}
+
+				foodAutoCompleteTextView.setText("");
+				weightEditText.setText("");
+
 				FeedLogContainFood feedLogContainFood = new FeedLogContainFood();
 				feedLogContainFood.setFid(food.getFid());
 				feedLogContainFood.setWeight(weight);
 				feedLogContainFoods.add(feedLogContainFood);
-				TableRow row = new TableRow(SelectFoodsActivity.this);
-				row.setId(1);
-				TextView textView = new TextView(SelectFoodsActivity.this);
-				textView.setText(food.getName() + weight + "克");
-				float size = TypedValue.applyDimension(
-						TypedValue.COMPLEX_UNIT_SP, 10, getResources()
-								.getDisplayMetrics());
 
-				textView.setTextSize(size);
-				textView.setId(1);
-
-				row.addView(textView);
-				foodAutoCompleteTextView.setText("");
-				weightEditText.setText("");
+				TableRow row = getRaw(food, weight);
 				selectedFoodsTableLayout.addView(row);
 
-				Nutrition nutrition = helper.getFeedLogContainFoodsNutrition(feedLogContainFoods); 
+				Nutrition nutrition = helper
+						.getFeedLogContainFoodsNutrition(feedLogContainFoods);
 				double dryWeight = nutrition.getDryWeight();
 				double protein = nutrition.getProteinPercentage();
-				double fabric =nutrition.getFabricPercentage();
+				double fabric = nutrition.getFabricPercentage();
 				double fat = nutrition.getFatPercentage();
 				double ca = nutrition.getCaPercentage();
 				double p = nutrition.getPPercentage();
-				double caPRatio= nutrition.getCaPRatio();
+				double caPRatio = nutrition.getCaPRatio();
 				dryWeightEditText.setText(dryWeight + "");
 				proteinEditText.setText(protein + "");
 				fabricEditText.setText(fabric + "");
@@ -150,7 +173,19 @@ public class SelectFoodsActivity extends Activity {
 				caPRatioEditText.setText(caPRatio + "");
 
 			}
+
 		};
+	}
+
+	private TableRow getRaw(Food food, double weight) {
+		TableRow row = new TableRow(SelectFoodsActivity.this);
+		TextView textView = new TextView(SelectFoodsActivity.this);
+		textView.setText(food.getName() + weight + "克");
+		float size = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 10,
+				getResources().getDisplayMetrics());
+		textView.setTextSize(size);
+		row.addView(textView);
+		return row;
 	}
 
 	private OnClickListener getFeedFoodsButtonOnClickListener() {
