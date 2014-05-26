@@ -33,7 +33,7 @@ public class SelectFoodsActivity extends Activity {
 			this);
 	private int pid;
 	private TableLayout selectedFoodsTableLayout;
-	private List<FeedLogContainFood> feedLogContainFoods = new ArrayList<FeedLogContainFood>();
+	private static List<FeedLogContainFood> feedLogContainFoods = new ArrayList<FeedLogContainFood>();
 	private AutoCompleteTextView foodAutoCompleteTextView;
 	private EditText weightEditText;
 
@@ -206,6 +206,7 @@ public class SelectFoodsActivity extends Activity {
 						flcf.setFlid(feedLog.getFlid());
 						helper.addFeedLogContainFood(flcf);
 					}
+					feedLogContainFoods = new ArrayList<FeedLogContainFood>();
 					finish();
 				}
 			}
