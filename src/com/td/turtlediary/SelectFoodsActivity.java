@@ -7,6 +7,7 @@ import java.util.List;
 import com.td.models.FeedLog;
 import com.td.models.FeedLogContainFood;
 import com.td.models.Food;
+import com.td.models.Nutrition;
 import com.td.models.TurtleDiaryDatabaseHelper;
 
 import android.app.Activity;
@@ -36,6 +37,14 @@ public class SelectFoodsActivity extends Activity {
 	private AutoCompleteTextView foodAutoCompleteTextView;
 	private EditText weightEditText;
 
+	private TextView dryWeightEditText;
+	private TextView proteinEditText;
+	private TextView fabricEditText;
+	private TextView fatEditText;
+	private TextView caEditText;
+	private TextView pEditText;
+	private TextView caPRatioEditText;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -44,6 +53,14 @@ public class SelectFoodsActivity extends Activity {
 		selectedFoodsTableLayout = (TableLayout) findViewById(R.id.selectFoodActivityFoodsTableLayout);
 		foodAutoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.selectFoodActivityFoodsAutoCompleteTextView);
 		weightEditText = (EditText) findViewById(R.id.selectFoodWeightTextEdit);
+
+		dryWeightEditText = (TextView) findViewById(R.id.selectFoodsActivityDryWeightEditText);
+		proteinEditText = (TextView) findViewById(R.id.selectFoodActivityProteinEditText);
+		fabricEditText = (TextView) findViewById(R.id.selectFoodsActivityFabricEditText);
+		fatEditText = (TextView) findViewById(R.id.selectFoodsActivityFatEditText);
+		caEditText = (TextView) findViewById(R.id.selectFoodsActivityCaEditText);
+		pEditText = (TextView) findViewById(R.id.selectFoodsActivityPEditText);
+		caPRatioEditText = (TextView) findViewById(R.id.selectFoodsActivityCaPRatioEditText);
 
 		List<Food> foods = helper.getFoods();
 		ArrayAdapter<Food> adapter = new ArrayAdapter<Food>(this,
@@ -84,6 +101,7 @@ public class SelectFoodsActivity extends Activity {
 							Toast.LENGTH_LONG).show();
 					return;
 				}
+
 				double weight = 0;
 				try {
 					weight = Double.parseDouble(weightEditText.getText()
@@ -95,7 +113,6 @@ public class SelectFoodsActivity extends Activity {
 					e.printStackTrace();
 					return;
 				}
-
 				FeedLogContainFood feedLogContainFood = new FeedLogContainFood();
 				feedLogContainFood.setFid(food.getFid());
 				feedLogContainFood.setWeight(weight);
@@ -104,7 +121,7 @@ public class SelectFoodsActivity extends Activity {
 				TextView textView = new TextView(SelectFoodsActivity.this);
 				textView.setText(food.getName() + weight + "克");
 				float size = TypedValue.applyDimension(
-						TypedValue.COMPLEX_UNIT_SP, 20, getResources()
+						TypedValue.COMPLEX_UNIT_SP, 10, getResources()
 								.getDisplayMetrics());
 
 				textView.setTextSize(size);
@@ -113,6 +130,22 @@ public class SelectFoodsActivity extends Activity {
 				foodAutoCompleteTextView.setText("");
 				weightEditText.setText("");
 				selectedFoodsTableLayout.addView(row);
+
+				Nutrition nutrition = helper.getFeedLogContainFoodsNutrition(feedLogContainFoods); 
+				double dryWeight = nutrition.getDryWeight();
+				double protein = nutrition.getProteinPercentage();
+				double fabric =nutrition.getFabricPercentage();
+				double fat = nutrition.getFatPercentage();
+				double ca = nutrition.getCaPercentage();
+				double p = nutrition.getPPercentage();
+				double caPRatio= nutrition.getCaPRatio();
+				dryWeightEditText.setText(dryWeight + "");
+				proteinEditText.setText(protein + "");
+				fabricEditText.setText(fabric + "");
+				fatEditText.setText(fat + "");
+				caEditText.setText(ca + "");
+				pEditText.setText(p + "");
+				caPRatioEditText.setText(caPRatio + "");
 
 			}
 		};
@@ -123,15 +156,47 @@ public class SelectFoodsActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				FeedLog feedLog = new FeedLog();
-				feedLog.setPid(pid);
-				feedLog.setTimeStamp(new Date());
-				helper.addFeedLog(feedLog);
-				for (FeedLogContainFood feedLogContainFood : feedLogContainFoods) {
-					feedLogContainFood.setFlid(feedLog.getFlid());
-					helper.addFeedLogContainFood(feedLogContainFood);
+				FeedLogContainFood feedLogContainFood = getFeedLogContainFood();
+				if (feedLogContainFood != null) {
+					Toast.makeText(SelectFoodsActivity.this, "請按加入食物清單顯示營養比例",
+							Toast.LENGTH_LONG).show();
+				} else if (feedLogContainFoods.size() > 0) {
+					FeedLog feedLog = new FeedLog();
+					feedLog.setPid(pid);
+					feedLog.setTimeStamp(new Date());
+					helper.addFeedLog(feedLog);
+					for (FeedLogContainFood flcf : feedLogContainFoods) {
+						flcf.setFlid(feedLog.getFlid());
+						helper.addFeedLogContainFood(flcf);
+					}
+					finish();
 				}
-				finish();
+			}
+
+			private FeedLogContainFood getFeedLogContainFood() {
+				Food food = helper.getFood(foodAutoCompleteTextView.getText()
+						.toString());
+				if (food == null) {
+					Toast.makeText(SelectFoodsActivity.this, "請輸入完整食物名稱",
+							Toast.LENGTH_LONG).show();
+					return null;
+				}
+
+				double weight = 0;
+				try {
+					weight = Double.parseDouble(weightEditText.getText()
+							.toString());
+				} catch (NumberFormatException e) {
+					Toast.makeText(SelectFoodsActivity.this, "重量欄位請輸入數字",
+							Toast.LENGTH_LONG).show();
+
+					e.printStackTrace();
+					return null;
+				}
+				FeedLogContainFood feedLogContainFood = new FeedLogContainFood();
+				feedLogContainFood.setFid(food.getFid());
+				feedLogContainFood.setWeight(weight);
+				return feedLogContainFood;
 			}
 		};
 		return listener;

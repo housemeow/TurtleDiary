@@ -34,7 +34,6 @@
                 android:layout_weight="1"
                 android:completionThreshold="1"
                 android:hint="@string/pleaseInputFoodName" />
-
         </TableRow>
 
         <TableRow
@@ -74,10 +73,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/kcal"
+                android:text="@string/dryWeight"
                 android:textSize="20sp" />
 
             <TextView
+                android:id="@+id/selectFoodsActivityDryWeightEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -97,13 +97,42 @@
             android:layout_height="wrap_content" >
 
             <TextView
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/water"
+                android:text="@string/protein"
                 android:textSize="20sp" />
 
             <TextView
+                android:id="@+id/selectFoodActivityProteinEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/dynamicGenerate"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/gram"
+                android:textSize="20sp" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/dryWeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/fabric"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/selectFoodsActivityFabricEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -130,6 +159,7 @@
                 android:textSize="20sp" />
 
             <TextView
+                android:id="@+id/selectFoodsActivityFatEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -156,6 +186,7 @@
                 android:textSize="20sp" />
 
             <TextView
+                android:id="@+id/selectFoodsActivityCaEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -182,6 +213,34 @@
                 android:textSize="20sp" />
 
             <TextView
+                android:id="@+id/selectFoodsActivityPEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/dynamicGenerate"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/gram"
+                android:textSize="20sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/caPRatio"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/selectFoodsActivityCaPRatioEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -210,7 +269,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
             </TableLayout>
-
         </TableRow>
 
         <RelativeLayout
@@ -233,7 +291,6 @@
                 android:layout_alignParentTop="true"
                 android:layout_toLeftOf="@+id/selectFoodsFeedButton"
                 android:text="@string/addToFoodList" />
-
         </RelativeLayout>
     </TableLayout>
 

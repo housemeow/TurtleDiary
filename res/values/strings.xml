@@ -76,5 +76,9 @@
     <string name="selectedFoods">已選擇的食物</string>
     <string name="nextFood">下一個食物</string>
     <string name="addToFoodList">加入食物清單</string>
+    <string name="dryWeight">乾重</string>
+    <string name="protein">粗蛋白</string>
+    <string name="fabric">粗纖維</string>
+    <string name="caPRatio">鈣磷比</string>
 
 </resources>
