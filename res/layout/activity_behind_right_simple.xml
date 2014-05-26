@@ -7,7 +7,8 @@
             android:id="@+id/recordTextView"
             style="@style/behindMenuItemLabel"
             android:text="@string/FeedLog"
-            android:textSize="30sp" />
+            android:textSize="30sp" 
+            android:background="@drawable/whatever" />
 
         <TextView
             android:id="@+id/pointTextView"
