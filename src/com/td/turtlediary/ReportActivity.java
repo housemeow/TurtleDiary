@@ -311,20 +311,4 @@ public class ReportActivity extends Activity {
 			return super.onOptionsItemSelected(item);
 		}
 	}
-
-	/*
-	 * public void createFavoriteFoodChart() { layout.removeAllViews();
-	 * GraphViewSeries FFSeries = new GraphViewSeries( new
-	 * GraphView.GraphViewData[] { new GraphViewData(1, 4d), new
-	 * GraphViewData(2, 7d), new GraphViewData(3, 11d), new GraphViewData(4,
-	 * 22d) }); GraphView graphView = new LineGraphView(this, "");
-	 * graphView.addSeries(FFSeries); // data graphView .setHorizontalLabels(new
-	 * String[] { "xxx", "xxx", "xxx", "xxx" });
-	 * graphView.getGraphViewStyle().setGridColor(Color.BLACK);
-	 * graphView.getGraphViewStyle().setHorizontalLabelsColor(Color.RED);
-	 * graphView.getGraphViewStyle().setVerticalLabelsColor(Color.RED);
-	 * graphView.getGraphViewStyle().setNumHorizontalLabels(4);
-	 * graphView.getGraphViewStyle().setNumVerticalLabels(8);
-	 * layout.addView(graphView); }
-	 */
 }

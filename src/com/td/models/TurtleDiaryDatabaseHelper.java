@@ -441,6 +441,22 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 		return graphViewSeries;
 	}
 
+	// Report page helper getPetNutrition
+	public Nutrition getPetNutrition(int pid) {
+		List<FeedLog> petFeedLogs = getPetFeedLog(pid);
+		Nutrition nutrition = new Nutrition();
+		for (FeedLog feedLog : petFeedLogs) {
+			Nutrition feedLogNutrition = getFeedLogNutrition(feedLog.getFlid());
+			nutrition.setDryWeight(nutrition.getDryWeight() + feedLogNutrition.getDryWeight());
+			nutrition.setProtein(nutrition.getProtein() + feedLogNutrition.getProtein());
+			nutrition.setFat(nutrition.getFat() + feedLogNutrition.getFat());
+			nutrition.setFabric(nutrition.getFabric() + feedLogNutrition.getFabric());
+			nutrition.setCa(nutrition.getCa() + feedLogNutrition.getCa());
+			nutrition.setP(nutrition.getP() + feedLogNutrition.getP());
+		}
+		return nutrition;
+	}
+	
 	// Report page helper getFeedLogNutrition
 	public Nutrition getFeedLogNutrition(int flid) {
 		List<FeedLogContainFood> feedLogContainFoods = getFeedLogContainFoods(flid);
