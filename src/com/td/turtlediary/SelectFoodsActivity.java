@@ -85,7 +85,7 @@ public class SelectFoodsActivity extends Activity {
 			double weight = helper.getFoodsWeight(lastFeedLog.getFlid());
 			Toast.makeText(this, "上次餵食總重量為" + weight, Toast.LENGTH_LONG).show();
 		} else {
-			Toast.makeText(this, "lastFeedLog null", Toast.LENGTH_LONG).show();
+			// Toast.makeText(this, "lastFeedLog null", Toast.LENGTH_LONG).show();
 		}
 	}
 
