@@ -14,7 +14,8 @@ public class FeedLog implements Serializable
 	public static final String PID_FIELD_NAME = "pid";
 	@DatabaseField(columnName = PID_FIELD_NAME)
 	private int pid;
-	@DatabaseField
+	public static final String TIME_STAMP_FILED_NAME = "timeStamp";
+	@DatabaseField(columnName = TIME_STAMP_FILED_NAME)
 	private Date timeStamp;
 	
 	public FeedLog()

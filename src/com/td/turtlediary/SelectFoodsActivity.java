@@ -52,7 +52,7 @@ public class SelectFoodsActivity extends Activity {
 		foodAutoCompleteTextView.setAdapter(adapter);
 
 		Intent intent = getIntent();
-		intent.getIntExtra("pid", -1);
+		pid = intent.getIntExtra("pid", -1);
 		Button feedButton = (Button) findViewById(R.id.selectFoodsFeedButton);
 		feedButton.setOnClickListener(getFeedFoodsButtonOnClickListener());
 

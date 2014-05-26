@@ -11,14 +11,16 @@ import java.util.Locale;
 import android.content.Context;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.GenericRawResults;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
-import com.jjoe64.graphview.GraphViewSeries;
 import com.jjoe64.graphview.GraphView.GraphViewData;
+import com.jjoe64.graphview.GraphViewSeries;
 
 public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 	private static final String DATABASE_NAME = "turtleDiary.db";
@@ -316,13 +318,11 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 	public List<GraphViewData> getProteinGraphViewDataList(int pid) {
 		List<GraphViewData> graphViewDataList = new ArrayList<GraphViewData>();
 		List<FeedLog> petFeedLogs = getPetFeedLog(pid);
-		// 根據每筆FeedLog算出的集合做出營養報表頁面六個圖表需要的graphViewSeries並回傳
 		int index = 1;
 		for (FeedLog feedLog : petFeedLogs) {
 			Nutrition nutrition = getFeedLogNutrition(feedLog.getFlid());
 			GraphViewData graphViewData = new GraphViewData(index++, nutrition.getProteinPercentage());
-			graphViewDataList.add(new GraphViewData(index++, nutrition
-					.getProteinPercentage()));
+			graphViewDataList.add(graphViewData);
 		}
 		return graphViewDataList;
 	}
@@ -336,7 +336,12 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 	public List<GraphViewData> getFatGraphViewDataList(int pid) {
 		List<GraphViewData> graphViewDataList = new ArrayList<GraphViewData>();
 		List<FeedLog> petFeedLogs = getPetFeedLog(pid);
-		// 根據每筆FeedLog算出的集合做出營養報表頁面六個圖表需要的graphViewSeries並回傳
+		int index = 1;
+		for (FeedLog feedLog : petFeedLogs) {
+			Nutrition nutrition = getFeedLogNutrition(feedLog.getFlid());
+			GraphViewData graphViewData = new GraphViewData(index++, nutrition.getFatPercentage());
+			graphViewDataList.add(graphViewData);
+		}
 		return graphViewDataList;
 	}
 
@@ -344,7 +349,12 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 	public List<GraphViewData> getFabricGraphViewDataList(int pid) {
 		List<GraphViewData> graphViewDataList = new ArrayList<GraphViewData>();
 		List<FeedLog> petFeedLogs = getPetFeedLog(pid);
-		// 根據每筆FeedLog算出的集合做出營養報表頁面六個圖表需要的graphViewSeries並回傳
+		int index = 1;
+		for (FeedLog feedLog : petFeedLogs) {
+			Nutrition nutrition = getFeedLogNutrition(feedLog.getFlid());
+			GraphViewData graphViewData = new GraphViewData(index++, nutrition.getFabricPercentage());
+			graphViewDataList.add(graphViewData);
+		}
 		return graphViewDataList;
 	}
 
@@ -352,7 +362,12 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 	public List<GraphViewData> getCaGraphViewDataList(int pid) {
 		List<GraphViewData> graphViewDataList = new ArrayList<GraphViewData>();
 		List<FeedLog> petFeedLogs = getPetFeedLog(pid);
-		// 根據每筆FeedLog算出的集合做出營養報表頁面六個圖表需要的graphViewSeries並回傳
+		int index = 1;
+		for (FeedLog feedLog : petFeedLogs) {
+			Nutrition nutrition = getFeedLogNutrition(feedLog.getFlid());
+			GraphViewData graphViewData = new GraphViewData(index++, nutrition.getCaPercentage());
+			graphViewDataList.add(graphViewData);
+		}
 		return graphViewDataList;
 	}
 
@@ -360,7 +375,12 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 	public List<GraphViewData> getPGraphViewDataList(int pid) {
 		List<GraphViewData> graphViewDataList = new ArrayList<GraphViewData>();
 		List<FeedLog> petFeedLogs = getPetFeedLog(pid);
-		// 根據每筆FeedLog算出的集合做出營養報表頁面六個圖表需要的graphViewSeries並回傳
+		int index = 1;
+		for (FeedLog feedLog : petFeedLogs) {
+			Nutrition nutrition = getFeedLogNutrition(feedLog.getFlid());
+			GraphViewData graphViewData = new GraphViewData(index++, nutrition.getPPercentage());
+			graphViewDataList.add(graphViewData);
+		}
 		return graphViewDataList;
 	}
 
@@ -368,7 +388,12 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 	public List<GraphViewData> getCaPRatioGraphViewDataList(int pid) {
 		List<GraphViewData> graphViewDataList = new ArrayList<GraphViewData>();
 		List<FeedLog> petFeedLogs = getPetFeedLog(pid);
-		// 根據每筆FeedLog算出的集合做出營養報表頁面六個圖表需要的graphViewSeries並回傳
+		int index = 1;
+		for (FeedLog feedLog : petFeedLogs) {
+			Nutrition nutrition = getFeedLogNutrition(feedLog.getFlid());
+			GraphViewData graphViewData = new GraphViewData(index++, nutrition.getCaPRatio());
+			graphViewDataList.add(graphViewData);
+		}
 		return graphViewDataList;
 	}
 
@@ -488,6 +513,39 @@ public class TurtleDiaryDatabaseHelper extends OrmLiteSqliteOpenHelper {
 //		return "";
 //	}
 	
+	// getFeedLogDateString
+	public String getFeedLogDateString(int pid, boolean isFirst) {
+		QueryBuilder<FeedLog, Integer> queryBuilder = getFeedLogDao()
+				.queryBuilder();
+		queryBuilder.selectRaw(FeedLog.TIME_STAMP_FILED_NAME);
+		try {
+			queryBuilder.limit(1L);
+			queryBuilder.orderBy(FeedLog.TIME_STAMP_FILED_NAME, isFirst);
+			queryBuilder.where().eq("pid", pid);
+			GenericRawResults<String[]> results = getFeedLogDao().queryRaw(
+					queryBuilder.prepareStatementString());
+			if (results != null) {
+				String[] result = results.getResults().get(0);
+				SimpleDateFormat sdf = new SimpleDateFormat(
+						"yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+				Date date = sdf.parse(result[0]);
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(date);
+				int year = calendar.get(Calendar.YEAR);
+				int month = calendar.get(Calendar.MONTH) + 1;
+				int day = calendar.get(Calendar.DAY_OF_MONTH);
+				return year + "-" + month + "-" + day;
+			}
+		} catch (java.sql.SQLException e) {
+			e.printStackTrace();
+
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
+	
+	// get getMeasureLogDateString
 	public String getMeasureLogDateString(int pid, boolean isFirst) {
 		QueryBuilder<MeasureLog, Integer> queryBuilder = getMeasureLogDao()
 				.queryBuilder();

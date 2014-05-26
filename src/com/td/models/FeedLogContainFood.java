@@ -8,7 +8,8 @@ public class FeedLogContainFood implements Serializable
 {
 	private static final long serialVersionUID = 6065328707258243173L;
 	public static final String FLID_FIELD_NAME = "flid";
-	@DatabaseField(generatedId = true, columnName = FLID_FIELD_NAME)
+	@DatabaseField(columnName = FLID_FIELD_NAME)
+	// @DatabaseField(generatedId = true, columnName = FLID_FIELD_NAME)
 	private int flid;
 	@DatabaseField
 	private int fid;
