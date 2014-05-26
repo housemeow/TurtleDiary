@@ -119,6 +119,7 @@ public class SelectFoodsActivity extends Activity {
 		outState.putString("caPRatio", caPRatioEditText.getText().toString());
 	}
 
+	// 加入食物清單
 	private OnClickListener getNextButtonOnClickListener() {
 		return new OnClickListener() {
 
@@ -188,16 +189,15 @@ public class SelectFoodsActivity extends Activity {
 		return row;
 	}
 
+	// 餵食
 	private OnClickListener getFeedFoodsButtonOnClickListener() {
 		OnClickListener listener = new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				FeedLogContainFood feedLogContainFood = getFeedLogContainFood();
-				if (feedLogContainFood != null) {
-					Toast.makeText(SelectFoodsActivity.this, "請按加入食物清單顯示營養比例",
-							Toast.LENGTH_LONG).show();
-				} else if (feedLogContainFoods.size() > 0) {
+				int foodListCount = feedLogContainFoods.size();
+				if(foodListCount > 0)
+				{
 					FeedLog feedLog = new FeedLog();
 					feedLog.setPid(pid);
 					feedLog.setTimeStamp(new Date());
@@ -208,6 +208,14 @@ public class SelectFoodsActivity extends Activity {
 					}
 					feedLogContainFoods = new ArrayList<FeedLogContainFood>();
 					finish();
+				}
+				else
+				{
+					FeedLogContainFood feedLogContainFood = getFeedLogContainFood();
+					if (feedLogContainFood != null) {
+						Toast.makeText(SelectFoodsActivity.this, "請按加入食物清單顯示營養比例",
+								Toast.LENGTH_LONG).show();
+					}
 				}
 			}
 
