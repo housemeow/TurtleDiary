@@ -36,7 +36,7 @@ public class ReportActivity extends Activity {
 		Log.i ("pid is ", pid+"");
 		this.setTitle("營養");
 		// init example series data
-		layout = (LinearLayout) findViewById(R.id.chart);
+		layout = (LinearLayout) findViewById(R.id.selectFoodActivityProteinEditText);
 		FData = new GraphViewData[4];
 		WData = new GraphViewData[4];
 		FData[0] = new GraphViewData(1, 0.8d);

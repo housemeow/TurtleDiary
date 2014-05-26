@@ -51,9 +51,9 @@ public class EnvironmentActivity extends Activity {
 		environmentActivityMinHumidityEditText = (EditText) findViewById(R.id.environmentActivityMinHumidityEditText);
 		// get button component id
 		environmentActivityNextButton = (Button) findViewById(R.id.environmentActivityNextButton);
-		environmentActivityAddButton = (Button) findViewById(R.id.environmentActivityAddButton);
+		environmentActivityAddButton = (Button) findViewById(R.id.selectFoodsActivityFatEditText);
 		environmentActivityRecoverButton = (Button) findViewById(R.id.environmentActivityRestoreButton);
-		environmentActivityEditButton = (Button) findViewById(R.id.environmentActivityEditButton);
+		environmentActivityEditButton = (Button) findViewById(R.id.selectFoodsActivityCaEditText);
 		// set listener
 		environmentActivityNextButton
 				.setOnClickListener(clickEnvironmentActivityNextButton);
@@ -234,7 +234,7 @@ public class EnvironmentActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.environment, menu);
 		MenuItem menuItem = menu
-				.findItem(R.id.environmentActivityEditActionButton);
+				.findItem(R.id.selectFoodsActivityCaPRatioEditText);
 		if (state.equals(VIEW)) {
 			menuItem.setVisible(true);
 		} else {
@@ -247,7 +247,7 @@ public class EnvironmentActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle presses on the action bar items
 		switch (item.getItemId()) {
-		case R.id.environmentActivityEditActionButton:
+		case R.id.selectFoodsActivityCaPRatioEditText:
 			state = EDIT;
 			RefreshView();
 			return true;

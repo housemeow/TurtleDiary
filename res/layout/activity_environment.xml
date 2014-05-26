@@ -242,7 +242,7 @@
                 android:textSize="20sp" />
 
             <Button
-                android:id="@+id/environmentActivityAddButton"
+                android:id="@+id/selectFoodsActivityFatEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -254,14 +254,14 @@
                 android:id="@+id/environmentActivityRestoreButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/environmentActivityEditButton"
+                android:layout_alignBottom="@+id/selectFoodsActivityCaEditText"
                 android:layout_marginRight="10dp"
-                android:layout_toLeftOf="@+id/environmentActivityEditButton"
+                android:layout_toLeftOf="@+id/selectFoodsActivityCaEditText"
                 android:text="@string/restore"
                 android:textSize="20sp" />
 
             <Button
-                android:id="@+id/environmentActivityEditButton"
+                android:id="@+id/selectFoodsActivityCaEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
