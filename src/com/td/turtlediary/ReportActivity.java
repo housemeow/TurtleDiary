@@ -15,8 +15,11 @@ import android.widget.LinearLayout.LayoutParams;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GraphView.GraphViewData;
+import com.jjoe64.graphview.GraphView.LegendAlign;
 import com.jjoe64.graphview.GraphViewSeries;
+import com.jjoe64.graphview.GraphViewSeries.GraphViewSeriesStyle;
 import com.jjoe64.graphview.LineGraphView;
+import com.td.models.Nutrition;
 import com.td.models.TurtleDiaryDatabaseHelper;
 
 public class ReportActivity extends Activity {
@@ -33,7 +36,7 @@ public class ReportActivity extends Activity {
 		setContentView(R.layout.activity_report);
 
 		pid = getIntent().getIntExtra("pid", -1);
-		Log.i ("pid is ", pid+"");
+		Log.i("pid is ", pid + "");
 		this.setTitle("營養");
 		// init example series data
 		layout = (LinearLayout) findViewById(R.id.selectFoodActivityProteinEditText);
@@ -50,7 +53,7 @@ public class ReportActivity extends Activity {
 		// createNutritionChart();
 		createNutritionReport();
 	}
-	
+
 	// 營養報表
 	public void createNutritionReport() {
 		layout.removeAllViews(); // 清除畫面
@@ -58,38 +61,69 @@ public class ReportActivity extends Activity {
 		LinearLayout.LayoutParams params = new LayoutParams(
 				LayoutParams.MATCH_PARENT, width);
 		Resources r = this.getResources(); // 取得手機資源
-		int marginPx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-				20, r.getDisplayMetrics());
-		float textSizePx = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 20,
-				r.getDisplayMetrics());
+		int marginPx = (int) TypedValue.applyDimension(
+				TypedValue.COMPLEX_UNIT_SP, 20, r.getDisplayMetrics());
+		float textSizePx = TypedValue.applyDimension(
+				TypedValue.COMPLEX_UNIT_SP, 8, r.getDisplayMetrics());
 		params.setMargins(marginPx, marginPx, marginPx, marginPx);
 		int size = helper.getProteinGraphViewDataList(pid).size();
+		Nutrition nutrition = helper.getPetNutrition(pid);
 		if (size > 0) {
 			String[] labels = new String[size];
 			for (int i = 1; i < size - 1; i++) {
 				labels[i] = "";
 			}
-			labels[0] = helper.getFeedLogDateString(pid, true);//firstLabel;
-			labels[size - 1] = helper.getFeedLogDateString(pid, false);//lastLabel;
-			layout.addView(getProteinGraphView(params, labels, textSizePx)); // 加入粗蛋白報表
-			layout.addView(getFatGraphView(params, labels, textSizePx)); // 加入粗脂肪報表
-			layout.addView(getFabricGraphView(params, labels, textSizePx)); // 加入粗纖維報表
-			layout.addView(getCaGraphView(params, labels, textSizePx)); // 加入鈣報表
-			layout.addView(getPGraphView(params, labels, textSizePx)); // 加入磷報表
-			layout.addView(getCaPRatioGraphView(params, labels, textSizePx)); // 加入鈣磷比報表
+			double proteinAvg = nutrition.getProteinPercentage();
+			double fatAvg = nutrition.getFatPercentage();
+			double fabricAvg = nutrition.getFabricPercentage();
+			double caAvg = nutrition.getCaPercentage();
+			double pAvg = nutrition.getPPercentage();
+			double caPRationAvg = nutrition.getCaPRatio();
+			labels[0] = helper.getFeedLogDateString(pid, true);// firstLabel;
+			labels[size - 1] = helper.getFeedLogDateString(pid, false);// lastLabel;
+			layout.addView(getProteinGraphView(params, labels, textSizePx,
+					proteinAvg)); // 加入粗蛋白報表
+			layout.addView(getFatGraphView(params, labels, textSizePx, fatAvg)); // 加入粗脂肪報表
+			layout.addView(getFabricGraphView(params, labels, textSizePx,
+					fabricAvg)); // 加入粗纖維報表
+			layout.addView(getCaGraphView(params, labels, textSizePx, caAvg)); // 加入鈣報表
+			layout.addView(getPGraphView(params, labels, textSizePx, pAvg)); // 加入磷報表
+			layout.addView(getCaPRatioGraphView(params, labels, textSizePx,
+					caPRationAvg)); // 加入鈣磷比報表
 		}
 	}
-	
+
 	// getProteinGraphView
-	public GraphView getProteinGraphView(LinearLayout.LayoutParams params, String[] labels, float textSizePx) {
+	public GraphView getProteinGraphView(LinearLayout.LayoutParams params,
+			String[] labels, float textSizePx, double proteinAvg) {
 		GraphView graphView = new LineGraphView(this, "粗蛋白 (%)");
 		List<GraphViewData> proteinGraphViewDataList = helper
 				.getProteinGraphViewDataList(pid);
-		GraphViewSeries graphViewSeries = new GraphViewSeries(
-				proteinGraphViewDataList
-						.toArray(new GraphViewData[proteinGraphViewDataList
-								.size()]));
+		int size = proteinGraphViewDataList.size();
+		GraphViewData[] proteingGraphViewDatas = proteinGraphViewDataList
+				.toArray(new GraphViewData[proteinGraphViewDataList.size()]);
+		GraphViewSeries graphViewSeries = new GraphViewSeries("粗蛋白",
+				new GraphViewSeriesStyle(Color.BLACK, 5),
+				proteingGraphViewDatas);
 		graphView.addSeries(graphViewSeries);
+		if (size > 0) {
+			GraphViewData[] graphViewDatas = new GraphViewData[size];
+			GraphViewData[] maxProteinGraphViewDatas = new GraphViewData[size];
+			double maxProtein = 20.0;
+			for (int i = 0; i < size; i++) {
+				graphViewDatas[i] = new GraphViewData(i + 1, proteinAvg);
+				maxProteinGraphViewDatas[i] = new GraphViewData(i + 1, maxProtein);
+			}
+			GraphViewSeries proteinAvgGraphViewSeries = new GraphViewSeries(
+					"AVG", new GraphViewSeriesStyle(Color.GREEN, 0),
+					graphViewDatas);
+			GraphViewSeries maxProteinAvgGraphViewSeries = new GraphViewSeries(
+					"MAX", new GraphViewSeriesStyle(Color.RED, 0),
+					maxProteinGraphViewDatas);
+			graphView.addSeries(proteinAvgGraphViewSeries);
+			graphView.addSeries(maxProteinAvgGraphViewSeries);
+		}
+		graphView.setShowLegend(true);
 		graphView.setLayoutParams(params);
 		graphView.setHorizontalLabels(labels);
 		graphView.getGraphViewStyle().setGridColor(Color.BLACK);
@@ -100,17 +134,38 @@ public class ReportActivity extends Activity {
 		graphView.getGraphViewStyle().setTextSize(textSizePx);
 		return graphView;
 	}
-	
+
 	// getFatGraphView
-	public GraphView getFatGraphView(LinearLayout.LayoutParams params, String[] labels, float textSizePx) {
+	public GraphView getFatGraphView(LinearLayout.LayoutParams params,
+			String[] labels, float textSizePx, double fatAvg) {
 		GraphView graphView = new LineGraphView(this, "粗脂肪 (%)");
 		List<GraphViewData> fatGraphViewDataList = helper
 				.getFatGraphViewDataList(pid);
-		GraphViewSeries graphViewSeries = new GraphViewSeries(
-				fatGraphViewDataList
-						.toArray(new GraphViewData[fatGraphViewDataList
-								.size()]));
+		int size = fatGraphViewDataList.size();
+		GraphViewData[] proteingGraphViewDatas = fatGraphViewDataList
+				.toArray(new GraphViewData[fatGraphViewDataList.size()]);
+		GraphViewSeries graphViewSeries = new GraphViewSeries("粗脂肪",
+				new GraphViewSeriesStyle(Color.BLACK, 5),
+				proteingGraphViewDatas);
 		graphView.addSeries(graphViewSeries);
+		if (size > 0) {
+			GraphViewData[] graphViewDatas = new GraphViewData[size];
+			GraphViewData[] maxFatGraphViewDatas = new GraphViewData[size];
+			double maxFat = 10.0;
+			for (int i = 0; i < size; i++) {
+				graphViewDatas[i] = new GraphViewData(i + 1, fatAvg);
+				maxFatGraphViewDatas[i] = new GraphViewData(i + 1, maxFat);
+			}
+			GraphViewSeries fatAvgGraphViewSeries = new GraphViewSeries(
+					"AVG", new GraphViewSeriesStyle(Color.GREEN, 0),
+					graphViewDatas);
+			GraphViewSeries maxFatGraphViewSeries = new GraphViewSeries(
+					"MAX", new GraphViewSeriesStyle(Color.RED, 0),
+					maxFatGraphViewDatas);
+			graphView.addSeries(fatAvgGraphViewSeries);
+			graphView.addSeries(maxFatGraphViewSeries);
+		}
+		graphView.setShowLegend(true);
 		graphView.setLayoutParams(params);
 		graphView.setHorizontalLabels(labels);
 		graphView.getGraphViewStyle().setGridColor(Color.BLACK);
@@ -121,17 +176,45 @@ public class ReportActivity extends Activity {
 		graphView.getGraphViewStyle().setTextSize(textSizePx);
 		return graphView;
 	}
-	
+
 	// getFabricGraphView
-	public GraphView getFabricGraphView(LinearLayout.LayoutParams params, String[] labels, float textSizePx) {
+	public GraphView getFabricGraphView(LinearLayout.LayoutParams params,
+			String[] labels, float textSizePx, double fabricAvg) {
 		GraphView graphView = new LineGraphView(this, "粗纖維 (%)");
 		List<GraphViewData> fabricGraphViewDataList = helper
 				.getFabricGraphViewDataList(pid);
-		GraphViewSeries graphViewSeries = new GraphViewSeries(
-				fabricGraphViewDataList
-						.toArray(new GraphViewData[fabricGraphViewDataList
-								.size()]));
+		int size = fabricGraphViewDataList.size();
+		GraphViewData[] proteingGraphViewDatas = fabricGraphViewDataList
+				.toArray(new GraphViewData[fabricGraphViewDataList.size()]);
+		GraphViewSeries graphViewSeries = new GraphViewSeries("粗纖維",
+				new GraphViewSeriesStyle(Color.BLACK, 5),
+				proteingGraphViewDatas);
 		graphView.addSeries(graphViewSeries);
+		if (size > 0) {
+			GraphViewData[] graphViewDatas = new GraphViewData[size];
+			GraphViewData[] maxFabricgraphViewDatas = new GraphViewData[size];
+			GraphViewData[] minFabricgraphViewDatas = new GraphViewData[size];
+			double maxFabric = 25.0;
+			double minFabric = 12.0;
+			for (int i = 0; i < size; i++) {
+				graphViewDatas[i] = new GraphViewData(i + 1, fabricAvg);
+				maxFabricgraphViewDatas[i] = new GraphViewData(i + 1, maxFabric);
+				minFabricgraphViewDatas[i] = new GraphViewData(i + 1, minFabric);
+			}
+			GraphViewSeries fatAvgGraphViewSeries = new GraphViewSeries(
+					"AVG", new GraphViewSeriesStyle(Color.GREEN, 0),
+					graphViewDatas);
+			GraphViewSeries maxFabricGraphViewSeries = new GraphViewSeries(
+					"MAX", new GraphViewSeriesStyle(Color.RED, 0),
+					maxFabricgraphViewDatas);
+			GraphViewSeries minFabricGraphViewSeries = new GraphViewSeries(
+					"MIN", new GraphViewSeriesStyle(Color.BLUE, 0),
+					minFabricgraphViewDatas);
+			graphView.addSeries(fatAvgGraphViewSeries);
+			graphView.addSeries(maxFabricGraphViewSeries);
+			graphView.addSeries(minFabricGraphViewSeries);
+		}
+		graphView.setShowLegend(true);
 		graphView.setLayoutParams(params);
 		graphView.setHorizontalLabels(labels);
 		graphView.getGraphViewStyle().setGridColor(Color.BLACK);
@@ -142,17 +225,38 @@ public class ReportActivity extends Activity {
 		graphView.getGraphViewStyle().setTextSize(textSizePx);
 		return graphView;
 	}
-	
+
 	// getCaGraphView
-	public GraphView getCaGraphView(LinearLayout.LayoutParams params, String[] labels, float textSizePx) {
+	public GraphView getCaGraphView(LinearLayout.LayoutParams params,
+			String[] labels, float textSizePx, double caAvg) {
 		GraphView graphView = new LineGraphView(this, "鈣 (%)");
 		List<GraphViewData> caGraphViewDataList = helper
 				.getCaGraphViewDataList(pid);
-		GraphViewSeries graphViewSeries = new GraphViewSeries(
-				caGraphViewDataList
-						.toArray(new GraphViewData[caGraphViewDataList
-								.size()]));
+		int size = caGraphViewDataList.size();
+		GraphViewData[] proteingGraphViewDatas = caGraphViewDataList
+				.toArray(new GraphViewData[caGraphViewDataList.size()]);
+		GraphViewSeries graphViewSeries = new GraphViewSeries("鈣",
+				new GraphViewSeriesStyle(Color.BLACK, 5),
+				proteingGraphViewDatas);
 		graphView.addSeries(graphViewSeries);
+		if (size > 0) {
+			GraphViewData[] graphViewDatas = new GraphViewData[size];
+			GraphViewData[] caAvgGraphViewDatas = new GraphViewData[size];
+			double minCa = 1.5;
+			for (int i = 0; i < size; i++) {
+				graphViewDatas[i] = new GraphViewData(i + 1, caAvg);
+				caAvgGraphViewDatas[i] = new GraphViewData(i + 1, minCa);
+			}
+			GraphViewSeries caAvgGraphViewSeries = new GraphViewSeries(
+					"AVG", new GraphViewSeriesStyle(Color.GREEN, 0),
+					graphViewDatas);
+			GraphViewSeries minCaGraphViewSeries = new GraphViewSeries(
+					"MIN", new GraphViewSeriesStyle(Color.BLUE, 0),
+					caAvgGraphViewDatas);
+			graphView.addSeries(caAvgGraphViewSeries);
+			graphView.addSeries(minCaGraphViewSeries);
+		}
+		graphView.setShowLegend(true);
 		graphView.setLayoutParams(params);
 		graphView.setHorizontalLabels(labels);
 		graphView.getGraphViewStyle().setGridColor(Color.BLACK);
@@ -163,17 +267,38 @@ public class ReportActivity extends Activity {
 		graphView.getGraphViewStyle().setTextSize(textSizePx);
 		return graphView;
 	}
-	
+
 	// getPGraphView
-	public GraphView getPGraphView(LinearLayout.LayoutParams params, String[] labels, float textSizePx) {
+	public GraphView getPGraphView(LinearLayout.LayoutParams params,
+			String[] labels, float textSizePx, double pAvg) {
 		GraphView graphView = new LineGraphView(this, "磷 (%)");
 		List<GraphViewData> pGraphViewDataList = helper
 				.getPGraphViewDataList(pid);
-		GraphViewSeries graphViewSeries = new GraphViewSeries(
-				pGraphViewDataList
-						.toArray(new GraphViewData[pGraphViewDataList
-								.size()]));
+		int size = pGraphViewDataList.size();
+		GraphViewData[] proteingGraphViewDatas = pGraphViewDataList
+				.toArray(new GraphViewData[pGraphViewDataList.size()]);
+		GraphViewSeries graphViewSeries = new GraphViewSeries("磷",
+				new GraphViewSeriesStyle(Color.BLACK, 5),
+				proteingGraphViewDatas);
 		graphView.addSeries(graphViewSeries);
+		if (size > 0) {
+			GraphViewData[] graphViewDatas = new GraphViewData[size];
+			GraphViewData[] suggestPGraphViewDatas = new GraphViewData[size];
+			double suggestP = 0.8;
+			for (int i = 0; i < size; i++) {
+				graphViewDatas[i] = new GraphViewData(i + 1, pAvg);
+				suggestPGraphViewDatas[i] = new GraphViewData(i + 1, suggestP);
+			}
+			GraphViewSeries pAvgGraphViewSeries = new GraphViewSeries(
+					"AVG", new GraphViewSeriesStyle(Color.GREEN, 0),
+					graphViewDatas);
+			GraphViewSeries suggestPGraphViewSeries = new GraphViewSeries(
+					"建議", new GraphViewSeriesStyle(Color.MAGENTA, 0),
+					suggestPGraphViewDatas);
+			graphView.addSeries(pAvgGraphViewSeries);
+			graphView.addSeries(suggestPGraphViewSeries);
+		}
+		graphView.setShowLegend(true);
 		graphView.setLayoutParams(params);
 		graphView.setHorizontalLabels(labels);
 		graphView.getGraphViewStyle().setGridColor(Color.BLACK);
@@ -184,17 +309,38 @@ public class ReportActivity extends Activity {
 		graphView.getGraphViewStyle().setTextSize(textSizePx);
 		return graphView;
 	}
-	
+
 	// getCaPRatioGraphView
-	public GraphView getCaPRatioGraphView(LinearLayout.LayoutParams params, String[] labels, float textSizePx) {
-		GraphView graphView = new LineGraphView(this, "鈣磷比 (比值)");
-		List<GraphViewData> pCaRatioGraphViewDataList = helper
+	public GraphView getCaPRatioGraphView(LinearLayout.LayoutParams params,
+			String[] labels, float textSizePx, double caPRationAvg) {
+		GraphView graphView = new LineGraphView(this, "鈣磷比 (%)");
+		List<GraphViewData> caPRatioGraphViewDataList = helper
 				.getCaPRatioGraphViewDataList(pid);
-		GraphViewSeries graphViewSeries = new GraphViewSeries(
-				pCaRatioGraphViewDataList
-						.toArray(new GraphViewData[pCaRatioGraphViewDataList
-								.size()]));
+		int size = caPRatioGraphViewDataList.size();
+		GraphViewData[] proteingGraphViewDatas = caPRatioGraphViewDataList
+				.toArray(new GraphViewData[caPRatioGraphViewDataList.size()]);
+		GraphViewSeries graphViewSeries = new GraphViewSeries("鈣磷比",
+				new GraphViewSeriesStyle(Color.BLACK, 5),
+				proteingGraphViewDatas);
 		graphView.addSeries(graphViewSeries);
+		if (size > 0) {
+			GraphViewData[] graphViewDatas = new GraphViewData[size];
+			GraphViewData[] minCaPRatioGraphViewDatas = new GraphViewData[size];
+			double minCaPRatio = 2.0;
+			for (int i = 0; i < size; i++) {
+				graphViewDatas[i] = new GraphViewData(i + 1, caPRationAvg);
+				minCaPRatioGraphViewDatas[i] = new GraphViewData(i + 1, minCaPRatio);
+			}
+			GraphViewSeries caPRatioAvgGraphViewSeries = new GraphViewSeries(
+					"AVG", new GraphViewSeriesStyle(Color.GREEN, 0),
+					graphViewDatas);
+			GraphViewSeries minCaPRatioAvgGraphViewSeries = new GraphViewSeries(
+					"MIN", new GraphViewSeriesStyle(Color.BLUE, 0),
+					minCaPRatioGraphViewDatas);
+			graphView.addSeries(caPRatioAvgGraphViewSeries);
+			graphView.addSeries(minCaPRatioAvgGraphViewSeries);
+		}
+		graphView.setShowLegend(true);
 		graphView.setLayoutParams(params);
 		graphView.setHorizontalLabels(labels);
 		graphView.getGraphViewStyle().setGridColor(Color.BLACK);
