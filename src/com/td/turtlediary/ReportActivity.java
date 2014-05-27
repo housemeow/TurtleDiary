@@ -101,7 +101,9 @@ public class ReportActivity extends Activity {
 			caAvg = Double.parseDouble(nf.format(caAvg));
 			pAvg = Double.parseDouble(nf.format(pAvg));
 			caPRationAvg = Double.parseDouble(nf.format(caPRationAvg));
-			sBuilder.append("粗蛋白： ").append(proteinAvg).append("%\n")
+			sBuilder.append("------目前只有一筆餵食紀錄------\n")
+					.append("日期：").append(helper.getFeedLogDateString(pid, true)).append("\n")
+					.append("粗蛋白： ").append(proteinAvg).append("%\n")
 					.append("粗脂肪： ").append(fatAvg).append("%\n")
 					.append("粗纖維： ").append(fabricAvg).append("%\n")
 					.append("鈣     ： ").append(caAvg).append("%\n")

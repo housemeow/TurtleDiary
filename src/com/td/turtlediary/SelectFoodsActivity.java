@@ -1,5 +1,6 @@
 package com.td.turtlediary;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -158,13 +159,15 @@ public class SelectFoodsActivity extends Activity {
 
 				Nutrition nutrition = helper
 						.getFeedLogContainFoodsNutrition(feedLogContainFoods);
-				double dryWeight = nutrition.getDryWeight();
-				double protein = nutrition.getProteinPercentage();
-				double fabric = nutrition.getFabricPercentage();
-				double fat = nutrition.getFatPercentage();
-				double ca = nutrition.getCaPercentage();
-				double p = nutrition.getPPercentage();
-				double caPRatio = nutrition.getCaPRatio();
+				NumberFormat nf = NumberFormat.getInstance();
+				nf.setMaximumFractionDigits(2);
+				double dryWeight = Double.parseDouble(nf.format(nutrition.getDryWeight()));
+				double protein = Double.parseDouble(nf.format(nutrition.getProteinPercentage()));
+				double fabric =  Double.parseDouble(nf.format(nutrition.getFabricPercentage()));
+				double fat =  Double.parseDouble(nf.format(nutrition.getFatPercentage()));
+				double ca =  Double.parseDouble(nf.format(nutrition.getCaPercentage()));
+				double p =  Double.parseDouble(nf.format(nutrition.getPPercentage()));
+				double caPRatio =  Double.parseDouble(nf.format(nutrition.getCaPRatio()));
 				dryWeightEditText.setText(dryWeight + "");
 				proteinEditText.setText(protein + "");
 				fabricEditText.setText(fabric + "");
