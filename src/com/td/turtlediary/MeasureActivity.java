@@ -40,7 +40,20 @@ public class MeasureActivity extends Activity {
 					Toast.makeText(MeasureActivity.this, "尚有未輸入欄位",
 							Toast.LENGTH_LONG).show();
 					return;
-				} else {
+				} 
+				else {
+					if(!shellLengthEditText.getText().toString().equals("")
+							&& !weightEditText.getText().toString().equals(""))
+					{
+						double shellLength = Double.parseDouble(shellLengthEditText.getText().toString());
+						double weight = Double.parseDouble(weightEditText.getText().toString());
+						if (shellLength == 0 || weight == 0)
+						{
+							Toast.makeText(MeasureActivity.this, "測量記錄不可為0",
+									Toast.LENGTH_LONG).show();
+							return;
+						}
+					}
 					measureLog.setShellLength(Double
 							.parseDouble(shellLengthEditText.getText()
 									.toString()));

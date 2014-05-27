@@ -77,25 +77,19 @@ public class ReportActivity extends Activity {
 		double caAvg = nutrition.getCaPercentage();
 		double pAvg = nutrition.getPPercentage();
 		double caPRationAvg = nutrition.getCaPRatio();
-		if (size > 1) {
-			String[] labels = new String[size];
-			for (int i = 1; i < size - 1; i++) {
-				labels[i] = "";
-			}
-			labels[0] = helper.getFeedLogDateString(pid, true);// firstLabel;
-			labels[size - 1] = helper.getFeedLogDateString(pid, false);// lastLabel;
-			layout.addView(getProteinGraphView(proteinAvg)); // 加入粗蛋白報表
-			layout.addView(getFatGraphView(fatAvg)); // 加入粗脂肪報表
-			layout.addView(getFabricGraphView(fabricAvg)); // 加入粗纖維報表
-			layout.addView(getCaGraphView(caAvg)); // 加入鈣報表
-			layout.addView(getPGraphView(pAvg)); // 加入磷報表
-			layout.addView(getCaPRatioGraphView(caPRationAvg)); // 加入鈣磷比報表
+		if (size == 0)
+		{
+			TextView showReportTxt = new TextView(this);
+			showReportTxt.setTextSize(textSizePx);
+			showReportTxt.setText("尚無餵食紀錄");
+			layout.addView(showReportTxt);
 		}
-		else if (size == 1){
+		else if (size == 1)
+		{
 			TextView showReportTxt = new TextView(this);
 			StringBuilder sBuilder = new StringBuilder();
 			NumberFormat nf = NumberFormat.getInstance();
-			nf.setMaximumFractionDigits(2);
+			nf.setMaximumFractionDigits(5);
 			proteinAvg = Double.parseDouble(nf.format(proteinAvg));
 			fatAvg = Double.parseDouble(nf.format(fatAvg));
 			fabricAvg = Double.parseDouble(nf.format(fabricAvg));
@@ -122,10 +116,18 @@ public class ReportActivity extends Activity {
 			layout.addView(showReportTxt);
 		}
 		else {
-			TextView showReportTxt = new TextView(this);
-			showReportTxt.setTextSize(textSizePx);
-			showReportTxt.setText("尚無餵食紀錄");
-			layout.addView(showReportTxt);
+			String[] labels = new String[size];
+			for (int i = 1; i < size - 1; i++) {
+				labels[i] = "";
+			}
+			labels[0] = helper.getFeedLogDateString(pid, true);// firstLabel;
+			labels[size - 1] = helper.getFeedLogDateString(pid, false);// lastLabel;
+			layout.addView(getProteinGraphView(proteinAvg)); // 加入粗蛋白報表
+			layout.addView(getFatGraphView(fatAvg)); // 加入粗脂肪報表
+			layout.addView(getFabricGraphView(fabricAvg)); // 加入粗纖維報表
+			layout.addView(getCaGraphView(caAvg)); // 加入鈣報表
+			layout.addView(getPGraphView(pAvg)); // 加入磷報表
+			layout.addView(getCaPRatioGraphView(caPRationAvg)); // 加入鈣磷比報表
 		}
 	}
 	
