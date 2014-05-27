@@ -69,31 +69,67 @@ public class Nutrition
 	
 	// getProteinPercentage
 	public double getProteinPercentage() {
-		return protein / dryWeight * 100;
+		if (dryWeight == 0)
+		{
+			return 0;
+		}
+		else {
+			return protein / dryWeight * 100;
+		}
 	}
 	
 	// getFatPercentage
 	public double getFatPercentage() {
-		return fat / dryWeight * 100;
+		if (dryWeight == 0)
+		{
+			return 0;
+		}
+		else {
+			return fat / dryWeight * 100;
+		}
 	}
 	
 	// getFabricPercentage
 	public double getFabricPercentage() {
-		return fabric / dryWeight * 100;
+		if (dryWeight == 0)
+		{
+			return 0;
+		}
+		else {
+			return fabric / dryWeight * 100;
+		}
 	}
 	
 	// getCaPercentage
 	public double getCaPercentage() {
-		return ca / dryWeight * 100;
+		if (dryWeight == 0)
+		{
+			return 0;
+		}
+		else {
+			return ca / dryWeight * 100;
+		}
 	}
 	
 	// getPPercentage
 	public double getPPercentage() {
-		return p / dryWeight * 100;
+		if (dryWeight == 0)
+		{
+			return 0;
+		}
+		else {
+			return p / dryWeight * 100;
+		}
 	}
 	
 	// getCaPRatio
 	public double getCaPRatio() {
-		return ca / p;
+		if (p == 0)
+		{
+			return 0;
+		}
+		else {
+			return ca / p;
+		}
 	}
 }

@@ -138,6 +138,13 @@ public class SelectFoodsActivity extends Activity {
 				try {
 					weight = Double.parseDouble(weightEditText.getText()
 							.toString());
+					if (weight == 0)
+					{
+						Toast.makeText(SelectFoodsActivity.this, "重量欄位不可為0",
+								Toast.LENGTH_LONG).show();
+						weightEditText.setText("");
+						return;
+					}
 				} catch (NumberFormatException e) {
 					Toast.makeText(SelectFoodsActivity.this, "重量欄位請輸入數字",
 							Toast.LENGTH_LONG).show();
