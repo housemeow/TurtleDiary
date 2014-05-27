@@ -1,5 +1,6 @@
 package com.td.turtlediary;
 
+import java.text.NumberFormat;
 import java.util.List;
 
 import android.app.Activity;
@@ -11,6 +12,7 @@ import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.LinearLayout.LayoutParams;
 
 import com.jjoe64.graphview.GraphView;
@@ -68,17 +70,17 @@ public class ReportActivity extends Activity {
 		params.setMargins(marginPx, marginPx, marginPx, marginPx);
 		int size = helper.getProteinGraphViewDataList(pid).size();
 		Nutrition nutrition = helper.getPetNutrition(pid);
-		if (size > 0) {
+		double proteinAvg = nutrition.getProteinPercentage();
+		double fatAvg = nutrition.getFatPercentage();
+		double fabricAvg = nutrition.getFabricPercentage();
+		double caAvg = nutrition.getCaPercentage();
+		double pAvg = nutrition.getPPercentage();
+		double caPRationAvg = nutrition.getCaPRatio();
+		if (size > 1) {
 			String[] labels = new String[size];
 			for (int i = 1; i < size - 1; i++) {
 				labels[i] = "";
 			}
-			double proteinAvg = nutrition.getProteinPercentage();
-			double fatAvg = nutrition.getFatPercentage();
-			double fabricAvg = nutrition.getFabricPercentage();
-			double caAvg = nutrition.getCaPercentage();
-			double pAvg = nutrition.getPPercentage();
-			double caPRationAvg = nutrition.getCaPRatio();
 			labels[0] = helper.getFeedLogDateString(pid, true);// firstLabel;
 			labels[size - 1] = helper.getFeedLogDateString(pid, false);// lastLabel;
 			layout.addView(getProteinGraphView(proteinAvg)); // 加入粗蛋白報表
@@ -87,6 +89,40 @@ public class ReportActivity extends Activity {
 			layout.addView(getCaGraphView(caAvg)); // 加入鈣報表
 			layout.addView(getPGraphView(pAvg)); // 加入磷報表
 			layout.addView(getCaPRatioGraphView(caPRationAvg)); // 加入鈣磷比報表
+		}
+		else if (size == 1){
+			TextView showReportTxt = new TextView(this);
+			StringBuilder sBuilder = new StringBuilder();
+			NumberFormat nf = NumberFormat.getInstance();
+			nf.setMaximumFractionDigits(2);
+			proteinAvg = Double.parseDouble(nf.format(proteinAvg));
+			fatAvg = Double.parseDouble(nf.format(fatAvg));
+			fabricAvg = Double.parseDouble(nf.format(fabricAvg));
+			caAvg = Double.parseDouble(nf.format(caAvg));
+			pAvg = Double.parseDouble(nf.format(pAvg));
+			caPRationAvg = Double.parseDouble(nf.format(caPRationAvg));
+			sBuilder.append("粗蛋白： ").append(proteinAvg).append("%\n")
+					.append("粗脂肪： ").append(fatAvg).append("%\n")
+					.append("粗纖維： ").append(fabricAvg).append("%\n")
+					.append("鈣     ： ").append(caAvg).append("%\n")
+					.append("磷     ： ").append(pAvg).append("%\n")
+					.append("鈣磷比： ").append(caPRationAvg).append("%\n\n")
+					.append("------建議數據如下------\n")
+					.append("粗蛋白最大值： ").append(20).append("%\n")
+					.append("粗脂肪最大值： ").append(10).append("%\n")
+					.append("粗纖維最小/最大值： ").append(12 + "%/" + 25).append("%\n")
+					.append("鈣最小值     ： ").append(1.5).append("%\n")
+					.append("磷建議值     ： ").append(0.8).append("%\n")
+					.append("鈣磷比最小值： ").append(2).append("%\n");
+			showReportTxt.setText(sBuilder.toString());
+			showReportTxt.setTextSize(textSizePx);
+			layout.addView(showReportTxt);
+		}
+		else {
+			TextView showReportTxt = new TextView(this);
+			showReportTxt.setTextSize(textSizePx);
+			showReportTxt.setText("尚無餵食紀錄");
+			layout.addView(showReportTxt);
 		}
 	}
 	
