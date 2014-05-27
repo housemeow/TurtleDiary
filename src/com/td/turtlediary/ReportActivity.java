@@ -21,6 +21,7 @@ import com.jjoe64.graphview.GraphView.LegendAlign;
 import com.jjoe64.graphview.GraphViewSeries;
 import com.jjoe64.graphview.GraphViewSeries.GraphViewSeriesStyle;
 import com.jjoe64.graphview.LineGraphView;
+import com.td.models.MeasureLog;
 import com.td.models.Nutrition;
 import com.td.models.TurtleDiaryDatabaseHelper;
 
@@ -355,27 +356,105 @@ public class ReportActivity extends Activity {
 	// 甲長
 	public void createShellLengthChart() {
 		layout.removeAllViews();
-		List<GraphViewData> graphViewDataList = helper
-				.getShellLengthGraphViewDataList(pid);
-		createMeasureLogGraphView(graphViewDataList);
+		List<MeasureLog> measureLogList = helper.getMeasureLogs(pid);
+		int measureLogListCount = measureLogList.size();
+		Resources r = this.getResources(); // 取得手機資源
+		float textSizePx = TypedValue.applyDimension(
+				TypedValue.COMPLEX_UNIT_SP, 8, r.getDisplayMetrics());
+		TextView showReportTxt = new TextView(this);
+		showReportTxt.setTextSize(textSizePx);
+		if (measureLogListCount == 0)
+		{
+			showReportTxt.setText("尚無測量紀錄");
+			layout.addView(showReportTxt);
+		}
+		else if (measureLogListCount == 1) {
+			StringBuilder sBuilder = new StringBuilder();
+			sBuilder.append("------目前只有一筆測量紀錄------\n")
+					.append("日期：").append(helper.getMeasureLogDateString(pid, true)).append("\n")
+					.append("甲長：").append(measureLogList.get(0).getShellLength()).append(" 公分");
+			showReportTxt.setText(sBuilder.toString());
+			layout.addView(showReportTxt);
+		}
+		else {
+			List<GraphViewData> graphViewDataList = helper
+					.getShellLengthGraphViewDataList(pid);
+			createMeasureLogGraphView(graphViewDataList);
+		}
 	}
 
 	// 體重
 	public void createWeightChart() {
 		layout.removeAllViews();
-
-		List<GraphViewData> graphViewDataList = helper
-				.getWeightGraphViewDataList(pid);
-		createMeasureLogGraphView(graphViewDataList);
+		List<MeasureLog> measureLogList = helper.getMeasureLogs(pid);
+		int measureLogListCount = measureLogList.size();
+		Resources r = this.getResources(); // 取得手機資源
+		float textSizePx = TypedValue.applyDimension(
+				TypedValue.COMPLEX_UNIT_SP, 8, r.getDisplayMetrics());
+		TextView showReportTxt = new TextView(this);
+		showReportTxt.setTextSize(textSizePx);
+		if (measureLogListCount == 0)
+		{
+			showReportTxt.setText("尚無測量紀錄");
+			layout.addView(showReportTxt);
+		}
+		else if (measureLogListCount == 1)
+		{
+			StringBuilder sBuilder = new StringBuilder();
+			sBuilder.append("------目前只有一筆測量紀錄------\n")
+					.append("日期：").append(helper.getMeasureLogDateString(pid, true)).append("\n")
+					.append("體重：").append(measureLogList.get(0).getWeight()).append(" 克");
+			showReportTxt.setText(sBuilder.toString());
+			layout.addView(showReportTxt);
+		}
+		else {
+			List<GraphViewData> graphViewDataList = helper
+					.getWeightGraphViewDataList(pid);
+			createMeasureLogGraphView(graphViewDataList);
+		}
 	}
 
 	// 傑克森量表
 	public void createJacksonRatioChart() {
 		layout.removeAllViews();
-
-		List<GraphViewData> graphViewDataList = helper
-				.getJacksonGraphViewDataList(pid);
-		createMeasureLogGraphView(graphViewDataList);
+		List<MeasureLog> measureLogList = helper.getMeasureLogs(pid);
+		int measureLogListCount = measureLogList.size();
+		Resources r = this.getResources(); // 取得手機資源
+		float textSizePx = TypedValue.applyDimension(
+				TypedValue.COMPLEX_UNIT_SP, 8, r.getDisplayMetrics());
+		TextView showReportTxt = new TextView(this);
+		showReportTxt.setTextSize(textSizePx);
+		if (measureLogListCount == 0)
+		{
+			showReportTxt.setText("尚無測量紀錄");
+			layout.addView(showReportTxt);
+		}
+		else if (measureLogListCount == 1)
+		{
+			StringBuilder sBuilder = new StringBuilder();
+			double shellLength = measureLogList.get(0).getShellLength();
+			double weight = measureLogList.get(0).getWeight();
+			double jacksonRatio;
+			if (shellLength == 0)
+			{
+				jacksonRatio = 0;
+			}
+			else {
+				jacksonRatio = weight / (shellLength * shellLength * shellLength);
+			}
+			sBuilder.append("------目前只有一筆測量紀錄------\n")
+					.append("日期：").append(helper.getMeasureLogDateString(pid, true)).append("\n")
+					.append("甲長：").append(shellLength).append(" 公分\n")
+					.append("體重：").append(weight).append(" 克\n")
+					.append("傑克森值：").append(jacksonRatio);
+			showReportTxt.setText(sBuilder.toString());
+			layout.addView(showReportTxt);
+		}
+		else {
+			List<GraphViewData> graphViewDataList = helper
+					.getJacksonGraphViewDataList(pid);
+			createMeasureLogGraphView(graphViewDataList);
+		}
 	}
 
 	private void createMeasureLogGraphView(List<GraphViewData> graphViewDataList) {
