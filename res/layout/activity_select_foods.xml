@@ -32,8 +32,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:completionThreshold="1"
-                android:hint="@string/pleaseInputFoodName" />
+                android:completionThreshold="1"/>
         </TableRow>
 
         <TableRow
@@ -52,8 +51,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:ems="10"
-                android:hint="@string/pleaseInputWeight"
                 android:inputType="number"
                 android:textSize="20sp" />
 

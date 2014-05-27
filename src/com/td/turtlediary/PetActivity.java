@@ -70,6 +70,7 @@ public class PetActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_pet);
+		this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 		initializeWidgets();
 		int pid = getIntent().getIntExtra("pid", -1);
 		if (pid != -1) {

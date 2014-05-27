@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
@@ -50,6 +51,7 @@ public class SelectFoodsActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_select_foods);
+		this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 		this.setTitle("選擇食物");
 		selectedFoodsTableLayout = (TableLayout) findViewById(R.id.selectFoodActivityFoodsTableLayout);
 		foodAutoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.selectFoodActivityFoodsAutoCompleteTextView);

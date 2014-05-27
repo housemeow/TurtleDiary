@@ -11,6 +11,7 @@
     tools:context="com.td.turtlediary.MeasureActivity"
     tools:ignore="MergeRootFrame" >
 
+    
     <TableRow>
 
         <TextView
