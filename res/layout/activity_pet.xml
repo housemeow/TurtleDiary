@@ -47,7 +47,8 @@
             <Spinner
                 android:id="@+id/petActivityPetTypeSpinner"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_marginTop="20dp"
+                android:layout_height="30dip" />
         </TableRow>
 
         <TableRow
@@ -57,7 +58,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:text="@string/picture"
                 android:textSize="20sp" />
 
@@ -122,7 +122,7 @@
             <Spinner
                 android:id="@+id/petActivityEnvironmentSpinner"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="30dip" />
         </TableRow>
 
         <TableRow

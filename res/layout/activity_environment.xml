@@ -20,7 +20,7 @@
                 android:id="@+id/environmentActivityEnvironmentNameTextView"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="3"
                 android:text="@string/environmentName"
                 android:textSize="20sp" />
 
@@ -28,7 +28,7 @@
                 android:id="@+id/environmentActivityEnvironmentNameEditText"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="5"
                 android:inputType="text"
                 android:textSize="20sp" />
         </TableRow>
