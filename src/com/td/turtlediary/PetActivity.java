@@ -39,6 +39,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class PetActivity extends Activity {
 	static final int ID_DATEPICKER = 0;
@@ -326,8 +327,10 @@ public class PetActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Pet pet = getPetFromWidget();
-				turtleDiaryHelper.addPet(pet);
-				finish();
+				if (pet != null) {
+					turtleDiaryHelper.addPet(pet);
+					finish();
+				}
 			}
 		};
 	}
@@ -337,11 +340,13 @@ public class PetActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Pet pet = getPetFromWidget();
-				turtleDiaryHelper.addPet(pet);
-				startActivity(new Intent(PetActivity.this,
-						HomePageActivity.class));
-				EnvironmentActivity.finishByOtherActivity();
-				finish();
+				if (pet != null) {
+					turtleDiaryHelper.addPet(pet);
+					startActivity(new Intent(PetActivity.this,
+							HomePageActivity.class));
+					EnvironmentActivity.finishByOtherActivity();
+					finish();
+				}
 			}
 		};
 	}
@@ -370,7 +375,13 @@ public class PetActivity extends Activity {
 
 	private Pet getPetFromWidget() {
 		Pet pet = new Pet();
-		pet.setName(petNameEditText.getText().toString());
+		if (petNameEditText.getText().toString().equals("")) {
+			Toast.makeText(this, "寵物名稱不能為空", Toast.LENGTH_LONG).show();
+			return null;
+		}
+		else {
+			pet.setName(petNameEditText.getText().toString());
+		}
 		pet.setBirthday(getBirthdayFromBirthdayButton());
 		pet.setGender(getGenderFromRadioGroup());
 		pet.setTid(getTidFromTypeSpinner());
@@ -400,11 +411,12 @@ public class PetActivity extends Activity {
 			public void onClick(View v) {
 				int pid = nowPet.getPid();
 				nowPet = getPetFromWidget();
-				nowPet.setPid(pid);
-				turtleDiaryHelper.updatePet(nowPet);
-				changeState(PetActivityState.View);
+				if (nowPet != null) {
+					nowPet.setPid(pid);
+					turtleDiaryHelper.updatePet(nowPet);
+					changeState(PetActivityState.View);
+				}
 			}
-
 		};
 	}
 
