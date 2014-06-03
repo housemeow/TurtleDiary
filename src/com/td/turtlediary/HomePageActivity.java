@@ -26,7 +26,6 @@ public class HomePageActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home_page);
 		mNav = new SimpleSideDrawer(this);
-
 		mNav.setRightBehindContentView(R.layout.activity_behind_right_simple);
 		viewPager = (ViewPager) findViewById(R.id.homePagePetViewPager);
 		homePagePetNameEditText = (TextView)findViewById(R.id.homePagePetNameEditText);
@@ -139,6 +138,14 @@ public class HomePageActivity extends Activity {
 			public void onPageScrollStateChanged(int arg0) {
 			}
 		};
+	}
+	
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		if (mNav.isShown()) {
+			mNav.closeRightSide();
+		}
 	}
 
 	@Override
