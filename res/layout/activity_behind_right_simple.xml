@@ -9,7 +9,7 @@
             android:background="@drawable/whatever"
             android:text="@string/FeedLog"
             android:layout_width="match_parent"
-            android:textSize="30sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/pointTextView"
@@ -17,7 +17,7 @@
             android:background="@drawable/whatever"
             android:text="@string/report"
             android:layout_width="match_parent"
-            android:textSize="30sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/settingTextView"
@@ -25,7 +25,7 @@
             android:background="@drawable/whatever"
             android:text="@string/environmentSetting"
             android:layout_width="match_parent"
-            android:textSize="30sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/measureTextView"
@@ -33,7 +33,7 @@
             android:background="@drawable/whatever"
             android:text="@string/measure"
             android:layout_width="match_parent"
-            android:textSize="30sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/healthyLogTextView"
@@ -41,7 +41,7 @@
             android:background="@drawable/whatever"
             android:text="@string/healthyLog"
             android:layout_width="match_parent"
-            android:textSize="30sp" />
+            android:textSize="20sp" />
     </LinearLayout>
 
 </ScrollView>
