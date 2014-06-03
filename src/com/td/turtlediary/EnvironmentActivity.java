@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class EnvironmentActivity extends Activity {
 	private static EnvironmentActivity activity;
@@ -169,8 +170,14 @@ public class EnvironmentActivity extends Activity {
 	public Environment GetEnvironmentFromEditText() {
 		Environment environment = new Environment();
 		environment.setEid(eid);
-		environment.setName(environmentActivityEnvironmentNameEditText
-				.getText().toString());
+		if (environmentActivityEnvironmentNameEditText.getText().toString().equals("")) {
+			Toast.makeText(activity, "環境名稱不能為空白", Toast.LENGTH_LONG).show();
+			return null;
+		}
+		else {
+			environment.setName(environmentActivityEnvironmentNameEditText
+					.getText().toString());
+		}
 		if (environmentActivityLengthEditText.getText().toString().equals("")) {
 			environment.setLength(0);
 		} else {
@@ -261,10 +268,13 @@ public class EnvironmentActivity extends Activity {
 	private Button.OnClickListener clickEnvironmentActivityNextButton = new Button.OnClickListener() {
 		@Override
 		public void onClick(View view) {
-			Intent intent = new Intent();
-			intent.putExtra("environment", GetEnvironmentFromEditText());
-			intent.setClass(EnvironmentActivity.this, PetActivity.class);
-			startActivity(intent);
+			Environment environment = GetEnvironmentFromEditText();
+			if (environment != null) {
+				Intent intent = new Intent();
+				intent.putExtra("environment", environment);
+				intent.setClass(EnvironmentActivity.this, PetActivity.class);
+				startActivity(intent);
+			}
 		}
 	};
 
@@ -272,9 +282,12 @@ public class EnvironmentActivity extends Activity {
 	private Button.OnClickListener clickEnvironmentActivityAddButton = new Button.OnClickListener() {
 		@Override
 		public void onClick(View view) {
-			turtleDiaryDatabaseHelper
-					.addEnvironment(GetEnvironmentFromEditText());
-			finish();
+			Environment environment = GetEnvironmentFromEditText();
+			if (environment != null) {
+				turtleDiaryDatabaseHelper
+					.addEnvironment(environment);
+				finish();
+			}
 		}
 	};
 
@@ -292,10 +305,13 @@ public class EnvironmentActivity extends Activity {
 		@Override
 		public void onClick(View view) {
 			// call EditEnvironment(environment) API
-			turtleDiaryDatabaseHelper
-					.updateEnvironment(GetEnvironmentFromEditText());
-			state = VIEW;
-			RefreshView();
+			Environment environment = GetEnvironmentFromEditText();
+			if (environment != null) {
+				turtleDiaryDatabaseHelper
+					.updateEnvironment(environment);
+				state = VIEW;
+				RefreshView();
+			}
 		}
 	};
 
