@@ -107,7 +107,8 @@ public class ReportActivity extends Activity {
 					.append("------建議數據如下------\n")
 					.append("粗蛋白最大值： ").append(20).append("%\n")
 					.append("粗脂肪最大值： ").append(10).append("%\n")
-					.append("粗纖維最小/最大值： ").append(12 + "%/ \n" + 25).append("%\n")
+					.append("粗纖維最小值： ").append(12 + "%/").append("\n")
+					.append("粗纖維最大值： ").append(25 + "%/").append("\n")
 					.append("鈣最小值     ： ").append(1.5).append("%\n")
 					.append("磷建議值     ： ").append(0.8).append("%\n")
 					.append("鈣磷比最小值： ").append(2).append("%\n");
