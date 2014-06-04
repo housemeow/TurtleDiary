@@ -66,8 +66,7 @@ public class ReportActivity extends Activity {
 		Resources r = this.getResources(); // 取得手機資源
 		int marginPx = (int) TypedValue.applyDimension(
 				TypedValue.COMPLEX_UNIT_SP, 20, r.getDisplayMetrics());
-		float textSizePx = TypedValue.applyDimension(
-				TypedValue.COMPLEX_UNIT_SP, 8, r.getDisplayMetrics());
+		float textSizePx = 20;
 		params.setMargins(marginPx, marginPx, marginPx, marginPx);
 		int size = helper.getProteinGraphViewDataList(pid).size();
 		Nutrition nutrition = helper.getPetNutrition(pid);
@@ -80,7 +79,7 @@ public class ReportActivity extends Activity {
 		if (size == 0)
 		{
 			TextView showReportTxt = new TextView(this);
-			showReportTxt.setTextSize(textSizePx);
+			showReportTxt.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSizePx);
 			showReportTxt.setText("尚無餵食紀錄");
 			layout.addView(showReportTxt);
 		}
@@ -89,13 +88,14 @@ public class ReportActivity extends Activity {
 			TextView showReportTxt = new TextView(this);
 			StringBuilder sBuilder = new StringBuilder();
 			NumberFormat nf = NumberFormat.getInstance();
-			nf.setMaximumFractionDigits(5);
+			nf.setMaximumFractionDigits(2);
 			proteinAvg = Double.parseDouble(nf.format(proteinAvg));
 			fatAvg = Double.parseDouble(nf.format(fatAvg));
 			fabricAvg = Double.parseDouble(nf.format(fabricAvg));
+			caPRationAvg = Double.parseDouble(nf.format(caPRationAvg));
+			nf.setMaximumFractionDigits(3);
 			caAvg = Double.parseDouble(nf.format(caAvg));
 			pAvg = Double.parseDouble(nf.format(pAvg));
-			caPRationAvg = Double.parseDouble(nf.format(caPRationAvg));
 			sBuilder.append("------目前只有一筆餵食紀錄------\n")
 					.append("日期：").append(helper.getFeedLogDateString(pid, true)).append("\n")
 					.append("粗蛋白： ").append(proteinAvg).append("%\n")
@@ -107,12 +107,12 @@ public class ReportActivity extends Activity {
 					.append("------建議數據如下------\n")
 					.append("粗蛋白最大值： ").append(20).append("%\n")
 					.append("粗脂肪最大值： ").append(10).append("%\n")
-					.append("粗纖維最小/最大值： ").append(12 + "%/" + 25).append("%\n")
+					.append("粗纖維最小/最大值： ").append(12 + "%/ \n" + 25).append("%\n")
 					.append("鈣最小值     ： ").append(1.5).append("%\n")
 					.append("磷建議值     ： ").append(0.8).append("%\n")
 					.append("鈣磷比最小值： ").append(2).append("%\n");
 			showReportTxt.setText(sBuilder.toString());
-			showReportTxt.setTextSize(textSizePx);
+			showReportTxt.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSizePx);
 			layout.addView(showReportTxt);
 		}
 		else {
@@ -140,8 +140,7 @@ public class ReportActivity extends Activity {
 		Resources r = this.getResources(); // 取得手機資源
 		int marginPx = (int) TypedValue.applyDimension(
 				TypedValue.COMPLEX_UNIT_SP, 20, r.getDisplayMetrics());
-		float textSizePx = TypedValue.applyDimension(
-				TypedValue.COMPLEX_UNIT_SP, 8, r.getDisplayMetrics());
+		float textSizePx = getResources().getDimension(R.dimen.report_graph_view_text_size);
 		params.setMargins(marginPx, marginPx, marginPx, marginPx);
 		int size = helper.getProteinGraphViewDataList(pid).size();
 		String[] labels = new String[size];
@@ -152,6 +151,8 @@ public class ReportActivity extends Activity {
 		labels[size - 1] = helper.getFeedLogDateString(pid, false);// lastLabel;
 		graphView.setHorizontalLabels(labels);
 		graphView.setShowLegend(true);
+		graphView.setLegendWidth(200);
+		graphView.setLegendAlign(LegendAlign.BOTTOM);
 		graphView.setLayoutParams(params);
 		graphView.getGraphViewStyle().setGridColor(Color.BLACK);
 		graphView.getGraphViewStyle().setHorizontalLabelsColor(Color.RED);
@@ -183,10 +184,10 @@ public class ReportActivity extends Activity {
 			maxProteinGraphViewDatas[i] = new GraphViewData(i + 1, maxProtein);
 		}
 		GraphViewSeries proteinAvgGraphViewSeries = new GraphViewSeries(
-				"AVG", new GraphViewSeriesStyle(Color.GREEN, 0),
+				"AVG", new GraphViewSeriesStyle(Color.GREEN, 5),
 				graphViewDatas);
 		GraphViewSeries maxProteinAvgGraphViewSeries = new GraphViewSeries(
-				"MAX", new GraphViewSeriesStyle(Color.RED, 0),
+				"MAX", new GraphViewSeriesStyle(Color.RED, 5),
 				maxProteinGraphViewDatas);
 		graphView.addSeries(proteinAvgGraphViewSeries);
 		graphView.addSeries(maxProteinAvgGraphViewSeries);
@@ -214,10 +215,10 @@ public class ReportActivity extends Activity {
 			maxFatGraphViewDatas[i] = new GraphViewData(i + 1, maxFat);
 		}
 		GraphViewSeries fatAvgGraphViewSeries = new GraphViewSeries(
-				"AVG", new GraphViewSeriesStyle(Color.GREEN, 0),
+				"AVG", new GraphViewSeriesStyle(Color.GREEN, 5),
 				graphViewDatas);
 		GraphViewSeries maxFatGraphViewSeries = new GraphViewSeries(
-				"MAX", new GraphViewSeriesStyle(Color.RED, 0),
+				"MAX", new GraphViewSeriesStyle(Color.RED, 5),
 				maxFatGraphViewDatas);
 		graphView.addSeries(fatAvgGraphViewSeries);
 		graphView.addSeries(maxFatGraphViewSeries);
@@ -248,13 +249,13 @@ public class ReportActivity extends Activity {
 			minFabricgraphViewDatas[i] = new GraphViewData(i + 1, minFabric);
 		}
 		GraphViewSeries fatAvgGraphViewSeries = new GraphViewSeries(
-				"AVG", new GraphViewSeriesStyle(Color.GREEN, 0),
+				"AVG", new GraphViewSeriesStyle(Color.GREEN, 5),
 				graphViewDatas);
 		GraphViewSeries maxFabricGraphViewSeries = new GraphViewSeries(
-				"MAX", new GraphViewSeriesStyle(Color.RED, 0),
+				"MAX", new GraphViewSeriesStyle(Color.RED, 5),
 				maxFabricgraphViewDatas);
 		GraphViewSeries minFabricGraphViewSeries = new GraphViewSeries(
-				"MIN", new GraphViewSeriesStyle(Color.BLUE, 0),
+				"MIN", new GraphViewSeriesStyle(Color.BLUE, 5),
 				minFabricgraphViewDatas);
 		graphView.addSeries(fatAvgGraphViewSeries);
 		graphView.addSeries(maxFabricGraphViewSeries);
@@ -283,10 +284,10 @@ public class ReportActivity extends Activity {
 			caAvgGraphViewDatas[i] = new GraphViewData(i + 1, minCa);
 		}
 		GraphViewSeries caAvgGraphViewSeries = new GraphViewSeries(
-				"AVG", new GraphViewSeriesStyle(Color.GREEN, 0),
+				"AVG", new GraphViewSeriesStyle(Color.GREEN, 5),
 				graphViewDatas);
 		GraphViewSeries minCaGraphViewSeries = new GraphViewSeries(
-				"MIN", new GraphViewSeriesStyle(Color.BLUE, 0),
+				"MIN", new GraphViewSeriesStyle(Color.BLUE, 5),
 				caAvgGraphViewDatas);
 		graphView.addSeries(caAvgGraphViewSeries);
 		graphView.addSeries(minCaGraphViewSeries);
@@ -314,10 +315,10 @@ public class ReportActivity extends Activity {
 			suggestPGraphViewDatas[i] = new GraphViewData(i + 1, suggestP);
 		}
 		GraphViewSeries pAvgGraphViewSeries = new GraphViewSeries(
-				"AVG", new GraphViewSeriesStyle(Color.GREEN, 0),
+				"AVG", new GraphViewSeriesStyle(Color.GREEN, 5),
 				graphViewDatas);
 		GraphViewSeries suggestPGraphViewSeries = new GraphViewSeries(
-				"建議", new GraphViewSeriesStyle(Color.MAGENTA, 0),
+				"建議", new GraphViewSeriesStyle(Color.MAGENTA, 5),
 				suggestPGraphViewDatas);
 		graphView.addSeries(pAvgGraphViewSeries);
 		graphView.addSeries(suggestPGraphViewSeries);
@@ -345,10 +346,10 @@ public class ReportActivity extends Activity {
 			minCaPRatioGraphViewDatas[i] = new GraphViewData(i + 1, minCaPRatio);
 		}
 		GraphViewSeries caPRatioAvgGraphViewSeries = new GraphViewSeries(
-				"AVG", new GraphViewSeriesStyle(Color.GREEN, 0),
+				"AVG", new GraphViewSeriesStyle(Color.GREEN, 5),
 				graphViewDatas);
 		GraphViewSeries minCaPRatioAvgGraphViewSeries = new GraphViewSeries(
-				"MIN", new GraphViewSeriesStyle(Color.BLUE, 0),
+				"MIN", new GraphViewSeriesStyle(Color.BLUE, 5),
 				minCaPRatioGraphViewDatas);
 		graphView.addSeries(caPRatioAvgGraphViewSeries);
 		graphView.addSeries(minCaPRatioAvgGraphViewSeries);
@@ -361,20 +362,23 @@ public class ReportActivity extends Activity {
 		List<MeasureLog> measureLogList = helper.getMeasureLogs(pid);
 		int measureLogListCount = measureLogList.size();
 		Resources r = this.getResources(); // 取得手機資源
-		float textSizePx = TypedValue.applyDimension(
-				TypedValue.COMPLEX_UNIT_SP, 8, r.getDisplayMetrics());
+		float textSizePx = 20;
 		TextView showReportTxt = new TextView(this);
-		showReportTxt.setTextSize(textSizePx);
 		if (measureLogListCount == 0)
 		{
 			showReportTxt.setText("尚無測量紀錄");
+			showReportTxt.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSizePx);
 			layout.addView(showReportTxt);
 		}
 		else if (measureLogListCount == 1) {
 			StringBuilder sBuilder = new StringBuilder();
+			NumberFormat nf = NumberFormat.getInstance();
+			nf.setMaximumFractionDigits(2);
+			double shellLength = Double.parseDouble(nf.format(measureLogList.get(0).getShellLength()));
 			sBuilder.append("------目前只有一筆測量紀錄------\n")
 					.append("日期：").append(helper.getMeasureLogDateString(pid, true)).append("\n")
-					.append("甲長：").append(measureLogList.get(0).getShellLength()).append(" 公分");
+					.append("甲長：").append(shellLength).append(" 公分");
+			showReportTxt.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSizePx);
 			showReportTxt.setText(sBuilder.toString());
 			layout.addView(showReportTxt);
 		}
@@ -391,22 +395,25 @@ public class ReportActivity extends Activity {
 		List<MeasureLog> measureLogList = helper.getMeasureLogs(pid);
 		int measureLogListCount = measureLogList.size();
 		Resources r = this.getResources(); // 取得手機資源
-		float textSizePx = TypedValue.applyDimension(
-				TypedValue.COMPLEX_UNIT_SP, 8, r.getDisplayMetrics());
+		float textSizePx = 20;
 		TextView showReportTxt = new TextView(this);
-		showReportTxt.setTextSize(textSizePx);
 		if (measureLogListCount == 0)
 		{
 			showReportTxt.setText("尚無測量紀錄");
+			showReportTxt.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSizePx);
 			layout.addView(showReportTxt);
 		}
 		else if (measureLogListCount == 1)
 		{
 			StringBuilder sBuilder = new StringBuilder();
+			NumberFormat nf = NumberFormat.getInstance();
+			nf.setMaximumFractionDigits(2);
+			double weight = Double.parseDouble(nf.format(measureLogList.get(0).getWeight()));
 			sBuilder.append("------目前只有一筆測量紀錄------\n")
 					.append("日期：").append(helper.getMeasureLogDateString(pid, true)).append("\n")
-					.append("體重：").append(measureLogList.get(0).getWeight()).append(" 克");
+					.append("體重：").append(weight).append(" 克");
 			showReportTxt.setText(sBuilder.toString());
+			showReportTxt.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSizePx);
 			layout.addView(showReportTxt);
 		}
 		else {
@@ -422,27 +429,29 @@ public class ReportActivity extends Activity {
 		List<MeasureLog> measureLogList = helper.getMeasureLogs(pid);
 		int measureLogListCount = measureLogList.size();
 		Resources r = this.getResources(); // 取得手機資源
-		float textSizePx = TypedValue.applyDimension(
-				TypedValue.COMPLEX_UNIT_SP, 8, r.getDisplayMetrics());
+		float textSizePx = 20;
 		TextView showReportTxt = new TextView(this);
-		showReportTxt.setTextSize(textSizePx);
 		if (measureLogListCount == 0)
 		{
 			showReportTxt.setText("尚無測量紀錄");
+			showReportTxt.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSizePx);
 			layout.addView(showReportTxt);
 		}
 		else if (measureLogListCount == 1)
 		{
 			StringBuilder sBuilder = new StringBuilder();
-			double shellLength = measureLogList.get(0).getShellLength();
-			double weight = measureLogList.get(0).getWeight();
+			NumberFormat nf = NumberFormat.getInstance();
+			nf.setMaximumFractionDigits(2);
+			double shellLength = Double.parseDouble(nf.format(measureLogList.get(0).getShellLength()));
+			double weight = Double.parseDouble(nf.format(measureLogList.get(0).getWeight()));
 			double jacksonRatio;
 			if (shellLength == 0)
 			{
 				jacksonRatio = 0;
 			}
 			else {
-				jacksonRatio = weight / (shellLength * shellLength * shellLength);
+				nf.setMaximumFractionDigits(4);
+				jacksonRatio = Double.parseDouble(nf.format(weight / (shellLength * shellLength * shellLength)));
 			}
 			sBuilder.append("------目前只有一筆測量紀錄------\n")
 					.append("日期：").append(helper.getMeasureLogDateString(pid, true)).append("\n")
@@ -450,6 +459,7 @@ public class ReportActivity extends Activity {
 					.append("體重：").append(weight).append(" 克\n")
 					.append("傑克森值：").append(jacksonRatio);
 			showReportTxt.setText(sBuilder.toString());
+			showReportTxt.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSizePx);
 			layout.addView(showReportTxt);
 		}
 		else {

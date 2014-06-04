@@ -169,14 +169,15 @@ public class SelectFoodsActivity extends Activity {
 				Nutrition nutrition = helper
 						.getFeedLogContainFoodsNutrition(feedLogContainFoods);
 				NumberFormat nf = NumberFormat.getInstance();
-				nf.setMaximumFractionDigits(5);
+				nf.setMaximumFractionDigits(2);
 				double dryWeight = Double.parseDouble(nf.format(nutrition.getDryWeight()));
 				double protein = Double.parseDouble(nf.format(nutrition.getProteinPercentage()));
 				double fabric =  Double.parseDouble(nf.format(nutrition.getFabricPercentage()));
 				double fat =  Double.parseDouble(nf.format(nutrition.getFatPercentage()));
+				double caPRatio =  Double.parseDouble(nf.format(nutrition.getCaPRatio()));
+				nf.setMaximumFractionDigits(3);
 				double ca =  Double.parseDouble(nf.format(nutrition.getCaPercentage()));
 				double p =  Double.parseDouble(nf.format(nutrition.getPPercentage()));
-				double caPRatio =  Double.parseDouble(nf.format(nutrition.getCaPRatio()));
 				dryWeightEditText.setText(dryWeight + "");
 				proteinEditText.setText(protein + "");
 				fabricEditText.setText(fabric + "");

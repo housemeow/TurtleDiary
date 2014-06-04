@@ -23,7 +23,7 @@
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.4"
                 android:text="@string/selectFood"
                 android:textSize="20sp" />
 
@@ -31,8 +31,9 @@
                 android:id="@+id/selectFoodActivityFoodsAutoCompleteTextView"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:completionThreshold="1"/>
+                android:layout_weight="0.6"
+                android:completionThreshold="1" />
+
         </TableRow>
 
         <TableRow
