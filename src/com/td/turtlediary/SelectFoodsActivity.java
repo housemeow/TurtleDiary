@@ -13,10 +13,14 @@ import com.td.models.TurtleDiaryDatabaseHelper;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.TypedValue;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Adapter;
@@ -86,7 +90,18 @@ public class SelectFoodsActivity extends Activity {
 			// Toast.makeText(this, "上次餵食記錄日期：\n" + lastFeedLog.getTimeStamp() +
 			// "\n共餵食" + weight + "g", Toast.LENGTH_LONG).show();
 			double weight = helper.getFoodsWeight(lastFeedLog.getFlid());
-			Toast.makeText(this, "上次餵食總重量為" + weight, Toast.LENGTH_LONG).show();
+			//Toast.makeText(this, "上次餵食總重量為" + weight, Toast.LENGTH_LONG).show();
+			LayoutInflater inflater = getLayoutInflater();
+			View layout = inflater.inflate(R.layout.toast_view_select_foods_hint,
+			                               (ViewGroup) findViewById(R.id.toast_layout_root));
+			TextView text = (TextView) layout.findViewById(R.id.text);
+			text.setText("上次餵食總重量為" + weight);
+			text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+			Toast toast = new Toast(getApplicationContext());
+			toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+			toast.setDuration(Toast.LENGTH_LONG);
+			toast.setView(layout);
+			toast.show();
 		} else {
 			// Toast.makeText(this, "lastFeedLog null",
 			// Toast.LENGTH_LONG).show();
