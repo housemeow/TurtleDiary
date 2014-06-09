@@ -22,9 +22,7 @@
         </activity>
         <activity android:name="com.td.turtlediary.EnvironmentListActivity" >
         </activity>
-        <activity
-            android:name="com.td.turtlediary.HomePageActivity"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        <activity android:name="com.td.turtlediary.HomePageActivity" >
         </activity>
         <activity android:name="com.td.turtlediary.ReportActivity" >
         </activity>

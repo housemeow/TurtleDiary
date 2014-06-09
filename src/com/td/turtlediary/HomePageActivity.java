@@ -5,6 +5,7 @@ import com.td.models.Pet;
 import com.td.models.TurtleDiaryDatabaseHelper;
 
 import android.os.Bundle;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
@@ -19,7 +20,7 @@ public class HomePageActivity extends Activity {
 			this);
 	private SimpleSideDrawer mNav;
 	private ViewPager viewPager;
-	private TextView homePagePetNameEditText;
+	private ActionBar actionBar;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -28,8 +29,8 @@ public class HomePageActivity extends Activity {
 		mNav = new SimpleSideDrawer(this);
 		mNav.setRightBehindContentView(R.layout.activity_behind_right_simple);
 		viewPager = (ViewPager) findViewById(R.id.homePagePetViewPager);
-		homePagePetNameEditText = (TextView)findViewById(R.id.homePagePetNameEditText);
-		homePagePetNameEditText.setText(helper.getPets().get(0).getName());
+		actionBar = this.getActionBar();
+		actionBar.setTitle(helper.getPets().get(0).getName());
 		viewPager.setOnPageChangeListener(getViewPagerPageChangeListener());
 
 		findViewById(R.id.homePageMenuButton).setOnClickListener(
@@ -127,7 +128,7 @@ public class HomePageActivity extends Activity {
 			@Override
 			public void onPageSelected(int which) {
 				Pet pet = helper.getPets().get(which);
-				homePagePetNameEditText.setText(pet.getName());
+				actionBar.setTitle(pet.getName());
 			}
 
 			@Override

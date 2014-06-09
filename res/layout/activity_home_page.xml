@@ -1,7 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    android:background="@color/black" >
 
     <ImageButton
         android:id="@+id/homePageMenuButton"
@@ -29,15 +30,5 @@
 		      android:layout_height="match_parent"
 		      android:layout_above="@+id/homePageAddPetButton"
 		      android:layout_below="@+id/homePageMenuButton" />
-    
-    <TextView
-        android:id="@+id/homePagePetNameEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/homePageMenuButton"
-        android:layout_centerHorizontal="true"
-        android:text="@string/dynamicGenerate"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="20sp" />
 
 </RelativeLayout>
