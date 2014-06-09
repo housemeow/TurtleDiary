@@ -18,7 +18,7 @@
 
             <TextView
                 android:id="@+id/environmentActivityEnvironmentNameTextView"
-                android:layout_width="fill_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:text="@string/environmentName"
@@ -26,207 +26,238 @@
 
             <EditText
                 android:id="@+id/environmentActivityEnvironmentNameEditText"
-                android:layout_width="fill_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="5"
+                android:layout_weight="7"
+                android:gravity="right"
                 android:inputType="text"
                 android:textSize="20sp" />
+
         </TableRow>
 
         <TableRow>
 
             <TextView
                 android:id="@+id/environmentActivityLengthTextView"
-                android:layout_width="fill_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="5"
+                android:layout_weight="3"
                 android:text="@string/length"
                 android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/environmentActivityLengthEditText"
-                android:layout_width="fill_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
+                android:gravity="right"
                 android:inputType="number"
                 android:text="@string/defaultLength"
                 android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/environmentActivityLengthUnitTextView"
-                android:layout_width="fill_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="2"
+                android:gravity="right"
                 android:text="@string/cm"
                 android:textSize="20sp" />
+
         </TableRow>
 
         <TableRow>
 
             <TextView
                 android:id="@+id/environmentActivityWidthTextView"
-                android:layout_width="fill_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="5"
+                android:layout_weight="3"
                 android:text="@string/width"
                 android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/environmentActivityWidthEditText"
-                android:layout_width="fill_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
+                android:gravity="right"
                 android:inputType="number"
                 android:text="@string/defaultWidth"
                 android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/environmentActivityWidthUnitTextView"
-                android:layout_width="fill_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="2"
+                android:gravity="right"
                 android:text="@string/cm"
                 android:textSize="20sp" />
+
         </TableRow>
 
         <TableRow>
 
             <TextView
                 android:id="@+id/environmentActivityHeightTextView"
-                android:layout_width="fill_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="5"
+                android:layout_weight="3"
                 android:text="@string/height"
                 android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/environmentActivityHeightEditText"
-                android:layout_width="fill_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
+                android:gravity="right"
                 android:inputType="number"
                 android:text="@string/defaultHeight"
                 android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/environmentActivityHeightUnitTextView"
-                android:layout_width="fill_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="2"
+                android:gravity="right"
                 android:text="@string/cm"
                 android:textSize="20sp" />
+
         </TableRow>
 
         <TableRow>
 
             <TextView
                 android:id="@+id/environmentActivityHotPointTextView"
-                android:layout_width="fill_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="5"
+                android:layout_weight="3"
+                android:lines="1"
                 android:text="@string/environmentHotPoint"
                 android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/environmentActivityHotPointEditText"
-                android:layout_width="fill_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
+                android:gravity="right"
                 android:inputType="numberDecimal"
                 android:text="@string/defaultHotPoint"
                 android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/environmentActivityHotPointUnitTextView"
-                android:layout_width="fill_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="2"
+                android:gravity="right"
+                android:lines="1"
                 android:text="@string/temperature"
                 android:textSize="20sp" />
+
         </TableRow>
 
         <TableRow>
 
             <TextView
                 android:id="@+id/environmentActivityLowPointTextView"
-                android:layout_width="fill_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="5"
+                android:layout_weight="3"
+                android:lines="1"
                 android:text="@string/environmentLowPoint"
                 android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/environmentActivityLowPointEditText"
-                android:layout_width="fill_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
+                android:gravity="right"
                 android:inputType="numberDecimal"
                 android:text="@string/defaultLowPoint"
                 android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/environmentActivityLowPointUnitTextView"
-                android:layout_width="fill_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="2"
+                android:gravity="right"
+                android:lines="1"
                 android:text="@string/temperature"
                 android:textSize="20sp" />
+
         </TableRow>
 
         <TableRow>
 
             <TextView
                 android:id="@+id/environmentActivityMaxHumidityTextView"
-                android:layout_width="fill_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="5"
+                android:layout_weight="3"
+                android:lines="1"
                 android:text="@string/maxHumidity"
                 android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/environmentActivityMaxHumidityEditText"
-                android:layout_width="fill_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
+                android:gravity="right"
                 android:inputType="number"
                 android:text="@string/defaultMaxHumidity"
                 android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/environmentActivityMaxHumidityUnitTextView"
-                android:layout_width="fill_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="2"
+                android:gravity="right"
+                android:lines="1"
                 android:text="@string/percent"
                 android:textSize="20sp" />
+
         </TableRow>
 
         <TableRow>
 
             <TextView
                 android:id="@+id/environmentActivityMinHumidityTextView"
-                android:layout_width="fill_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="5"
+                android:layout_weight="3"
+                android:lines="1"
                 android:text="@string/minHumidity"
                 android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/environmentActivityMinHumidityEditText"
-                android:layout_width="fill_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
+                android:gravity="right"
                 android:inputType="number"
                 android:text="@string/defaultMinHumidity"
                 android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/environmentActivityMinHumidityUnitTextView"
-                android:layout_width="fill_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="2"
+                android:gravity="right"
+                android:lines="1"
                 android:text="@string/percent"
                 android:textSize="20sp" />
+
         </TableRow>
 
         <RelativeLayout>
