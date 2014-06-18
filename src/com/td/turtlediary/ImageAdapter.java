@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 public class ImageAdapter extends PagerAdapter {
 	TurtleDiaryDatabaseHelper helper;
@@ -55,8 +54,9 @@ public class ImageAdapter extends PagerAdapter {
 		if (pet.getImage() != null) {
 			Drawable image = new BitmapDrawable(BitmapFactory.decodeByteArray(
 					pet.getImage(), 0, pet.getImage().length));
+			imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+			
 			imageView.setImageDrawable(image);
-
 		} else {
 			imageView.setImageResource(R.drawable.angonoka);
 		}
