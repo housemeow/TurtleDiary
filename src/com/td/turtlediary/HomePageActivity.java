@@ -144,8 +144,11 @@ public class HomePageActivity extends Activity {
 	@Override
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
-		if (mNav.isShown()) {
+		if (!mNav.isClosed()) {
 			mNav.closeRightSide();
+		}
+		else {
+			super.onBackPressed();
 		}
 	}
 
