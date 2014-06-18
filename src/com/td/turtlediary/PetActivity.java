@@ -157,8 +157,8 @@ public class PetActivity extends Activity {
 			// Display d = wm.getDefaultDisplay();
 			// int biggerSide = d.getWidth() > d.getHeight() ? d.getWidth() : d
 			// .getHeight();
-			int width = bitmap.getWidth() / 4;
-			int height = bitmap.getHeight() / 4;
+			int width = bitmap.getWidth();// / 4;
+			int height = bitmap.getHeight() ;/// 4;
 			// if (width > height) {
 			// height = (int) ((height * biggerSide) / (float) width);
 			// width = biggerSide;

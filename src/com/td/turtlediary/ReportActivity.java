@@ -117,12 +117,6 @@ public class ReportActivity extends Activity {
 			layout.addView(showReportTxt);
 		}
 		else {
-			String[] labels = new String[size];
-			for (int i = 1; i < size - 1; i++) {
-				labels[i] = "";
-			}
-			labels[0] = helper.getFeedLogDateString(pid, true);// firstLabel;
-			labels[size - 1] = helper.getFeedLogDateString(pid, false);// lastLabel;
 			layout.addView(getProteinGraphView(proteinAvg)); // 加入粗蛋白報表
 			layout.addView(getFatGraphView(fatAvg)); // 加入粗脂肪報表
 			layout.addView(getFabricGraphView(fabricAvg)); // 加入粗纖維報表
@@ -328,7 +322,7 @@ public class ReportActivity extends Activity {
 
 	// getCaPRatioGraphView
 	public GraphView getCaPRatioGraphView(double caPRationAvg) {
-		GraphView graphView = new LineGraphView(this, "鈣磷比 (%)");
+		GraphView graphView = getReportLinearGraphView();
 		graphView.setTitle("鈣磷比 (%)");
 		List<GraphViewData> caPRatioGraphViewDataList = helper
 				.getCaPRatioGraphViewDataList(pid);
